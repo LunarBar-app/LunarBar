@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LSUIElement</key>
+	<true/>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>Grant LunarBar permission to reveal the selected date in the Calendar app.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Grant LunarBar permission to display Calendar events.</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Grant LunarBar permission to display Calendar events.</string>
+</dict>
+</plist>

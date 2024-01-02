@@ -1,0 +1,147 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "comment" : "Bundle display name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "LunarBar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LunarBar"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LunarBar"
+          }
+        }
+      }
+    },
+    "CFBundleName" : {
+      "comment" : "Bundle name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "LunarBar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LunarBar"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LunarBar"
+          }
+        }
+      }
+    },
+    "NSAppleEventsUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grant LunarBar permission to reveal the selected date in the Calendar app.\n\nWhile LunarBar can still open the native Calendar app without this permission, the selected date won't be located correctly.\n\nYou can change permissions in the system privacy settings, this dialog will not reappear."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "授予 LunarBar 权限以在日历应用中显示所选日期。\n\n尽管 LunarBar 可以在没有此权限的情况下打开原生日历应用，但所选日期将无法正确定位。\n\n您可以在系统隐私设置中更改授权，此弹窗将不再出现。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "授予 LunarBar 許可權以在日曆應用中顯示所選日期。\n\n儘管 LunarBar 可以在沒有此許可權的情況下開啟原生日曆應用，但所選日期將無法正確定位。\n\n您可以在系統隱私設定中更改授權，此彈窗將不再出現。"
+          }
+        }
+      }
+    },
+    "NSCalendarsFullAccessUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grant LunarBar permission to display Calendar events.\n\nWhile LunarBar can still function without this permission, features related to the native Calendar app won't be available.\n\nYou can change permissions in the system privacy settings, this dialog will not reappear."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "授予 LunarBar 权限以显示日历事件。\n\n尽管 LunarBar 可以在没有此权限的情况下运行，但与原生日历应用相关的功能将不可用。\n\n您可以在系统隐私设置中更改授权，此弹窗将不再出现。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "授予 LunarBar 許可權以顯示日曆事件。\n\n儘管 LunarBar 可以在沒有此許可權的情況下執行，但與原生日曆應用相關的功能將不可用。\n\n您可以在系統隱私設定中更改授權，此彈窗將不再出現。"
+          }
+        }
+      }
+    },
+    "NSCalendarsUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grant LunarBar permission to display Calendar events.\n\nWhile LunarBar can still function without this permission, features related to the native Calendar app won't be available.\n\nYou can change permissions in the system privacy settings, this dialog will not reappear."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "授予 LunarBar 权限以显示日历事件。\n\n尽管 LunarBar 可以在没有此权限的情况下运行，但与原生日历应用相关的功能将不可用。\n\n您可以在系统隐私设置中更改授权，此弹窗将不再出现。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "授予 LunarBar 許可權以顯示日曆事件。\n\n儘管 LunarBar 可以在沒有此許可權的情況下執行，但與原生日曆應用相關的功能將不可用。\n\n您可以在系統隱私設定中更改授權，此彈窗將不再出現。"
+          }
+        }
+      }
+    },
+    "NSHumanReadableCopyright" : {
+      "comment" : "Copyright (human-readable)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "A bright moon rises over the sea, sharing this moment, though worlds apart."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "海上生明月，天涯共此时。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "海上生明月，天涯共此時。"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

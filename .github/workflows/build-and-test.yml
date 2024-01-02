@@ -1,0 +1,28 @@
+name: Build and test
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+jobs:
+  lunarbar-mac:
+    name: LunarBarMac
+    runs-on: macos-13
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_15.0.1.app/Contents/Developer
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build LunarBarMac
+        run: |
+          xcodebuild build -scheme LunarBarMac -destination 'platform=macOS' CODE_SIGN_IDENTITY="" CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
+
+      - name: Test LunarBarKitTests
+        run: |
+          xcodebuild test -scheme LunarBarKitTests -destination 'platform=macOS' CODE_SIGN_IDENTITY="" CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
+
+      - name: Test LunarBarMacTests
+        run: |
+          xcodebuild test -scheme LunarBarMacTests -destination 'platform=macOS' CODE_SIGN_IDENTITY="" CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO

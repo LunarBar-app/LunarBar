@@ -1,0 +1,9 @@
+project: LunarBar.xcodeproj
+retain_public: true
+schemes:
+- LunarBarMac
+targets:
+- LunarBarKit.LunarBarKit
+- LunarBarMac
+- Modules.AppKitControls
+- Modules.AppKitExtensions
