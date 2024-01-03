@@ -10,7 +10,7 @@ import AppKitControls
 import LunarBarKit
 
 protocol HeaderViewDelegate: AnyObject {
-  // periphery:ignore:parameters sender
+  func headerView(_ sender: HeaderView, moveTo date: Date)
   func headerView(_ sender: HeaderView, moveBy offset: Int)
   func headerView(_ sender: HeaderView, showActionsMenu sourceView: NSView)
 }
@@ -122,6 +122,15 @@ final class HeaderView: NSView {
   @available(*, unavailable)
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  override func mouseUp(with event: NSEvent) {
+    super.mouseUp(with: event)
+
+    // Hidden way to goto today
+    if dateLabel.frame.contains(convert(event.locationInWindow, from: nil)) {
+      delegate?.headerView(self, moveTo: .now)
+    }
   }
 }
 
