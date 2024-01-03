@@ -155,14 +155,6 @@ enum Localized {
   }
 }
 
-// Getting this code seems to require the use of Carbon.framework, but it is deprecated
-enum KeyCodes {
-  static let kVK_ANSI_Q: UInt16 = 0x0C
-  static let kVK_Space: UInt16 = 0x31
-  static let kVK_LeftArrow: UInt16 = 0x7B
-  static let kVK_RightArrow: UInt16 = 0x7C
-}
-
 // Icon set used in the app: https://developer.apple.com/sf-symbols/
 //
 // Note: double check availability and deployment target before adding new icons
@@ -191,4 +183,12 @@ enum AlphaLevels {
   static let primary: Double = 1.0
   static let secondary: Double = 0.7
   static let tertiary: Double = 0.4
+}
+
+// Getting these codes seems to require the use of Carbon.framework, but it is deprecated
+extension UInt16 {
+  static let kVK_ANSI_Q: UInt16 = 0x0C
+  static let kVK_Space: UInt16 = 0x31
+  static let kVK_LeftArrow: UInt16 = 0x7B
+  static let kVK_RightArrow: UInt16 = 0x7C
 }

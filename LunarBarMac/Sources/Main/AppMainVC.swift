@@ -146,28 +146,22 @@ private extension AppMainVC {
         return event
       }
 
-      switch event.keyCode {
-      case KeyCodes.kVK_Space:
+      switch (event.keyCode, event.deviceIndependentFlags) {
+      case (.kVK_ANSI_Q, .command):
+        NSApplication.shared.terminate(nil)
+        return nil
+      case (.kVK_Space, _):
         self.updateCalendar()
         return nil
-      case KeyCodes.kVK_LeftArrow:
+      case (.kVK_LeftArrow, _):
         self.updateCalendar(moveMonthBy: -1)
         return nil
-      case KeyCodes.kVK_RightArrow:
+      case (.kVK_RightArrow, _):
         self.updateCalendar(moveMonthBy: 1)
         return nil
       default:
         return event
       }
-    }
-
-    NSEvent.addLocalMonitorForEvents(matching: .keyUp) { event in
-      guard event.keyCode == KeyCodes.kVK_ANSI_Q, event.deviceIndependentFlags == .command else {
-        return event
-      }
-
-      NSApplication.shared.terminate(nil)
-      return nil
     }
   }
 }
