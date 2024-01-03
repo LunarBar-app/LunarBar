@@ -90,6 +90,12 @@ extension AppMainVC {
 // MARK: - HeaderViewDelegate
 
 extension AppMainVC: HeaderViewDelegate {
+  // periphery:ignore:parameters sender
+  func headerView(_ sender: HeaderView, moveTo date: Date) {
+    updateCalendar(targetDate: date)
+  }
+
+  // periphery:ignore:parameters sender
   func headerView(_ sender: HeaderView, moveBy offset: Int) {
     updateCalendar(moveMonthBy: offset)
   }
