@@ -83,8 +83,11 @@ private extension AppDelegate {
 
   func openPanel() {
     // Prevent multiple popovers, e.g., when float on top is enabled
-    guard NSApp.windows.allSatisfy({ !($0.contentViewController is AppMainVC) }) else {
-      return Logger.log(.info, "Trying to present multiple popovers")
+    if let popover = NSApp.windows.compactMap({ $0.contentViewController as? AppMainVC }).first?.popover {
+      // Just think of it as a "float on top" cancellation
+      popover.behavior = .transient
+      popover.close()
+      return
     }
 
     guard let sender = statusItem.button else {
@@ -93,6 +96,9 @@ private extension AppDelegate {
 
     let popover = AppMainVC.createPopover()
     popover.show(relativeTo: sender.bounds, of: sender, preferredEdge: .maxY)
+
+    // Ensure the app is activated and the window is key and ordered front
+    NSApp.activate(ignoringOtherApps: true)
     popover.contentViewController?.view.window?.makeKeyAndOrderFront(nil)
 
     // Popover steals the highlighted state, highlight it in the next runloop to mimic the system

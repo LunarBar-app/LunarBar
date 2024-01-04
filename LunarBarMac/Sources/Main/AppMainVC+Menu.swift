@@ -214,10 +214,7 @@ private extension AppMainVC {
   var menuItemAboutLunarBar: NSMenuItem {
     let item = NSMenuItem(title: Localized.UI.menuTitleAboutLunarBar)
     item.addAction {
-      // Delay to work around the issue where the about panel is not activated
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-        NSApplication.shared.orderFrontStandardAboutPanel()
-      }
+      NSApp.orderFrontStandardAboutPanel()
     }
 
     return item
@@ -247,7 +244,7 @@ private extension AppMainVC {
     let item = NSMenuItem(title: Localized.UI.menuTitleQuitLunarBar, action: nil, keyEquivalent: "q")
     item.keyEquivalentModifierMask = [.command]
     item.addAction {
-      NSApplication.shared.terminate(nil)
+      NSApp.terminate(nil)
     }
 
     return item
