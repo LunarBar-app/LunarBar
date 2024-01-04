@@ -55,6 +55,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       }
     }
 
+    // Check for updates on a weekly basis, for users who never quit apps
+    Timer.scheduledTimer(withTimeInterval: 7 * 24 * 60 * 60, repeats: true) { _ in
+      Task {
+        await AppUpdater.checkForUpdates(explicitly: false)
+      }
+    }
+
     NotificationCenter.default.addObserver(
       self,
       selector: #selector(windowDidResignKey(_:)),
