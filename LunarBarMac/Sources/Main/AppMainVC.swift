@@ -154,7 +154,7 @@ private extension AppMainVC {
 
       switch (event.keyCode, event.deviceIndependentFlags) {
       case (.kVK_ANSI_Q, .command):
-        NSApplication.shared.terminate(nil)
+        NSApp.terminate(nil)
         return nil
       case (.kVK_Space, _):
         self.updateCalendar()
