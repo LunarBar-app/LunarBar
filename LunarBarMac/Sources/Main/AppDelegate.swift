@@ -15,14 +15,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     item.behavior = .terminationOnRemoval
     item.button?.image = .with(symbolName: Icons.calendar, pointSize: 16)
 
-    // Responds to mouseDown instead of mouseUp to mimic system items
-    item.button?.sendAction(on: .leftMouseDown)
-    item.button?.addAction { [weak self] in
-      self?.openPanel()
-    }
-
     return item
   }()
+
+  private weak var presentedPopover: NSPopover?
+  private var popoverClosedTime: TimeInterval = 0
 
   func applicationDidFinishLaunching(_ notification: Notification) {
     // Prepare public holiday data
@@ -30,6 +27,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // Attach the status item to menu bar
     statusItem.isVisible = true
+
+    // We don't rely on the button's target-action,
+    // because we want to keep the button highlighted when the popover is shown.
+    NSEvent.addLocalMonitorForEvents(matching: .leftMouseDown) { [weak self] event in
+      if let self, self.shouldOpenPanel(for: event) {
+        self.openPanel()
+        return nil
+      }
+
+      return event
+    }
+
+    // Observe clicks outside the app
+    NSEvent.addGlobalMonitorForEvents(matching: .leftMouseDown) { [weak self] _ in
+      guard let popover = self?.presentedPopover else {
+        return
+      }
+
+      // When the app is activated, clicking on other status items would not always close ours
+      if popover.isShown && popover.behavior != .applicationDefined {
+        popover.close()
+      }
+    }
 
     Task {
       await CalendarManager.default.requestAccessIfNeeded()
@@ -77,6 +97,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   }
 }
 
+// MARK: - NSPopoverDelegate
+
+extension AppDelegate: NSPopoverDelegate {
+  func popoverWillClose(_ notification: Notification) {
+    popoverClosedTime = Date.timeIntervalSinceReferenceDate
+  }
+}
+
 // MARK: - Private
 
 private extension AppDelegate {
@@ -85,32 +113,47 @@ private extension AppDelegate {
       return
     }
 
+    // Cancel the highlight when the popover window is no longer the key window
     statusItem.button?.highlight(false)
   }
 
-  func openPanel() {
+  func shouldOpenPanel(for event: NSEvent) -> Bool {
+    guard event.window == statusItem.button?.window else {
+      // The click was outside the status window
+      return false
+    }
+
+    guard Date.timeIntervalSinceReferenceDate - popoverClosedTime > 0.05 else {
+      // The click was to close the popover
+      return false
+    }
+
     // Prevent multiple popovers, e.g., when float on top is enabled
-    if let popover = NSApp.windows.compactMap({ $0.contentViewController as? AppMainVC }).first?.popover {
+    if let popover = presentedPopover, popover.isShown {
       // Just think of it as a "float on top" cancellation
       popover.behavior = .transient
       popover.close()
-      return
+      return false
     }
 
+    return true
+  }
+
+  func openPanel() {
     guard let sender = statusItem.button else {
       return Logger.assertFail("Missing source view to proceed")
     }
 
     let popover = AppMainVC.createPopover()
+    popover.delegate = self
     popover.show(relativeTo: sender.bounds, of: sender, preferredEdge: .maxY)
+    presentedPopover = popover
 
     // Ensure the app is activated and the window is key and ordered front
     NSApp.activate(ignoringOtherApps: true)
     popover.contentViewController?.view.window?.makeKeyAndOrderFront(nil)
 
-    // Popover steals the highlighted state, highlight it in the next runloop to mimic the system
-    RunLoop.main.perform {
-      sender.highlight(true)
-    }
+    // Keep the button highlighted to mimic the system behavior
+    sender.highlight(true)
   }
 }
