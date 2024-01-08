@@ -23,4 +23,19 @@ public extension NSImage {
 
     return image
   }
+
+  static func with(cellColor: NSColor, borderColor: NSColor? = nil, size: CGSize, cornerRadius: Double) -> NSImage? {
+    let view = NSView(frame: CGRect(origin: .zero, size: size))
+    view.layerBackgroundColor = cellColor
+    view.layer?.cornerCurve = .continuous
+    view.layer?.cornerRadius = cornerRadius
+
+    if let borderColor {
+      view.layer?.masksToBounds = true
+      view.layer?.borderWidth = 1.0 / (NSScreen.main?.backingScaleFactor ?? 1.0)
+      view.layer?.borderColor = borderColor.cgColor
+    }
+
+    return view.snapshotImage
+  }
 }

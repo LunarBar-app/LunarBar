@@ -136,11 +136,24 @@ private extension AppMainVC {
 
     calendars.forEach {
       let calendarID = $0.calendarIdentifier
-      menu.addItem(withTitle: $0.title) { [weak self] in
+      let item = NSMenuItem(title: $0.title)
+      item.setOn(!AppPreferences.Calendar.hiddenCalendars.contains(calendarID))
+
+      item.addAction { [weak self] in
         AppPreferences.Calendar.hiddenCalendars.toggle(calendarID)
         self?.reloadCalendar()
       }
-      .setOn(!AppPreferences.Calendar.hiddenCalendars.contains(calendarID))
+
+      if let color = $0.color {
+        item.image = .with(
+          cellColor: $0.color,
+          borderColor: Colors.darkGray,
+          size: CGSize(width: 12, height: 12),
+          cornerRadius: 2
+        )
+      }
+
+      menu.addItem(item)
     }
 
     let item = NSMenuItem(title: Localized.UI.menuTitleCalendars)
