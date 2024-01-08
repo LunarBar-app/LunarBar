@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import AppKitExtensions
 import LunarBarKit
 import ServiceManagement
 
@@ -54,8 +55,8 @@ private extension AppMainVC {
     let menu = NSMenu()
     let current = Calendar.solar.year(from: monthDate)
 
-    // Generate 20 years before and after the current year
-    for year in (current - 10)...(current + 10) {
+    // Quick picker that supports 12 years around the current year
+    for year in (current - 6)...(current + 6) {
       let item = menu.addItem(withTitle: String(year))
       item.submenu = NSMenu()
 
@@ -74,6 +75,41 @@ private extension AppMainVC {
         }
       }
     }
+
+    menu.addSeparator()
+
+    // Full-fledged picker that supports any year
+    menu.addItem({ [weak self] in
+      let item = NSMenuItem()
+      let picker = NSDatePicker()
+      picker.isBezeled = false
+      picker.isBordered = false
+      picker.datePickerStyle = .textFieldAndStepper
+      picker.datePickerElements = .yearMonth
+      picker.translatesAutoresizingMaskIntoConstraints = false
+      picker.dateValue = self?.monthDate ?? .now
+      picker.sizeToFit()
+
+      picker.addAction { [weak picker] in
+        guard let date = picker?.dateValue else {
+          return
+        }
+
+        self?.updateCalendar(targetDate: date)
+      }
+
+      let wrapper = NSView(frame: CGRect(origin: .zero, size: CGSize(width: 0, height: picker.frame.height)))
+      wrapper.autoresizingMask = .width
+      wrapper.addSubview(picker)
+
+      NSLayoutConstraint.activate([
+        picker.centerXAnchor.constraint(equalTo: wrapper.centerXAnchor),
+        picker.centerYAnchor.constraint(equalTo: wrapper.centerYAnchor),
+      ])
+
+      item.view = wrapper
+      return item
+    }())
 
     let item = NSMenuItem(title: Localized.UI.menuTitleGotoDate)
     item.submenu = menu

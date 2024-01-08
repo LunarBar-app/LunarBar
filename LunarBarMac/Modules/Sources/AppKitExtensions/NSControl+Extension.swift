@@ -31,6 +31,7 @@ public extension ClosureActionable {
 
 extension NSButton: ClosureActionable {}
 extension NSMenuItem: ClosureActionable {}
+extension NSDatePicker: ClosureActionable {}
 
 // MARK: - Private
 
