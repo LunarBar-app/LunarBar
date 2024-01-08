@@ -15,6 +15,8 @@ Mac 状态栏上的极简日历，完全免费且开源。
 <img src="./Screenshots/03.png" width="540" alt="安装 LunarBar">
 
 > LunarBar 会自动检查更新，你也可以在应用内手动检查更新，或者在 [releases](https://github.com/LunarBar-app/LunarBar/releases) 页面浏览历史版本。
+>
+> 无需担心非 App Store 安装的可靠性，LunarBar 是沙盒应用，且经过签名和 [notarization](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution) 认证。
 
 ## 使用 LunarBar 的理由
 
