@@ -22,6 +22,21 @@ public extension NSView {
     }
   }
 
+  /// Returns the image representation.
+  var snapshotImage: NSImage? {
+    guard let bitmap = bitmapImageRepForCachingDisplay(in: bounds) else {
+      return nil
+    }
+
+    bitmap.size = bounds.size
+    cacheDisplay(in: bounds, to: bitmap)
+
+    let image = NSImage(size: bounds.size)
+    image.addRepresentation(bitmap)
+
+    return image
+  }
+
   /// Returns the farthest parent of the current view.
   var rootView: NSView? {
     var node: NSView? = self

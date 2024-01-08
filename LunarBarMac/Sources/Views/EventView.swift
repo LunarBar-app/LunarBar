@@ -61,7 +61,7 @@ private class DotView: NSView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  override var intrinsicContentSize: NSSize {
+  override var intrinsicContentSize: CGSize {
     CGSize(width: Constants.dotSize, height: Constants.dotSize)
   }
 }
