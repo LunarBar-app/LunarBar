@@ -146,7 +146,7 @@ private extension AppDelegate {
       return false
     }
 
-    guard Date.timeIntervalSinceReferenceDate - popoverClosedTime > 0.05 else {
+    guard Date.timeIntervalSinceReferenceDate - popoverClosedTime > 0.1 else {
       // The click was to close the popover
       return false
     }
