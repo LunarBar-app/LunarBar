@@ -111,7 +111,7 @@ private extension AppMainVC {
       return item
     }())
 
-    let item = NSMenuItem(title: Localized.UI.menuTitleGotoDate)
+    let item = NSMenuItem(title: Localized.UI.menuTitleGotoMonth)
     item.submenu = menu
     return item
   }

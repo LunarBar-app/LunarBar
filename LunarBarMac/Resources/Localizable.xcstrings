@@ -1355,19 +1355,19 @@
         }
       }
     },
-    "Go to Date" : {
+    "Go to Month" : {
       "comment" : "[Menu] Select year and month",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "跳转至日期"
+            "value" : "跳转至月份"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "跳轉至日期"
+            "value" : "跳轉至月份"
           }
         }
       }
