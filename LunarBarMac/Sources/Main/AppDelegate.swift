@@ -13,7 +13,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     item.autosaveName = Bundle.main.bundleName
     item.behavior = .terminationOnRemoval
-    item.button?.image = .with(symbolName: Icons.calendar, pointSize: 16)
 
     return item
   }()
@@ -25,7 +24,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // Prepare public holiday data
     _ = HolidayManager.default
 
-    // Attach the status item to menu bar
+    // Update the icon and attach it to the menu bar
+    updateMenuBarIcon()
     statusItem.isVisible = true
 
     // We don't rely on the button's target-action,
@@ -84,6 +84,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     NotificationCenter.default.addObserver(
       self,
+      selector: #selector(calendarDayDidChange(_:)),
+      name: .NSCalendarDayChanged,
+      object: nil
+    )
+
+    NotificationCenter.default.addObserver(
+      self,
       selector: #selector(windowDidResignKey(_:)),
       name: NSWindow.didResignKeyNotification,
       object: nil
@@ -94,6 +101,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // These events are sent whenever the Finder reactivates an already running application because someone double-clicked it again or used the dock to activate it.
     openPanel()
     return false
+  }
+
+  func updateMenuBarIcon() {
+    switch AppPreferences.General.menuBarIcon {
+    case .calendar:
+      statusItem.button?.image = AppIconFactory.createCalendarIcon()
+    case .date:
+      statusItem.button?.image = AppIconFactory.createDateIcon()
+    }
   }
 }
 
@@ -108,6 +124,13 @@ extension AppDelegate: NSPopoverDelegate {
 // MARK: - Private
 
 private extension AppDelegate {
+  // periphery:ignore:parameters notification
+  @objc func calendarDayDidChange(_ notification: Notification) {
+    DispatchQueue.main.async {
+      self.updateMenuBarIcon()
+    }
+  }
+
   @objc func windowDidResignKey(_ notification: Notification) {
     guard (notification.object as? NSWindow)?.contentViewController is AppMainVC else {
       return

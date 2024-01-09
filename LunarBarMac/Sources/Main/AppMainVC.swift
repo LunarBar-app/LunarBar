@@ -62,8 +62,11 @@ extension AppMainVC {
   // MARK: - Updating
 
   func updateAppearance(_ appearance: Appearance = AppPreferences.General.appearance) {
-    view.window?.appearance = appearance.resolved()
     AppPreferences.General.appearance = appearance
+
+    // Override both since in some contexts we don't have a window
+    NSApp.appearance = appearance.resolved()
+    view.window?.appearance = NSApp.appearance
   }
 
   func updateCalendar(targetDate: Date = .now) {
