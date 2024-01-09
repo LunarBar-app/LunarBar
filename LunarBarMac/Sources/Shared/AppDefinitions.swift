@@ -24,7 +24,7 @@ enum Localized {
 
     // Menu
     static let menuTitleGotoToday = String(localized: "Today", comment: "[Menu] Move to today")
-    static let menuTitleGotoDate = String(localized: "Go to Date", comment: "[Menu] Select year and month")
+    static let menuTitleGotoMonth = String(localized: "Go to Month", comment: "[Menu] Select year and month")
     static let menuTitleAppearance = String(localized: "Appearance", comment: "[Menu] Change dark mode preference")
     static let menuTitleCalendarIcon = String(localized: "Calendar Icon", comment: "[Menu] Use a calendar icon as the menu bar icon")
     static let menuTitleCurrentDate = String(localized: "Current Date", comment: "[Menu] Use the current date as the menu bar icon")
