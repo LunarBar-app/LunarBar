@@ -77,7 +77,7 @@ public extension NSBezierPath {
         let target = points.advanced(by: 2).pointee
 
         path.curve(
-          to: points.advanced(by: 2).pointee,
+          to: target,
           controlPoint1: cp1,
           controlPoint2: cp2
         )

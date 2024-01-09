@@ -207,7 +207,7 @@ private extension AppMainVC {
 
       if let color = $0.color {
         item.image = .with(
-          cellColor: $0.color,
+          cellColor: color,
           borderColor: Colors.darkGray,
           size: CGSize(width: 12, height: 12),
           cornerRadius: 2
