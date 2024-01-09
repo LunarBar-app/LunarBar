@@ -203,6 +203,23 @@
         }
       }
     },
+    "Calendar Icon" : {
+      "comment" : "[Menu] Use a calendar icon as the menu bar icon",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日历图标"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日曆圖像"
+          }
+        }
+      }
+    },
     "Calendars" : {
       "comment" : "[Menu] Show or hide system calendars",
       "localizations" : {
@@ -313,6 +330,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "點選來在日曆程式中顯示該日期"
+          }
+        }
+      }
+    },
+    "Current Date" : {
+      "comment" : "[Menu] Use the current date as the menu bar icon",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "当前日期"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "當前日期"
           }
         }
       }

@@ -11,6 +11,7 @@
 		8714291C2B3DBFDF003FA2CB /* AppMainVC+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8714291B2B3DBFDF003FA2CB /* AppMainVC+Menu.swift */; };
 		8732DDF32B3E896D004B72DE /* HolidayManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732DDF22B3E896D004B72DE /* HolidayManagerTests.swift */; };
 		873424D02B35357B00C364BF /* DateGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873424CF2B35357B00C364BF /* DateGridCell.swift */; };
+		873AD8F62B4C3DAB001C90B1 /* AppIconFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873AD8F52B4C3DAB001C90B1 /* AppIconFactory.swift */; };
 		8740E2DE2B35DC06004A06C2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8740E2DD2B35DC06004A06C2 /* InfoPlist.xcstrings */; };
 		8740E2E22B35DCB7004A06C2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8740E2E12B35DCB7004A06C2 /* Localizable.xcstrings */; };
 		8740E2FF2B37C841004A06C2 /* HolidayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8740E2FE2B37C841004A06C2 /* HolidayManager.swift */; };
@@ -51,6 +52,7 @@
 		8732DDF02B3E896D004B72DE /* LunarBarMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LunarBarMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8732DDF22B3E896D004B72DE /* HolidayManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolidayManagerTests.swift; sourceTree = "<group>"; };
 		873424CF2B35357B00C364BF /* DateGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateGridCell.swift; sourceTree = "<group>"; };
+		873AD8F52B4C3DAB001C90B1 /* AppIconFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconFactory.swift; sourceTree = "<group>"; };
 		8740E2D82B35DB93004A06C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8740E2DD2B35DC06004A06C2 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		8740E2E12B35DCB7004A06C2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				8782F46E2B33F627008B1912 /* AppDefinitions.swift */,
+				873AD8F52B4C3DAB001C90B1 /* AppIconFactory.swift */,
 				871429182B3DAF4A003FA2CB /* AppLocalizer.swift */,
 				8740E31A2B39210F004A06C2 /* AppPreferences.swift */,
 			);
@@ -368,6 +371,7 @@
 				87F81C542B43EBDE0071CA30 /* main.swift in Sources */,
 				87DA5AFF2B3433D400CE2C1A /* WeekdayView.swift in Sources */,
 				8740E2FF2B37C841004A06C2 /* HolidayManager.swift in Sources */,
+				873AD8F62B4C3DAB001C90B1 /* AppIconFactory.swift in Sources */,
 				8740E30F2B37FB36004A06C2 /* CalendarManager.swift in Sources */,
 				8714291C2B3DBFDF003FA2CB /* AppMainVC+Menu.swift in Sources */,
 				8740E30B2B37F969004A06C2 /* EventView.swift in Sources */,

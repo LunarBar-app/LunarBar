@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import LunarBarKit
 
 /**
  UserDefaults wrapper with handy getters and setters.
@@ -14,6 +15,17 @@ enum AppPreferences {
   enum General {
     @Storage(key: "general.initial-launch", defaultValue: true)
     static var initialLaunch: Bool
+
+    @Storage(key: "general.menu-bar-icon", defaultValue: .calendar)
+    static var menuBarIcon: MenuBarIcon {
+      didSet {
+        guard let delegate = NSApp.delegate as? AppDelegate else {
+          return Logger.assertFail("Unexpected NSApp.delegate was found")
+        }
+
+        delegate.updateMenuBarIcon()
+      }
+    }
 
     @Storage(key: "general.appearance", defaultValue: .system)
     static var appearance: Appearance
@@ -41,6 +53,11 @@ enum AppPreferences {
 }
 
 // MARK: - Types
+
+enum MenuBarIcon: Codable {
+  case calendar
+  case date
+}
 
 enum Appearance: Codable {
   case system

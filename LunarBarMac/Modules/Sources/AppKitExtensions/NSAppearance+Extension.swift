@@ -7,6 +7,15 @@
 import AppKit
 
 public extension NSAppearance {
+  var isDarkMode: Bool {
+    switch name {
+    case .darkAqua, .vibrantDark, .accessibilityHighContrastDarkAqua, .accessibilityHighContrastVibrantDark:
+      return true
+    default:
+      return false
+    }
+  }
+
   func resolvedName(isDarkMode: Bool) -> NSAppearance.Name {
     switch name {
     case .aqua, .darkAqua:

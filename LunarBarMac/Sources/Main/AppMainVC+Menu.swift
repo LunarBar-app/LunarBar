@@ -118,29 +118,54 @@ private extension AppMainVC {
 
   var menuItemAppearance: NSMenuItem {
     let menu = NSMenu()
-    let current = AppPreferences.General.appearance
 
-    // Dark mode preference
+    // Icon styles
+    menu.addItem({
+      let item = NSMenuItem(title: Localized.UI.menuTitleCalendarIcon)
+      item.image = AppIconFactory.createCalendarIcon(pointSize: 14)
+      item.setOn(AppPreferences.General.menuBarIcon == .calendar)
 
-    menu.addItem(withTitle: Localized.UI.menuTitleSystem) { [weak self] in
-      self?.updateAppearance(.system)
+      item.addAction {
+        AppPreferences.General.menuBarIcon = .calendar
+      }
+
+      return item
+    }())
+
+    menu.addItem({
+      let item = NSMenuItem(title: Localized.UI.menuTitleCurrentDate)
+      item.setOn(AppPreferences.General.menuBarIcon == .date)
+
+      if let image = AppIconFactory.createDateIcon() {
+        item.image = image.resized(with: CGSize(width: 17, height: 12))
+      } else {
+        Logger.assertFail("Failed to create the icon")
+      }
+
+      item.addAction {
+        AppPreferences.General.menuBarIcon = .date
+      }
+
+      return item
+    }())
+
+    menu.addSeparator()
+
+    // Dark mode preferences
+    [
+      (Localized.UI.menuTitleSystem, Appearance.system),
+      (Localized.UI.menuTitleLight, Appearance.light),
+      (Localized.UI.menuTitleDark, Appearance.dark),
+    ].forEach { (title: String, appearance: Appearance) in
+      menu.addItem(withTitle: title) { [weak self] in
+        self?.updateAppearance(appearance)
+      }
+      .setOn(AppPreferences.General.appearance == appearance)
     }
-    .setOn(current == .system)
-
-    menu.addItem(withTitle: Localized.UI.menuTitleLight) { [weak self] in
-      self?.updateAppearance(.light)
-    }
-    .setOn(current == .light)
-
-    menu.addItem(withTitle: Localized.UI.menuTitleDark) { [weak self] in
-      self?.updateAppearance(.dark)
-    }
-    .setOn(current == .dark)
 
     menu.addSeparator()
 
     // Accessibility options
-
     menu.addItem(withTitle: Localized.UI.menuTitleReduceMotion) { [weak self] in
       AppPreferences.Accessibility.reduceMotion.toggle()
       self?.popover?.animates = !AppPreferences.Accessibility.reduceMotion
