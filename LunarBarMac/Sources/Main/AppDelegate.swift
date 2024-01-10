@@ -103,12 +103,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     return false
   }
 
-  func updateMenuBarIcon() {
+  func updateMenuBarIcon(needsLayout: Bool = false) {
     switch AppPreferences.General.menuBarIcon {
     case .calendar:
       statusItem.button?.image = AppIconFactory.createCalendarIcon()
     case .date:
       statusItem.button?.image = AppIconFactory.createDateIcon()
+    }
+
+    // The popover position will be slightly moved without this trick
+    if needsLayout {
+      presentedPopover?.close()
+      statusItem.button?.superview?.needsLayout = true
     }
   }
 }
