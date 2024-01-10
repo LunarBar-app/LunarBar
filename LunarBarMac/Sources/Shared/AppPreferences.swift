@@ -23,7 +23,7 @@ enum AppPreferences {
           return Logger.assertFail("Unexpected NSApp.delegate was found")
         }
 
-        delegate.updateMenuBarIcon()
+        delegate.updateMenuBarIcon(needsLayout: true)
       }
     }
 
