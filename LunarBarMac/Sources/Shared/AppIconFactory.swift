@@ -33,13 +33,35 @@ private class DateIconView: NSView {
     let tintColor: NSColor = NSApp.effectiveAppearance.isDarkMode ? .white : .black
     layerBackgroundColor = tintColor
 
-    let currentDate = String(Calendar.solar.component(.day, from: .now))
+    let currentDay = Calendar.solar.component(.day, from: .now)
     let labelFont = NSFont.boldSystemFont(ofSize: Constants.fontSize)
-    let textSize = NSAttributedString(string: currentDate, attributes: [.font: labelFont]).size()
+
+    // The width can be calculated precisely with an attributed string
+    let textWidth = NSAttributedString(
+      string: String(currentDay),
+      attributes: [.font: labelFont]
+    ).size().width
+
+    // The height comes with unpredictable spacing and it's normalized in the actual rendering result
+    //
+    // We don't have a good way to calculate the optimized height, here we pre-define all values.
+    let textHeight: Double = {
+      let values = [9.5, 8.5, 9, 9, 8.5, 9, 9.5, 8.5, 9, 9.5]
+      if currentDay >= 10 {
+        return max(values[currentDay / 10], values[currentDay % 10])
+      } else {
+        return values[currentDay]
+      }
+    }()
 
     // Create the path from text and make sure it's optically aligned
-    let textPath = NSBezierPath.from(text: currentDate, font: labelFont)
-    textPath.transform(using: .init(translationByX: (bounds.width - textSize.width) * 0.5, byY: 2.4))
+    let textPath = NSBezierPath.from(text: String(currentDay), font: labelFont)
+    let transform = AffineTransform(
+      translationByX: (bounds.width - textWidth) * 0.5,
+      byY: (bounds.height - textHeight) * 0.5
+    )
+
+    textPath.transform(using: transform)
     textPath.append(NSBezierPath(rect: bounds))
 
     let shapeLayer = CAShapeLayer()
