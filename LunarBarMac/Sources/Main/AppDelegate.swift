@@ -129,6 +129,9 @@ private extension AppDelegate {
     DispatchQueue.main.async {
       self.updateMenuBarIcon()
     }
+
+    // The user may have taken a time machine by changing the time zone
+    popoverClosedTime = 0
   }
 
   @objc func windowDidResignKey(_ notification: Notification) {
