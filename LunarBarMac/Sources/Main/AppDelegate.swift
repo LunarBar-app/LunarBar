@@ -149,6 +149,11 @@ private extension AppDelegate {
       return false
     }
 
+    guard !event.modifierFlags.contains(.command) else {
+      // Holding the command key usually means the icon is being dragged
+      return false
+    }
+
     guard Date.timeIntervalSinceReferenceDate - popoverClosedTime > 0.1 else {
       // The click was to close the popover
       return false
