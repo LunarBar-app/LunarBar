@@ -128,17 +128,12 @@ public extension Calendar {
   }
 
   func isLeapMonth(from date: Date) -> Bool {
-  #if swift(<5.9.2)
-    // Pending Xcode 15.1 on GitHub
-    return false
-  #else
     guard #available(macOS 14, *) else {
       return false
     }
 
     // Interesting, the first `isLeapMonth` is macOS 14 only but the second is not
     return dateComponents([.isLeapMonth], from: date).isLeapMonth ?? false
-  #endif
   }
 
   func year(from date: Date) -> Int {
