@@ -135,9 +135,6 @@ private extension AppDelegate {
     DispatchQueue.main.async {
       self.updateMenuBarIcon()
     }
-
-    // The user may have taken a time machine by changing the time zone
-    popoverClosedTime = 0
   }
 
   @objc func windowDidResignKey(_ notification: Notification) {
@@ -160,7 +157,8 @@ private extension AppDelegate {
       return false
     }
 
-    guard Date.timeIntervalSinceReferenceDate - popoverClosedTime > 0.1 else {
+    // Measure the absolute value, taking system clock or time zone changes into account
+    guard abs(Date.timeIntervalSinceReferenceDate - popoverClosedTime) > 0.1 else {
       // The click was to close the popover
       return false
     }
