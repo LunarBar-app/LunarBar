@@ -7,12 +7,12 @@
 import AppKit
 
 public extension NSPopover {
-  var reduceTransparency: Bool {
+  var material: NSVisualEffectView.Material {
     get {
-      visualEffectView?.material == .windowBackground
+      visualEffectView?.material ?? .popover
     }
     set {
-      visualEffectView?.material = newValue ? .windowBackground : .popover
+      visualEffectView?.material = newValue
     }
   }
 }

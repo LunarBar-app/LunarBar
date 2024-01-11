@@ -49,6 +49,10 @@ enum AppPreferences {
 
     @Storage(key: "accessibility.reduce-transparency", defaultValue: false)
     static var reduceTransparency: Bool
+
+    static var popoverMaterial: NSVisualEffectView.Material {
+      reduceTransparency ? .windowBackground : .menu
+    }
   }
 }
 
