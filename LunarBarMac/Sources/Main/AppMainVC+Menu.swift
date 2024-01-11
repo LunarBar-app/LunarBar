@@ -174,7 +174,7 @@ private extension AppMainVC {
 
     menu.addItem(withTitle: Localized.UI.menuTitleReduceTransparency) { [weak self] in
       AppPreferences.Accessibility.reduceTransparency.toggle()
-      self?.popover?.reduceTransparency = AppPreferences.Accessibility.reduceTransparency
+      self?.popover?.material = AppPreferences.Accessibility.popoverMaterial
     }
     .setOn(AppPreferences.Accessibility.reduceTransparency)
 

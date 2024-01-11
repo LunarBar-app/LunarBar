@@ -53,7 +53,7 @@ extension AppMainVC {
 
   override func viewDidAppear() {
     super.viewDidAppear()
-    popover?.reduceTransparency = AppPreferences.Accessibility.reduceTransparency
+    popover?.material = AppPreferences.Accessibility.popoverMaterial
 
     updateAppearance()
     updateCalendar()
