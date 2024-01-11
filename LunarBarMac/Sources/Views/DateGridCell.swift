@@ -127,7 +127,9 @@ extension DateGridCell {
     // Lunar day label
     if let day = lunarComponents.day {
       if day == 1, let month = lunarComponents.month {
-        lunarLabel.stringValue = AppLocalizer.chineseMonth(of: month - 1, isLeap: isLeapLunarMonth)
+        // The Chinese character "月" will shift the layout slightly to the left,
+        // add a "thin space" to make it optically centered.
+        lunarLabel.stringValue = "\u{2009}" + AppLocalizer.chineseMonth(of: month - 1, isLeap: isLeapLunarMonth)
       } else {
         lunarLabel.stringValue = AppLocalizer.chineseDay(of: day - 1)
       }
