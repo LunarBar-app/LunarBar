@@ -10,7 +10,7 @@ public extension NSBezierPath {
   /**
    Backward compatibility of `cgPath`.
 
-   Mostly stole from https://stackoverflow.com/a/39385101 to be removed once we target macOS 15.
+   Mostly stole from https://stackoverflow.com/a/39385101 to be removed once we target macOS 14.
    */
   var toCGPath: CGPath {
     if #available(macOS 14.0, *) {
@@ -37,7 +37,7 @@ public extension NSBezierPath {
   /**
    Backward compatibility of `NSBezierPath(cgPath:)`.
 
-   Mostly stole from https://stackoverflow.com/a/49011112 to be removed once we target macOS 15.
+   Mostly stole from https://stackoverflow.com/a/49011112 to be removed once we target macOS 14.
    */
   static func from(cgPath: CGPath) -> NSBezierPath {
     if #available(macOS 14.0, *) {
