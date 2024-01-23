@@ -11,6 +11,7 @@
 		8714291C2B3DBFDF003FA2CB /* AppMainVC+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8714291B2B3DBFDF003FA2CB /* AppMainVC+Menu.swift */; };
 		8732DDF32B3E896D004B72DE /* HolidayManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732DDF22B3E896D004B72DE /* HolidayManagerTests.swift */; };
 		873424D02B35357B00C364BF /* DateGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873424CF2B35357B00C364BF /* DateGridCell.swift */; };
+		8739F9C92B5F611D00BD1F1B /* DateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8739F9C82B5F611D00BD1F1B /* DateFormatterTests.swift */; };
 		873AD8F62B4C3DAB001C90B1 /* AppIconFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873AD8F52B4C3DAB001C90B1 /* AppIconFactory.swift */; };
 		8740E2DE2B35DC06004A06C2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8740E2DD2B35DC06004A06C2 /* InfoPlist.xcstrings */; };
 		8740E2E22B35DCB7004A06C2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8740E2E12B35DCB7004A06C2 /* Localizable.xcstrings */; };
@@ -52,6 +53,7 @@
 		8732DDF02B3E896D004B72DE /* LunarBarMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LunarBarMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8732DDF22B3E896D004B72DE /* HolidayManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolidayManagerTests.swift; sourceTree = "<group>"; };
 		873424CF2B35357B00C364BF /* DateGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateGridCell.swift; sourceTree = "<group>"; };
+		8739F9C82B5F611D00BD1F1B /* DateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterTests.swift; sourceTree = "<group>"; };
 		873AD8F52B4C3DAB001C90B1 /* AppIconFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconFactory.swift; sourceTree = "<group>"; };
 		8740E2D82B35DB93004A06C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8740E2DD2B35DC06004A06C2 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		8732DDF12B3E896D004B72DE /* LunarBarMacTests */ = {
 			isa = PBXGroup;
 			children = (
+				8739F9C82B5F611D00BD1F1B /* DateFormatterTests.swift */,
 				87D65EB52B412A4700E41049 /* AppDefinitionsTests.swift */,
 				87D65EB02B41200100E41049 /* AppPreferencesTests.swift */,
 				8732DDF22B3E896D004B72DE /* HolidayManagerTests.swift */,
@@ -348,6 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8739F9C92B5F611D00BD1F1B /* DateFormatterTests.swift in Sources */,
 				87D65EB12B41200100E41049 /* AppPreferencesTests.swift in Sources */,
 				8732DDF32B3E896D004B72DE /* HolidayManagerTests.swift in Sources */,
 				87D65EB62B412A4700E41049 /* AppDefinitionsTests.swift in Sources */,

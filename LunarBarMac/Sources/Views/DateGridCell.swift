@@ -203,8 +203,9 @@ extension DateGridCell {
         components.append(holidayLabel)
       }
 
-      // Formatted lunar date, e.g., 2023癸卯年冬月十五
-      components.append(Constants.lunarDateFormatter.string(from: cellDate))
+      // Formatted lunar date, e.g., 癸卯年冬月十五 (leading numbers are removed to be concise)
+      let lunarDate = Constants.lunarDateFormatter.string(from: cellDate)
+      components.append(lunarDate.replacing(/^(\d+)/, with: ""))
 
       // Date ruler, e.g., "(10 days ago)" when hovering over a cell
       if let daysBetween = Calendar.solar.daysBetween(from: currentDate, to: cellDate) {
@@ -245,6 +246,12 @@ private extension DateGridCell {
       formatter.calendar = Calendar.lunar
       formatter.dateStyle = .long
       formatter.timeStyle = .none
+
+      // Always use Chinese for lunar dates,
+      // the English version of the Heavenly Stems and Earthly Branches is strange
+      if Locale.autoupdatingCurrent.language.languageCode == "en" {
+        formatter.locale = Locale(identifier: "zh-Hans")
+      }
 
       return formatter
     }()
