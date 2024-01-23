@@ -65,7 +65,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       }
     }
 
-    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+    let silentlyCheckUpdates = {
       Task {
         await AppUpdater.checkForUpdates(explicitly: false)
       }
@@ -75,11 +75,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       }
     }
 
+    // Check for updates on launch with a delay
+    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: silentlyCheckUpdates)
+
     // Check for updates on a weekly basis, for users who never quit apps
     Timer.scheduledTimer(withTimeInterval: 7 * 24 * 60 * 60, repeats: true) { _ in
-      Task {
-        await AppUpdater.checkForUpdates(explicitly: false)
-      }
+      silentlyCheckUpdates()
     }
 
     NotificationCenter.default.addObserver(
