@@ -191,6 +191,7 @@ enum AlphaLevels {
 // Getting these codes seems to require the use of Carbon.framework, but it is deprecated
 extension UInt16 {
   static let kVK_ANSI_Q: UInt16 = 0x0C
+  static let kVK_ANSI_W: UInt16 = 0x0D
   static let kVK_Space: UInt16 = 0x31
   static let kVK_LeftArrow: UInt16 = 0x7B
   static let kVK_RightArrow: UInt16 = 0x7C

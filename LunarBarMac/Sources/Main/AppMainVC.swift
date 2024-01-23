@@ -151,21 +151,18 @@ private extension AppMainVC {
 
   func observeKeyEvents() {
     NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
-      guard let self else {
+      guard let self, self.view.window?.isKeyWindow == true else {
         return event
       }
 
-      switch (event.keyCode, event.deviceIndependentFlags) {
-      case (.kVK_ANSI_Q, .command):
-        NSApp.terminate(nil)
-        return nil
-      case (.kVK_Space, _):
+      switch event.keyCode {
+      case .kVK_Space:
         self.updateCalendar()
         return nil
-      case (.kVK_LeftArrow, _):
+      case .kVK_LeftArrow:
         self.updateCalendar(moveMonthBy: -1)
         return nil
-      case (.kVK_RightArrow, _):
+      case .kVK_RightArrow:
         self.updateCalendar(moveMonthBy: 1)
         return nil
       default:

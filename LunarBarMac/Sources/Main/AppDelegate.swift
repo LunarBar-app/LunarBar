@@ -28,6 +28,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     updateMenuBarIcon()
     statusItem.isVisible = true
 
+    // Observe events that do not require a specific window
+    NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
+      if event.keyCode == .kVK_ANSI_Q && event.deviceIndependentFlags == .command {
+        NSApp.terminate(nil)
+        return nil
+      }
+
+      if event.keyCode == .kVK_ANSI_W && event.deviceIndependentFlags == .command {
+        event.window?.close()
+        return nil
+      }
+
+      return event
+    }
+
     // We don't rely on the button's target-action,
     // because we want to keep the button highlighted when the popover is shown.
     NSEvent.addLocalMonitorForEvents(matching: .leftMouseDown) { [weak self] event in
