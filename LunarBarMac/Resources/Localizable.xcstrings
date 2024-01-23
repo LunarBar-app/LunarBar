@@ -1418,23 +1418,6 @@
         }
       }
     },
-    "has calendar events" : {
-      "comment" : "[AX] Indicate the focused date has events in the Calendar app",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "有日历事件"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "有日曆事件"
-          }
-        }
-      }
-    },
     "Jingzhe" : {
       "comment" : "The 3rd solar term, always in Chinese",
       "localizations" : {
