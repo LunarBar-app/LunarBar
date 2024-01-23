@@ -175,12 +175,13 @@ extension DateGridCell {
     holidayView.alphaValue = eventView.alphaValue
 
     // Filter out events that is in the cellDate, we batch query because of performance concerns
-    eventView.updateEvents(monthEvents?.filter {
+    let cellEvents = monthEvents?.filter {
       $0.overlaps(
         startOfDay: Calendar.solar.startOfDay(for: cellDate),
         endOfDay: Calendar.solar.endOfDay(for: cellDate)
       )
-    } ?? [])
+    } ?? []
+    eventView.updateEvents(cellEvents)
 
     // Bookmark for holiday plans
     switch holidayType {
@@ -217,7 +218,16 @@ extension DateGridCell {
         }
       }
 
-      return components.joined()
+      let mainInfo = components.joined()
+      let eventTitles = cellEvents.compactMap { $0.title }
+
+      // Only the main info
+      if eventTitles.isEmpty {
+        return mainInfo
+      }
+
+      // Full version, each trailing line is an event title
+      return [mainInfo, eventTitles.joined(separator: "\n")].joined(separator: "\n\n")
     }()
 
     // Combine all visually available information to get the accessibility label
@@ -225,7 +235,6 @@ extension DateGridCell {
       solarLabel.stringValue,
       lunarLabel.stringValue,
       containerView.toolTip,
-      eventView.isHidden ? nil : Localized.UI.accessibilityHasCalendarEvents,
     ].compactMap { $0 }.joined(separator: " "))
   }
 }
