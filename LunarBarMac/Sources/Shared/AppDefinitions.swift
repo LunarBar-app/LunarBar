@@ -35,6 +35,8 @@ enum Localized {
     static let menuTitleReduceTransparency = String(localized: "Reduce Transparency", comment: "[Menu] Reduce transparency of the calendar panel")
     static let menuTitleFloatOnTop = String(localized: "Float on Top", comment: "[Menu] Float the popover on top")
     static let menuTitleCalendars = String(localized: "Calendars", comment: "[Menu] Show or hide system calendars")
+    static let menuTitleSelectAll = String(localized: "Select All", comment: "[Menu] Select all calendars")
+    static let menuTitleDeselectAll = String(localized: "Deselect All", comment: "[Menu] Deselect all calendars")
     static let menuTitlePublicHolidays = String(localized: "Public Holidays", comment: "[Menu] Public holidays")
     static let menuTitleDefaultHolidays = String(localized: "Default (Mainland China)", comment: "[Menu] Default public holidays (Mainland China)")
     static let menuTitleFetchUpdates = String(localized: "Fetch Updates...", comment: "[Menu] Fetch public holiday updates")

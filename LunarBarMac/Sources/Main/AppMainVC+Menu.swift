@@ -193,7 +193,10 @@ private extension AppMainVC {
 
   var menuItemCalendars: NSMenuItem {
     let menu = NSMenu()
+    menu.autoenablesItems = false
+
     let calendars = CalendarManager.default.allCalendars()
+    let identifiers = Set(calendars.map { $0.calendarIdentifier })
 
     calendars.forEach {
       let calendarID = $0.calendarIdentifier
@@ -214,8 +217,21 @@ private extension AppMainVC {
         )
       }
 
+      item.isEnabled = true
       menu.addItem(item)
     }
+
+    menu.addSeparator()
+
+    menu.addItem(withTitle: Localized.UI.menuTitleSelectAll) { [weak self] in
+      AppPreferences.Calendar.hiddenCalendars.removeAll()
+      self?.reloadCalendar()
+    }.isEnabled = !AppPreferences.Calendar.hiddenCalendars.isEmpty
+
+    menu.addItem(withTitle: Localized.UI.menuTitleDeselectAll) { [weak self] in
+      AppPreferences.Calendar.hiddenCalendars = identifiers
+      self?.reloadCalendar()
+    }.isEnabled = AppPreferences.Calendar.hiddenCalendars != identifiers
 
     let item = NSMenuItem(title: Localized.UI.menuTitleCalendars)
     item.isHidden = calendars.isEmpty
