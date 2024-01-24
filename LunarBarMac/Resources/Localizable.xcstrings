@@ -1178,6 +1178,23 @@
         }
       }
     },
+    "Deselect All" : {
+      "comment" : "[Menu] Deselect all calendars",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消全部"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消全部"
+          }
+        }
+      }
+    },
     "Dongzhi" : {
       "comment" : "The 22nd solar term, always in Chinese",
       "localizations" : {
@@ -2307,6 +2324,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "稍後提醒我"
+          }
+        }
+      }
+    },
+    "Select All" : {
+      "comment" : "[Menu] Select all calendars",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择全部"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇全部"
           }
         }
       }
