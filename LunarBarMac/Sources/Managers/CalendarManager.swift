@@ -51,12 +51,19 @@ final class CalendarManager {
       return []
     }
 
+    let calendars = allCalendars().filter {
+      !hiddenCalendars.contains($0.calendarIdentifier)
+    }
+
+    // EventKit searches all calendars when calendars is empty
+    guard !calendars.isEmpty else {
+      return []
+    }
+
     let predicate = eventStore.predicateForEvents(
       withStart: startDate,
       end: endDate,
-      calendars: allCalendars().filter {
-        !hiddenCalendars.contains($0.calendarIdentifier)
-      }
+      calendars: calendars
     )
 
   #if DEBUG
