@@ -21,6 +21,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   private var popoverClosedTime: TimeInterval = 0
 
   func applicationDidFinishLaunching(_ notification: Notification) {
+    // We rely on tooltips a lot, this changes the initial delay to 800ms to be faster
+    UserDefaults.standard.setValue(800, forKey: "NSInitialToolTipDelay")
+
     // Prepare public holiday data
     _ = HolidayManager.default
 
