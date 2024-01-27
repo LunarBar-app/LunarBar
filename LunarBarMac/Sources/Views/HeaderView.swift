@@ -26,7 +26,7 @@ final class HeaderView: NSView {
   private let dateLabel: TextLabel = {
     let label = TextLabel()
     label.textColor = Colors.primaryLabel
-    label.font = .mediumSystemFont(ofSize: Constants.dateFontSize)
+    label.font = .monospacedDigitSystemFont(ofSize: Constants.dateFontSize, weight: .medium)
 
     return label
   }()
