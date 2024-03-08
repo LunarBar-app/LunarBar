@@ -80,7 +80,6 @@ private extension AppMainVC {
 
     // Full-fledged picker that supports any year
     menu.addItem({ [weak self] in
-      let item = NSMenuItem()
       let picker = NSDatePicker()
       picker.isBezeled = false
       picker.isBordered = false
@@ -107,7 +106,17 @@ private extension AppMainVC {
         picker.centerYAnchor.constraint(equalTo: wrapper.centerYAnchor),
       ])
 
-      item.view = wrapper
+      // Inside a submenu to avoid keyboard navigation conflicts
+      let menu = NSMenu()
+      menu.addItem({
+        let item = NSMenuItem()
+        item.view = wrapper
+
+        return item
+      }())
+
+      let item = NSMenuItem(title: Localized.UI.menuTitleEnterMonth)
+      item.submenu = menu
       return item
     }())
 

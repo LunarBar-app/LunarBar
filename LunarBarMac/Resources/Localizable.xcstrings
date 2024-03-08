@@ -1264,6 +1264,23 @@
         }
       }
     },
+    "Enter Month" : {
+      "comment" : "[Menu] Enter a month using date picker",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输入月份"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "輸入月份"
+          }
+        }
+      }
+    },
     "Enter to select dates" : {
       "comment" : "[AX] Tell the user to enter the current collection to select dates",
       "localizations" : {
