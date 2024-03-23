@@ -341,7 +341,7 @@ private extension AppMainVC {
 
   var menuItemQuitLunarBar: NSMenuItem {
     let item = NSMenuItem(title: Localized.UI.menuTitleQuitLunarBar, action: nil, keyEquivalent: "q")
-    item.keyEquivalentModifierMask = [.command]
+    item.keyEquivalentModifierMask = .command
     item.addAction {
       NSApp.terminate(nil)
     }
