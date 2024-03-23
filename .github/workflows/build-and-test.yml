@@ -14,7 +14,7 @@ jobs:
       DEVELOPER_DIR: /Applications/Xcode_15.2.app/Contents/Developer
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Build LunarBarMac
         run: |
           xcodebuild build -scheme LunarBarMac -destination 'platform=macOS' CODE_SIGN_IDENTITY="" CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
