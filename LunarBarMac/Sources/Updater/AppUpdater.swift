@@ -49,6 +49,7 @@ enum AppUpdater {
 
 // MARK: - Private
 
+@MainActor
 private extension AppUpdater {
   static func presentError() {
     let alert = NSAlert()

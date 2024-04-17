@@ -50,7 +50,7 @@ enum AppPreferences {
     @Storage(key: "accessibility.reduce-transparency", defaultValue: false)
     static var reduceTransparency: Bool
 
-    static var popoverMaterial: NSVisualEffectView.Material {
+    @MainActor static var popoverMaterial: NSVisualEffectView.Material {
       reduceTransparency ? .windowBackground : .menu
     }
   }
@@ -68,6 +68,7 @@ enum Appearance: Codable {
   case light
   case dark
 
+  @MainActor
   func resolved(with appearance: NSAppearance = NSApp.effectiveAppearance) -> NSAppearance? {
     switch self {
     case .system:
@@ -80,6 +81,7 @@ enum Appearance: Codable {
   }
 }
 
+@MainActor
 @propertyWrapper
 struct Storage<T: Codable> {
   private let key: String

@@ -11,7 +11,7 @@ import Foundation
 
  For example, solar terms are hard to be precise if we compute them using formulas.
  */
-public final class LunarCalendar {
+public final class LunarCalendar: Sendable {
   public static let `default` = LunarCalendar()
 
   /**

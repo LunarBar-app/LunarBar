@@ -20,6 +20,7 @@
 		8740E30B2B37F969004A06C2 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8740E30A2B37F969004A06C2 /* EventView.swift */; };
 		8740E30F2B37FB36004A06C2 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8740E30E2B37FB36004A06C2 /* CalendarManager.swift */; };
 		8740E31B2B39210F004A06C2 /* AppPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8740E31A2B39210F004A06C2 /* AppPreferences.swift */; };
+		874D77772BCF94900093662D /* Unchecked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874D77762BCF94900093662D /* Unchecked.swift */; };
 		874E992D2B33D8C0002FC90A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874E992C2B33D8C0002FC90A /* AppDelegate.swift */; };
 		874E99312B33D8C1002FC90A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 874E99302B33D8C1002FC90A /* Assets.xcassets */; };
 		875A81282B39558000C031C3 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875A81262B39558000C031C3 /* AppVersion.swift */; };
@@ -63,6 +64,7 @@
 		8740E30A2B37F969004A06C2 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		8740E30E2B37FB36004A06C2 /* CalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		8740E31A2B39210F004A06C2 /* AppPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPreferences.swift; sourceTree = "<group>"; };
+		874D77762BCF94900093662D /* Unchecked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unchecked.swift; sourceTree = "<group>"; };
 		874E99292B33D8C0002FC90A /* LunarBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LunarBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		874E992C2B33D8C0002FC90A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		874E99302B33D8C1002FC90A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				8740E2FD2B37C823004A06C2 /* Managers */,
 				8782F4752B33F8EF008B1912 /* Views */,
 				875A81252B39558000C031C3 /* Updater */,
+				874D77762BCF94900093662D /* Unchecked.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				875A81282B39558000C031C3 /* AppVersion.swift in Sources */,
 				8782F46F2B33F627008B1912 /* AppDefinitions.swift in Sources */,
 				8740E31B2B39210F004A06C2 /* AppPreferences.swift in Sources */,
+				874D77772BCF94900093662D /* Unchecked.swift in Sources */,
 				87F81C542B43EBDE0071CA30 /* main.swift in Sources */,
 				87DA5AFF2B3433D400CE2C1A /* WeekdayView.swift in Sources */,
 				8740E2FF2B37C841004A06C2 /* HolidayManager.swift in Sources */,
@@ -484,6 +488,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -498,6 +503,7 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
 			};
 			name = Debug;
 		};
@@ -544,6 +550,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -556,6 +563,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_STRICT_CONCURRENCY = complete;
 			};
 			name = Release;
 		};
