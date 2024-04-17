@@ -83,7 +83,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       }
     }
 
-    let silentlyCheckUpdates = {
+    let silentlyCheckUpdates: @Sendable () -> Void = {
       Task {
         await AppUpdater.checkForUpdates(explicitly: false)
       }
@@ -122,6 +122,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     return false
   }
 
+  @MainActor
   func updateMenuBarIcon(needsLayout: Bool = false) {
     switch AppPreferences.General.menuBarIcon {
     case .calendar:
@@ -148,6 +149,7 @@ extension AppDelegate: NSPopoverDelegate {
 
 // MARK: - Private
 
+@MainActor
 private extension AppDelegate {
   // periphery:ignore:parameters notification
   @objc func calendarDayDidChange(_ notification: Notification) {

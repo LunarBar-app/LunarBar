@@ -16,6 +16,7 @@ enum HolidayType: Int {
 /**
  For public holidays.
  */
+@MainActor
 final class HolidayManager {
   static let `default` = HolidayManager()
 
@@ -83,7 +84,7 @@ final class HolidayManager {
     return nil
   }
 
-  func fetchDefaultHolidays() async {
+  nonisolated func fetchDefaultHolidays() async {
     guard let url = URL(string: Constants.endpoint) else {
       return Logger.assertFail("Failed to create the URL: \(Constants.endpoint)")
     }
@@ -103,7 +104,7 @@ final class HolidayManager {
     Logger.log(.info, "Successfully fetched default holidays")
 
     do {
-      try data.write(
+      try await data.write(
         to: cachesDirectory.appending(
           path: url.lastPathComponent,
           directoryHint: .notDirectory
@@ -111,7 +112,7 @@ final class HolidayManager {
         options: .atomic
       )
 
-      reloadCachedFiles()
+      await reloadCachedFiles()
     } catch {
       Logger.log(.error, error.localizedDescription)
     }

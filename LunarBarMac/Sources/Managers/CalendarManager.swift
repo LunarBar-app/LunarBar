@@ -12,6 +12,7 @@ import LunarBarKit
 /**
  For the native Calendar app.
  */
+@MainActor
 final class CalendarManager {
   static let `default` = CalendarManager()
 

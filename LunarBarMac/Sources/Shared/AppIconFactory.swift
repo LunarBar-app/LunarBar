@@ -7,6 +7,7 @@
 
 import AppKit
 
+@MainActor
 enum AppIconFactory {
   static func createCalendarIcon(pointSize: Double = 16) -> NSImage {
     .with(symbolName: Icons.calendar, pointSize: pointSize).asTemplate

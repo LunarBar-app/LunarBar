@@ -9,6 +9,7 @@ import AppKit
 import AppKitControls
 import LunarBarKit
 
+@MainActor
 protocol HeaderViewDelegate: AnyObject {
   func headerView(_ sender: HeaderView, moveTo date: Date)
   func headerView(_ sender: HeaderView, moveBy offset: Int)

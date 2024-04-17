@@ -25,6 +25,9 @@ let package = Package(
       resources: [
         .process("LunarCalendar/Resources"),
       ],
+      swiftSettings: [
+        .enableExperimentalFeature("StrictConcurrency")
+      ],
       plugins: [
         .plugin(name: "SwiftLint", package: "LunarBarTools"),
       ]
