@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
   name: "LunarBarKit",
   platforms: [
-    .iOS(.v16),
-    .macOS(.v13),
+    .iOS(.v17),
+    .macOS(.v14),
   ],
   products: [
     .library(
