@@ -96,7 +96,7 @@ public extension NSBezierPath {
 
    Mostly learned from https://github.com/jrturton/NSString-Glyphs converted to AppKit with Swift.
    */
-  static func from(text: String, font: NSFont) -> NSBezierPath {
+  static func from(text: String, font: NSFont, isFlipped: Bool = false) -> NSBezierPath {
     let coreTextFont = CTFontCreateWithName(font.fontName as CFString, font.pointSize, nil)
     let attributedText = NSAttributedString(string: text, attributes: [.font: coreTextFont])
 
@@ -121,9 +121,11 @@ public extension NSBezierPath {
 
     let bezierPath = NSBezierPath.from(cgPath: letterPaths)
 
-    // The path is upside down, transform the coordinate system
-    bezierPath.transform(using: AffineTransform(scaleByX: 1.0, byY: -1.0))
-    bezierPath.transform(using: AffineTransform(translationByX: 0, byY: letterPaths.boundingBox.height))
+    // If the path is upside down, transform the coordinate system
+    if isFlipped {
+      bezierPath.transform(using: AffineTransform(scaleByX: 1.0, byY: -1.0))
+      bezierPath.transform(using: AffineTransform(translationByX: 0, byY: letterPaths.boundingBox.height))
+    }
 
     return bezierPath
   }
