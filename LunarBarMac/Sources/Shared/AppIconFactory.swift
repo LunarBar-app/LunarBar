@@ -56,7 +56,7 @@ private class DateIconView: NSView {
     }()
 
     // Create the path from text and make sure it's optically aligned
-    let textPath = NSBezierPath.from(text: String(currentDay), font: labelFont)
+    let textPath = NSBezierPath.from(text: String(currentDay), font: labelFont, isFlipped: isFlipped)
     let transform = AffineTransform(
       translationByX: (bounds.width - textWidth) * 0.5,
       byY: (bounds.height - textHeight) * 0.5
@@ -79,6 +79,11 @@ private class DateIconView: NSView {
   }
 
   override var isFlipped: Bool {
-    true
+    // [macOS 15] It seems flipping the coordinate system is no longer needed
+    if #available(macOS 15.0, *) {
+      return false
+    }
+
+    return true
   }
 }
