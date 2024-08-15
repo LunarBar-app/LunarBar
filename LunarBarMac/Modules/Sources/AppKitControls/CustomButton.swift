@@ -27,6 +27,7 @@ public class CustomButton: NSButton {
     title = ""
     imagePosition = .imageOnly
     isBordered = false
+    focusRingType = .none
   }
 
   @available(*, unavailable)
