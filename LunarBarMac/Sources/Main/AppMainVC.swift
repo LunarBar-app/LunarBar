@@ -157,6 +157,11 @@ private extension AppMainVC {
 
       switch event.keyCode {
       case .kVK_Space:
+        // Space key is occupied by keyboard navigation
+        if NSApp.isFullKeyboardAccessEnabled {
+          return event
+        }
+
         self.updateCalendar()
         return nil
       case .kVK_LeftArrow:
