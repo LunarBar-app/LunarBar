@@ -43,10 +43,15 @@ private class DateIconView: NSView {
       attributes: [.font: labelFont]
     ).size().width
 
-    // The height comes with unpredictable spacing and it's normalized in the actual rendering result
+    // The height may contain unpredictable spacing and it's normalized in the actual rendering result
     //
     // We don't have a good way to calculate the optimized height, here we pre-define all values.
     let textHeight: Double = {
+      if #available(macOS 15.0, *) {
+        // [macOS 15] The issue is resolved in macOS Sequoia
+        return 8.5
+      }
+
       let values = [9.5, 8.5, 9, 9, 8.5, 9, 9.5, 8.5, 9, 9.5]
       if currentDay >= 10 {
         return max(values[currentDay / 10], values[currentDay % 10])
