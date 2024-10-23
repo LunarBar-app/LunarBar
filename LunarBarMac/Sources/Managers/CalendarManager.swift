@@ -24,13 +24,7 @@ final class CalendarManager {
     }
 
     do {
-      let result: Bool
-      if #available(macOS 14.0, *) {
-        result = try await eventStore.requestFullAccessToEvents()
-      } else {
-        result = try await eventStore.requestAccess(to: .event)
-      }
-
+      let result = try await eventStore.requestFullAccessToEvents()
       Logger.log(.info, "Result of the event access request: \(result)")
     } catch {
       Logger.log(.error, error.localizedDescription)
@@ -128,11 +122,7 @@ private extension CalendarManager {
   }
 
   var hasReadAccess: Bool {
-    if #available(macOS 14.0, *) {
-      authorizationStatus == .fullAccess
-    } else {
-      authorizationStatus == .authorized
-    }
+    authorizationStatus == .fullAccess
   }
 
   var authorizationStatus: EKAuthorizationStatus {

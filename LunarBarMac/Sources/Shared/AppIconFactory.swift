@@ -71,7 +71,7 @@ private class DateIconView: NSView {
     textPath.append(NSBezierPath(rect: bounds))
 
     let shapeLayer = CAShapeLayer()
-    shapeLayer.path = textPath.toCGPath
+    shapeLayer.path = textPath.cgPath
 
     layer?.mask = shapeLayer
     layer?.cornerCurve = .continuous
