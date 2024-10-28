@@ -139,6 +139,10 @@ final class HeaderView: NSView {
 
 extension HeaderView {
   func updateCalendar(date: Date) {
+    if !AppPreferences.Accessibility.reduceMotion {
+      dateLabel.addFadeEffect()
+    }
+
     dateLabel.stringValue = Constants.dateFormatter.string(from: date)
   }
 }

@@ -22,7 +22,7 @@ final class EventView: NSStackView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  func updateEvents(_ events: [EKEvent]) {
+  func updateEvents(_ events: [EKCalendarItem]) {
     isHidden = events.isEmpty
     removeArrangedSubviews()
 

@@ -18,13 +18,20 @@ final class CalendarManager {
 
   private var eventStore = EKEventStore()
 
-  func requestAccessIfNeeded() async {
-    guard authorizationStatus == .notDetermined else {
+  func authorizationStatus(for type: EKEntityType) -> EKAuthorizationStatus {
+    EKEventStore.authorizationStatus(for: type)
+  }
+
+  func requestAccessIfNeeded(type: EKEntityType) async {
+    guard authorizationStatus(for: type) == .notDetermined else {
       return
     }
 
+    let request = type == .reminder ? eventStore.requestFullAccessToReminders : eventStore.requestFullAccessToEvents
+    Logger.assert(type == .event || type == .reminder, "Invalid type: \(type) of access to request for")
+
     do {
-      let result = try await eventStore.requestFullAccessToEvents()
+      let result = try await request()
       Logger.log(.info, "Result of the event access request: \(result)")
     } catch {
       Logger.log(.error, error.localizedDescription)
@@ -34,38 +41,46 @@ final class CalendarManager {
   }
 
   func allCalendars() -> [EKCalendar] {
-    guard hasReadAccess else {
-      return []
+    var calendars = [EKCalendar]()
+    if hasReadAccess(for: .event) {
+      calendars.append(contentsOf: eventStore.calendars(for: .event))
     }
 
-    return eventStore.calendars(for: .event)
+    if hasReadAccess(for: .reminder) {
+      calendars.append(contentsOf: eventStore.calendars(for: .reminder))
+    }
+
+    return calendars
   }
 
-  func events(from startDate: Date, to endDate: Date, hiddenCalendars: Set<String>) -> [EKEvent] {
-    guard hasReadAccess else {
+  func items(for type: EKEntityType, from startDate: Date, to endDate: Date) async throws -> [EKCalendarItem] {
+    guard hasReadAccess(for: type) else {
       return []
     }
 
-    let calendars = allCalendars().filter {
-      !hiddenCalendars.contains($0.calendarIdentifier)
-    }
+    let hidden = AppPreferences.Calendar.hiddenCalendars
+    let calendars = allCalendars().filter { !hidden.contains($0.calendarIdentifier) }
 
     // EventKit searches all calendars when calendars is empty
     guard !calendars.isEmpty else {
       return []
     }
 
-    let predicate = eventStore.predicateForEvents(
-      withStart: startDate,
-      end: endDate,
-      calendars: calendars
-    )
-
   #if DEBUG
     let perfStartTime = Date.timeIntervalSinceReferenceDate
   #endif
 
-    let events = eventStore.events(matching: predicate)
+    let events = try await {
+      switch type {
+      case .event:
+        return try await eventStore.events(from: startDate, to: endDate, calendars: calendars)
+      case .reminder:
+        return try await eventStore.reminders(from: startDate, to: endDate, calendars: calendars)
+      default:
+        Logger.assertFail("Invalid type: \(type) of items to fetch for")
+        return []
+      }
+    }()
 
   #if DEBUG
     let perfEndTime = Date.timeIntervalSinceReferenceDate
@@ -78,7 +93,7 @@ final class CalendarManager {
   func revealDateInCalendar(_ date: Date) {
     Task {
       // Requires Calendar access to locate the specified date
-      await requestAccessIfNeeded()
+      await requestAccessIfNeeded(type: .event)
 
       let source =
       """
@@ -121,11 +136,7 @@ private extension CalendarManager {
     }()
   }
 
-  var hasReadAccess: Bool {
-    authorizationStatus == .fullAccess
-  }
-
-  var authorizationStatus: EKAuthorizationStatus {
-    EKEventStore.authorizationStatus(for: .event)
+  func hasReadAccess(for type: EKEntityType) -> Bool {
+    authorizationStatus(for: type) == .fullAccess
   }
 }

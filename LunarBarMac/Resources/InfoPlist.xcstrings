@@ -84,13 +84,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "授予 LunarBar 权限以显示日历事件。\n\n尽管 LunarBar 可以在没有此权限的情况下运行，但与原生日历应用相关的功能将不可用。\n\n您可以在系统隐私设置中更改授权，此弹窗将不再出现。"
+            "value" : "授予 LunarBar 权限以显示日历事件。\n\nLunarBar 可以在没有此权限的情况下运行，但与原生日历应用相关的功能将不可用。\n\n您可以在系统隐私设置中更改授权，此弹窗将不再出现。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "授予 LunarBar 許可權以顯示日曆事件。\n\n儘管 LunarBar 可以在沒有此許可權的情況下執行，但與原生日曆應用相關的功能將不可用。\n\n您可以在系統隱私設定中更改授權，此彈窗將不再出現。"
+            "value" : "授予 LunarBar 許可權以顯示日曆事件。\n\nLunarBar 可以在沒有此許可權的情況下執行，但與原生日曆應用相關的功能將不可用。\n\n您可以在系統隱私設定中更改授權，此彈窗將不再出現。"
           }
         }
       }
@@ -107,13 +107,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "授予 LunarBar 权限以显示日历事件。\n\n尽管 LunarBar 可以在没有此权限的情况下运行，但与原生日历应用相关的功能将不可用。\n\n您可以在系统隐私设置中更改授权，此弹窗将不再出现。"
+            "value" : "授予 LunarBar 权限以显示日历事件。\n\nLunarBar 可以在没有此权限的情况下运行，但与原生日历应用相关的功能将不可用。\n\n您可以在系统隐私设置中更改授权，此弹窗将不再出现。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "授予 LunarBar 許可權以顯示日曆事件。\n\n儘管 LunarBar 可以在沒有此許可權的情況下執行，但與原生日曆應用相關的功能將不可用。\n\n您可以在系統隱私設定中更改授權，此彈窗將不再出現。"
+            "value" : "授予 LunarBar 許可權以顯示日曆事件。\n\nLunarBar 可以在沒有此許可權的情況下執行，但與原生日曆應用相關的功能將不可用。\n\n您可以在系統隱私設定中更改授權，此彈窗將不再出現。"
           }
         }
       }
@@ -138,6 +138,52 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "海上生明月，天涯共此時。"
+          }
+        }
+      }
+    },
+    "NSRemindersFullAccessUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grant LunarBar permission to display items in the Reminders app.\n\nThis is optional, you can change permissions in the system privacy settings, this dialog will not reappear."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "授予 LunarBar 权限以显示提醒事项。\n\n此为可选功能，您可以在系统隐私设置中更改授权，此弹窗将不再出现。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "授予 LunarBar 許可權以顯示提醒事項。\n\n此為可選功能，您可以在系統隱私設定中更改授權，此彈窗將不再出現。"
+          }
+        }
+      }
+    },
+    "NSRemindersUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grant LunarBar permission to display items in the Reminders app.\n\nThis is optional, you can change permissions in the system privacy settings, this dialog will not reappear."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "授予 LunarBar 权限以显示提醒事项。\n\n此为可选功能，您可以在系统隐私设置中更改授权，此弹窗将不再出现。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "授予 LunarBar 許可權以顯示提醒事項。\n\n此為可選功能，您可以在系統隱私設定中更改授權，此彈窗將不再出現。"
           }
         }
       }

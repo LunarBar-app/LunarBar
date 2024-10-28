@@ -62,4 +62,13 @@ public extension NSView {
 
     return nil
   }
+
+  func addFadeEffect(duration: TimeInterval = 0.2) {
+    let transition = CATransition()
+    transition.type = .fade
+    transition.duration = duration
+
+    wantsLayer = true
+    layer?.add(transition, forKey: "fadeEffect")
+  }
 }
