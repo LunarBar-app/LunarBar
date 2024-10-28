@@ -51,8 +51,8 @@ extension AppMainVC {
     observeKeyEvents()
   }
 
-  override func viewDidAppear() {
-    super.viewDidAppear()
+  override func viewWillAppear() {
+    super.viewWillAppear()
     popover?.material = AppPreferences.Accessibility.popoverMaterial
 
     updateAppearance()

@@ -2379,6 +2379,23 @@
         }
       }
     },
+    "Show Reminders" : {
+      "comment" : "[Menu] To request access for Reminders",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示提醒事项"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "顯示提醒事項"
+          }
+        }
+      }
+    },
     "Shuangjiang" : {
       "comment" : "The 18th solar term, always in Chinese",
       "localizations" : {

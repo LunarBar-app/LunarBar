@@ -70,7 +70,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     Task {
-      await CalendarManager.default.requestAccessIfNeeded()
+      await CalendarManager.default.requestAccessIfNeeded(type: .event)
 
       // We don't even have a main window, open the panel for initial launch
       DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {

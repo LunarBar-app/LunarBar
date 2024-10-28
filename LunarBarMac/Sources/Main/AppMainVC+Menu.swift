@@ -205,11 +205,12 @@ private extension AppMainVC {
     menu.autoenablesItems = false
 
     let calendars = CalendarManager.default.allCalendars()
+    let remindersIndex = calendars.firstIndex { $0.allowedEntityTypes.contains(.reminder) }
     let identifiers = Set(calendars.map { $0.calendarIdentifier })
 
-    calendars.forEach {
-      let calendarID = $0.calendarIdentifier
-      let item = NSMenuItem(title: $0.title)
+    for (index, calendar) in calendars.enumerated() {
+      let calendarID = calendar.calendarIdentifier
+      let item = NSMenuItem(title: calendar.title)
       item.setOn(!AppPreferences.Calendar.hiddenCalendars.contains(calendarID))
 
       item.addAction { [weak self] in
@@ -217,7 +218,7 @@ private extension AppMainVC {
         self?.reloadCalendar()
       }
 
-      if let color = $0.color {
+      if let color = calendar.color {
         item.image = .with(
           cellColor: color,
           borderColor: Colors.darkGray,
@@ -226,11 +227,24 @@ private extension AppMainVC {
         )
       }
 
+      if remindersIndex == index {
+        menu.addItem(.separator())
+      }
+
       item.isEnabled = true
       menu.addItem(item)
     }
 
     menu.addSeparator()
+
+    if CalendarManager.default.authorizationStatus(for: .reminder) == .notDetermined {
+      menu.addItem(withTitle: Localized.UI.menuTitleShowReminders) {
+        Task {
+          await CalendarManager.default.requestAccessIfNeeded(type: .reminder)
+        }
+      }
+      menu.addSeparator()
+    }
 
     menu.addItem(withTitle: Localized.UI.menuTitleSelectAll) { [weak self] in
       AppPreferences.Calendar.hiddenCalendars.removeAll()

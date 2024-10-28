@@ -10,5 +10,9 @@
 	<string>Grant LunarBar permission to display Calendar events.</string>
 	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>Grant LunarBar permission to display Calendar events.</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>Grant LunarBar permission to display items in the Reminders app.</string>
+	<key>NSRemindersFullAccessUsageDescription</key>
+	<string>Grant LunarBar permission to display items in the Reminders app.</string>
 </dict>
 </plist>

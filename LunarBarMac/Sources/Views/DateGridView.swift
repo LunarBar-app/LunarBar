@@ -14,9 +14,8 @@ import LunarBarKit
  */
 final class DateGridView: NSView {
   private var monthDate: Date?
-  private var monthEvents: [EKEvent]?
   private var lunarInfo: LunarInfo?
-  private var dataSource: NSCollectionViewDiffableDataSource<Section, Date>?
+  private var dataSource: NSCollectionViewDiffableDataSource<Section, Model>?
 
   private let collectionView: NSCollectionView = {
     let view = NSCollectionView()
@@ -32,13 +31,13 @@ final class DateGridView: NSView {
   init() {
     super.init(frame: .zero)
 
-    dataSource = NSCollectionViewDiffableDataSource<Section, Date>(collectionView: collectionView) { [weak self] (collectionView: NSCollectionView, indexPath: IndexPath, date: Date) -> NSCollectionViewItem? in
+    dataSource = NSCollectionViewDiffableDataSource<Section, Model>(collectionView: collectionView) { [weak self] (collectionView: NSCollectionView, indexPath: IndexPath, object: Model) -> NSCollectionViewItem? in
       let cell = collectionView.makeItem(withIdentifier: DateGridCell.reuseIdentifier, for: indexPath)
       if let cell = cell as? DateGridCell {
         cell.update(
-          cellDate: date,
+          cellDate: object.date,
+          cellEvents: object.events,
           monthDate: self?.monthDate,
-          monthEvents: self?.monthEvents,
           lunarInfo: self?.lunarInfo
         )
       } else {
@@ -87,23 +86,28 @@ extension DateGridView {
 
     self.monthDate = monthDate
     self.lunarInfo = lunarInfo
+    self.reloadData(allDates: allDates)
 
-    // Get events for the entire month because batch query is faster
-    self.monthEvents = {
+    Task {
       guard let startDate = allDates.first, let endDate = allDates.last else {
         Logger.assertFail("Missing any dates from: \(monthDate)")
-        return nil
+        return
       }
 
-      return CalendarManager.default.events(
-        from: Calendar.solar.startOfDay(for: startDate),
-        to: Calendar.solar.endOfDay(for: endDate),
-        hiddenCalendars: AppPreferences.Calendar.hiddenCalendars
+      let events = try await CalendarManager.default.items(
+        for: .event,
+        from: startDate,
+        to: endDate
       )
-    }()
 
-    Logger.log(.info, "Reloading dateGridView: \(allDates.count) items")
-    reloadData(allDates: allDates)
+      let reminders = try await CalendarManager.default.items(
+        for: .reminder,
+        from: startDate,
+        to: endDate
+      )
+
+      reloadData(allDates: allDates, events: events + reminders)
+    }
   }
 }
 
@@ -111,7 +115,7 @@ extension DateGridView {
 
 private extension DateGridView {
   enum Section {
-    case dates
+    case `default`
   }
 
   /**
@@ -138,11 +142,36 @@ private extension DateGridView {
     return layout
   }
 
-  func reloadData(allDates: [Date]) {
-    var snapshot = NSDiffableDataSourceSnapshot<Section, Date>()
-    snapshot.appendSections([Section.dates])
-    snapshot.appendItems(allDates)
+  @MainActor
+  func reloadData(allDates: [Date], events: [EKCalendarItem] = []) {
+    var snapshot = NSDiffableDataSourceSnapshot<Section, Model>()
+    snapshot.appendSections([Section.default])
 
-    dataSource?.apply(snapshot, animatingDifferences: false)
+    snapshot.appendItems(allDates.map { date in
+      Model(date: date, events: events.filter {
+        $0.overlaps(
+          startOfDay: Calendar.solar.startOfDay(for: date),
+          endOfDay: Calendar.solar.endOfDay(for: date)
+        )
+      }.oldestToNewest)
+    })
+
+    let reduceMotion = AppPreferences.Accessibility.reduceMotion
+    dataSource?.apply(snapshot, animatingDifferences: !reduceMotion)
+    Logger.log(.info, "Reloaded dateGridView: \(allDates.count) items")
+  }
+}
+
+private struct Model: Hashable {
+  let date: Date
+  let events: [EKCalendarItem]
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(date)
+    hasher.combine(events)
+  }
+
+  static func == (lhs: Self, rhs: Self) -> Bool {
+    return lhs.date == rhs.date && lhs.events == rhs.events
   }
 }

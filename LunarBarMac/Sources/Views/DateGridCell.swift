@@ -100,7 +100,7 @@ extension DateGridCell {
 // MARK: - Updating
 
 extension DateGridCell {
-  func update(cellDate: Date, monthDate: Date?, monthEvents: [EKEvent]?, lunarInfo: LunarInfo?) {
+  func update(cellDate: Date, cellEvents: [EKCalendarItem], monthDate: Date?, lunarInfo: LunarInfo?) {
     self.cellDate = cellDate
 
     let currentDate = Date.now
@@ -173,14 +173,6 @@ extension DateGridCell {
 
     lunarLabel.alphaValue = solarLabel.alphaValue
     holidayView.alphaValue = eventView.alphaValue
-
-    // Filter out events that is in the cellDate, we batch query because of performance concerns
-    let cellEvents = monthEvents?.filter {
-      $0.overlaps(
-        startOfDay: Calendar.solar.startOfDay(for: cellDate),
-        endOfDay: Calendar.solar.endOfDay(for: cellDate)
-      )
-    } ?? []
     eventView.updateEvents(cellEvents)
 
     // Bookmark for holiday plans
