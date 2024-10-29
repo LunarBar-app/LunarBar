@@ -143,7 +143,7 @@ private extension DateGridView {
   }
 
   @MainActor
-  func reloadData(allDates: [Date], events: [EKCalendarItem] = []) {
+  func reloadData(allDates: [Date], events: [EKCalendarItem] = [], animated: Bool = false) {
     var snapshot = NSDiffableDataSourceSnapshot<Section, Model>()
     snapshot.appendSections([Section.default])
 
@@ -156,8 +156,7 @@ private extension DateGridView {
       }.oldestToNewest)
     })
 
-    let reduceMotion = AppPreferences.Accessibility.reduceMotion
-    dataSource?.apply(snapshot, animatingDifferences: !reduceMotion)
+    dataSource?.apply(snapshot, animatingDifferences: animated)
     Logger.log(.info, "Reloaded dateGridView: \(allDates.count) items")
   }
 }
