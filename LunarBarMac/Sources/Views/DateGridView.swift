@@ -84,29 +84,28 @@ extension DateGridView {
       return Logger.assertFail("Failed to generate the calendar")
     }
 
+    guard let startDate = allDates.first, let endDate = allDates.last else {
+      return Logger.assertFail("Missing any dates from: \(monthDate)")
+    }
+
     self.monthDate = monthDate
     self.lunarInfo = lunarInfo
-    self.reloadData(allDates: allDates)
+    self.reloadData(
+      allDates: allDates,
+      events: CalendarManager.default.caches(from: startDate, to: endDate)
+    )
 
     Task {
-      guard let startDate = allDates.first, let endDate = allDates.last else {
-        Logger.assertFail("Missing any dates from: \(monthDate)")
-        return
+      let items = try await CalendarManager.default.items(from: startDate, to: endDate)
+      reloadData(allDates: allDates, events: items)
+
+      if let prevMonth = Calendar.solar.date(byAdding: .day, value: -1, to: startDate) {
+        await CalendarManager.default.preload(date: prevMonth)
       }
 
-      let events = try await CalendarManager.default.items(
-        for: .event,
-        from: startDate,
-        to: endDate
-      )
-
-      let reminders = try await CalendarManager.default.items(
-        for: .reminder,
-        from: startDate,
-        to: endDate
-      )
-
-      reloadData(allDates: allDates, events: events + reminders)
+      if let nextMonth = Calendar.solar.date(byAdding: .day, value: 1, to: endDate) {
+        await CalendarManager.default.preload(date: nextMonth)
+      }
     }
   }
 }

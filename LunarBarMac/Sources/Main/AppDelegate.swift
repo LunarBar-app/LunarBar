@@ -71,6 +71,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     Task {
       await CalendarManager.default.requestAccessIfNeeded(type: .event)
+      await CalendarManager.default.preload(date: .now)
 
       // We don't even have a main window, open the panel for initial launch
       DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
