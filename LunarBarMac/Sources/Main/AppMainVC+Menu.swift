@@ -256,8 +256,12 @@ private extension AppMainVC {
       self?.reloadCalendar()
     }.isEnabled = AppPreferences.Calendar.hiddenCalendars != identifiers
 
+    menu.addSeparator()
+    menu.addItem(withTitle: Localized.UI.menuTitlePrivacySettings) {
+      NSWorkspace.shared.safelyOpenURL(string: "x-apple.systempreferences:com.apple.preference.security")
+    }
+
     let item = NSMenuItem(title: Localized.UI.menuTitleCalendars)
-    item.isHidden = calendars.isEmpty
     item.submenu = menu
     return item
   }
