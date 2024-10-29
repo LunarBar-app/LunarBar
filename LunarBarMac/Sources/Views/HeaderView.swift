@@ -88,6 +88,8 @@ final class HeaderView: NSView {
     return button
   }()
 
+  private var previousDate: Date = .distantPast
+
   init() {
     super.init(frame: .zero)
 
@@ -140,6 +142,20 @@ final class HeaderView: NSView {
 extension HeaderView {
   func updateCalendar(date: Date) {
     dateLabel.stringValue = Constants.dateFormatter.string(from: date)
+
+    if !AppPreferences.Accessibility.reduceMotion, previousDate != .distantPast,
+       !Calendar.solar.isDate(previousDate, inSameMonthAs: date) {
+      let transition = CATransition()
+      transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+      transition.type = .push
+      transition.subtype = previousDate < date ? .fromBottom : .fromTop
+      transition.duration = 0.25
+
+      dateLabel.wantsLayer = true
+      dateLabel.layer?.add(transition, forKey: "pushEffect")
+    }
+
+    previousDate = date
   }
 }
 
