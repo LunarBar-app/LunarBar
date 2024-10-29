@@ -55,7 +55,7 @@ private extension EKCalendarItem {
     }
 
     if let reminder = self as? EKReminder, let components = reminder.dueDateComponents {
-      return Calendar.current.date(from: components)
+      return Calendar.solar.date(from: components)
     }
 
     Logger.assertFail("Invalid item is returned")
