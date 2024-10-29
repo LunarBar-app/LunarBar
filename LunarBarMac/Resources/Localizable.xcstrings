@@ -2174,6 +2174,23 @@
         }
       }
     },
+    "Privacy Settings" : {
+      "comment" : "[Menu] Open privacy settings",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐私设置"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隱私設定"
+          }
+        }
+      }
+    },
     "Public Holidays" : {
       "comment" : "[Menu] Public holidays",
       "localizations" : {
