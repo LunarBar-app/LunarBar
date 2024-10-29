@@ -127,6 +127,12 @@ public extension Calendar {
     return self.date(byAdding: .day, value: -1, to: newYear)
   }
 
+  func isDate(_ date1: Date, inSameMonthAs date2: Date) -> Bool {
+    let components1 = dateComponents([.year, .month], from: date1)
+    let components2 = dateComponents([.year, .month], from: date2)
+    return components1.year == components2.year && components1.month == components2.month
+  }
+
   func isLeapMonth(from date: Date) -> Bool {
     dateComponents([.isLeapMonth], from: date).isLeapMonth ?? false
   }
