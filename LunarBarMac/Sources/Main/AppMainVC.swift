@@ -80,12 +80,12 @@ extension AppMainVC {
     dateGridView.updateCalendar(date: targetDate, lunarInfo: lunarInfo)
   }
 
-  func updateCalendar(moveMonthBy offset: Int) {
-    guard let newDate = Calendar.solar.date(byAdding: .month, value: offset, to: monthDate) else {
-      return Logger.assertFail("Failed to get date by adding the offset: \(offset)")
+  func updateCalendar(moveBy offset: Int, unit: Calendar.Component) {
+    guard let newDate = Calendar.solar.date(byAdding: unit, value: offset, to: monthDate) else {
+      return Logger.assertFail("Failed to get date by adding \(offset) \(unit)")
     }
 
-    Logger.log(.info, "Moving the calendar by \(offset) month")
+    Logger.log(.info, "Moving the calendar by \(offset) \(unit)")
     updateCalendar(targetDate: newDate)
   }
 }
@@ -100,7 +100,7 @@ extension AppMainVC: HeaderViewDelegate {
 
   // periphery:ignore:parameters sender
   func headerView(_ sender: HeaderView, moveBy offset: Int) {
-    updateCalendar(moveMonthBy: offset)
+    updateCalendar(moveBy: offset, unit: .month)
   }
 
   // periphery:ignore:parameters sender
@@ -165,10 +165,16 @@ private extension AppMainVC {
         self.updateCalendar()
         return nil
       case .kVK_LeftArrow:
-        self.updateCalendar(moveMonthBy: -1)
+        self.updateCalendar(moveBy: -1, unit: .month)
         return nil
       case .kVK_RightArrow:
-        self.updateCalendar(moveMonthBy: 1)
+        self.updateCalendar(moveBy: 1, unit: .month)
+        return nil
+      case .kVK_UpArrow:
+        self.updateCalendar(moveBy: -1, unit: .year)
+        return nil
+      case .kVK_DownArrow:
+        self.updateCalendar(moveBy: 1, unit: .year)
         return nil
       default:
         return event
