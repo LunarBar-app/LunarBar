@@ -8,6 +8,7 @@
 import XCTest
 @testable import LunarBar
 
+@MainActor
 final class AppPreferencesTests: XCTestCase {
   func testSetEncodingDecoding() {
     AppPreferences.Mocked.setObjects.removeAll()

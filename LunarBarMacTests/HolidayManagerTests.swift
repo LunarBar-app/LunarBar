@@ -8,6 +8,7 @@
 import XCTest
 @testable import LunarBar
 
+@MainActor
 final class HolidayManagerTests: XCTestCase {
   func testDataOf2024() {
     let manager = HolidayManager.default
