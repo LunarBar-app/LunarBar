@@ -10,11 +10,7 @@ import XCTest
 
 final class DateFormatterTests: XCTestCase {
   func testLunarDateFormatting() {
-    let formatter = DateFormatter()
-    formatter.calendar = Calendar.lunar
-    formatter.dateStyle = .long
-    formatter.timeStyle = .none
-
+    let formatter = DateFormatter.lunarDate
     formatter.locale = Locale(identifier: "zh-Hans")
     XCTAssertFalse(formatter.string(from: .now).matches(of: /^(\d+).+/).isEmpty)
 

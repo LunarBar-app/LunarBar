@@ -198,7 +198,7 @@ extension DateGridCell {
 
       // Formatted lunar date, e.g., 癸卯年冬月十五 (leading numbers are removed to be concise)
       let lunarDate = Constants.lunarDateFormatter.string(from: cellDate)
-      components.append(lunarDate.replacing(/^(\d+)/, with: ""))
+      components.append(lunarDate.removingLeadingDigits)
 
       // Date ruler, e.g., "(10 days ago)" when hovering over a cell
       if let daysBetween = Calendar.solar.daysBetween(from: currentDate, to: cellDate) {
@@ -241,21 +241,7 @@ private extension DateGridCell {
     static let focusRingBorderWidth: Double = 2
     static let focusRingCornerRadius: Double = 4
     static let holidayViewImage: NSImage = .with(symbolName: Icons.bookmarkFill, pointSize: 9)
-
-    static let lunarDateFormatter: DateFormatter = {
-      let formatter = DateFormatter()
-      formatter.calendar = Calendar.lunar
-      formatter.dateStyle = .long
-      formatter.timeStyle = .none
-
-      // Always use Chinese for lunar dates,
-      // the English version of the Heavenly Stems and Earthly Branches is strange
-      if Locale.autoupdatingCurrent.language.languageCode == "en" {
-        formatter.locale = Locale(identifier: "zh-Hans")
-      }
-
-      return formatter
-    }()
+    static let lunarDateFormatter: DateFormatter = .lunarDate
   }
 
   func setUp() {

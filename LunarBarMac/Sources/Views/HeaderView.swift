@@ -166,14 +166,6 @@ private extension HeaderView {
     static let dateFontSize: Double = FontSizes.large
     static let smallPadding: Double = 9
     static let mediumPadding: Double = 12
-
-    static let dateFormatter: DateFormatter = {
-      let formatter = DateFormatter()
-      formatter.locale = .autoupdatingCurrent
-
-      // E.g., Dec 2023 in en-US, 2023年12月 in zh-Hans
-      formatter.setLocalizedDateFormatFromTemplate("MMM y")
-      return formatter
-    }()
+    static let dateFormatter: DateFormatter = .localizedMonth
   }
 }

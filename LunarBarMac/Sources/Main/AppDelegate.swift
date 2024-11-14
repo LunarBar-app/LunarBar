@@ -137,6 +137,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       presentedPopover?.close()
       statusItem.button?.superview?.needsLayout = true
     }
+
+    updateTooltip()
+  }
+
+  @MainActor
+  func updateTooltip() {
+    let currentDate = Date.now
+    statusItem.button?.toolTip = [
+      DateFormatter.fullDate.string(from: currentDate),
+      DateFormatter.lunarDate.string(from: currentDate).removingLeadingDigits,
+    ].joined(separator: "\n\n")
   }
 }
 
@@ -166,6 +177,7 @@ private extension AppDelegate {
 
     // Cancel the highlight when the popover window is no longer the key window
     statusItem.button?.highlight(false)
+    updateTooltip()
   }
 
   func shouldOpenPanel(for event: NSEvent) -> Bool {
@@ -212,5 +224,8 @@ private extension AppDelegate {
 
     // Keep the button highlighted to mimic the system behavior
     sender.highlight(true)
+
+    // Clear the tooltip to prevent overlap
+    sender.toolTip = nil
   }
 }

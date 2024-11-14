@@ -146,13 +146,7 @@ extension CalendarManager {
 
 private extension CalendarManager {
   enum Constants {
-    static let scriptingDateFormatter: DateFormatter = {
-      let formatter = DateFormatter()
-      formatter.dateStyle = .full
-      formatter.timeStyle = .none
-
-      return formatter
-    }()
+    static let scriptingDateFormatter: DateFormatter = .fullDate
   }
 
   func hasReadAccess(for type: EKEntityType) -> Bool {
