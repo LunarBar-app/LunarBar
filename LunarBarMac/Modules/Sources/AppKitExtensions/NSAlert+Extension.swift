@@ -31,7 +31,7 @@ public extension NSAlert {
 
 private extension NSAlert {
   private enum AssociatedObjects {
-    static var markdownBody: UInt8 = 0
+    @MainActor static var markdownBody: UInt8 = 0
   }
 
   private enum Constants {

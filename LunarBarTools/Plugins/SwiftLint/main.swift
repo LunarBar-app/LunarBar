@@ -20,16 +20,19 @@ extension Main: XcodeBuildToolPlugin {
     [
       .buildCommand(
         displayName: "Running SwiftLint for \(target.displayName)",
-        executable: try context.tool(named: "swiftlint").path,
+        executable: try context.tool(named: "swiftlint").url,
         arguments: [
           "lint",
           "--strict",
           "--config",
-          "\(context.xcodeProject.directory.string)/.swiftlint.yml",
+          "\(context.xcodeProject.directoryURL.path())/.swiftlint.yml",
           "--cache-path",
-          "\(context.pluginWorkDirectory.string)/cache",
-          context.xcodeProject.directory.string,
-        ]
+          "\(context.pluginWorkDirectoryURL.path())/cache",
+          context.xcodeProject.directoryURL.path(),
+        ],
+        environment: [:],
+        inputFiles: [],
+        outputFiles: []
       ),
     ]
   }

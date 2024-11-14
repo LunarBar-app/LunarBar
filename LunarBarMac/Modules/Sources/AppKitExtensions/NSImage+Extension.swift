@@ -29,6 +29,7 @@ public extension NSImage {
     return image
   }
 
+  @MainActor
   static func with(cellColor: NSColor, borderColor: NSColor? = nil, size: CGSize, cornerRadius: Double) -> NSImage? {
     let view = NSView(frame: CGRect(origin: .zero, size: size))
     view.layerBackgroundColor = cellColor
