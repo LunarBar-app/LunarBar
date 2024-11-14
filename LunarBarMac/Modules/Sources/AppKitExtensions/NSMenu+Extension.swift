@@ -6,6 +6,7 @@
 
 import AppKit
 
+@MainActor
 public extension NSMenu {
   @discardableResult
   func addItem(withTitle string: String, action selector: Selector? = nil) -> NSMenuItem {

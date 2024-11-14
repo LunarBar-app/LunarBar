@@ -7,6 +7,7 @@
 import AppKit
 
 public extension NSColor {
+  @MainActor
   func resolvedColor(with appearance: NSAppearance = NSApp.effectiveAppearance) -> NSColor {
     var cgColor: CGColor?
     appearance.performAsCurrentDrawingAppearance {
