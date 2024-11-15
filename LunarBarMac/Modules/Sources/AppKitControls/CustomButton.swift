@@ -13,6 +13,7 @@ import AppKit
  */
 public class CustomButton: NSButton {
   public var hitTestInsets: CGPoint = .zero
+  public var onMouseHovered: ((_ isHovered: Bool) -> Void)?
 
   private var trackingArea: NSTrackingArea?
 
@@ -62,11 +63,23 @@ public class CustomButton: NSButton {
 
     if isMouseWithinBounds(event: event) {
       _ = sendAction(action, to: target)
+    } else {
+      onMouseHovered?(false)
     }
   }
 
   override public func mouseDragged(with event: NSEvent) {
     isHighlighted = isMouseWithinBounds(event: event)
+  }
+
+  override public func mouseEntered(with event: NSEvent) {
+    super.mouseEntered(with: event)
+    onMouseHovered?(true)
+  }
+
+  override public func mouseExited(with event: NSEvent) {
+    super.mouseExited(with: event)
+    onMouseHovered?(false)
   }
 
   override public func hitTest(_ point: CGPoint) -> NSView? {

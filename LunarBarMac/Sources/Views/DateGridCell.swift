@@ -30,6 +30,17 @@ final class DateGridCell: NSCollectionViewItem {
     return button
   }()
 
+  private let highlightView: NSView = {
+    let view = NSView()
+    view.wantsLayer = true
+    view.alphaValue = 0
+
+    view.layer?.cornerRadius = Constants.highlightViewCornerRadius
+    view.layer?.cornerCurve = .continuous
+
+    return view
+  }()
+
   private let solarLabel: TextLabel = {
     let label = TextLabel()
     label.textColor = Colors.primaryLabel
@@ -62,7 +73,7 @@ final class DateGridCell: NSCollectionViewItem {
     view.setAccessibilityHidden(true)
 
     view.layer?.borderWidth = Constants.focusRingBorderWidth
-    view.layer?.cornerRadius = Constants.focusRingCornerRadius
+    view.layer?.cornerRadius = Constants.highlightViewCornerRadius
     view.layer?.cornerCurve = .continuous
 
     return view
@@ -93,6 +104,8 @@ extension DateGridCell {
   override func viewDidLayout() {
     super.viewDidLayout()
     containerView.frame = view.bounds
+
+    highlightView.layerBackgroundColor = Colors.systemGray.withAlphaComponent(0.15)
     focusRingView.layer?.borderColor = Colors.controlAccent.cgColor
   }
 }
@@ -229,6 +242,10 @@ extension DateGridCell {
       containerView.toolTip,
     ].compactMap { $0 }.joined(separator: " "))
   }
+
+  func cancelHighlight() {
+    highlightView.alphaValue = 0
+  }
 }
 
 // MARK: - Private
@@ -239,7 +256,7 @@ private extension DateGridCell {
     static let lunarFontSize: Double = FontSizes.small
     static let eventViewHeight: Double = 10
     static let focusRingBorderWidth: Double = 2
-    static let focusRingCornerRadius: Double = 4
+    static let highlightViewCornerRadius: Double = 4
     static let holidayViewImage: NSImage = .with(symbolName: Icons.bookmarkFill, pointSize: 9)
     static let lunarDateFormatter: DateFormatter = .lunarDate
   }
@@ -249,6 +266,13 @@ private extension DateGridCell {
     containerView.addAction { [weak self] in
       self?.revealDateInCalendar()
     }
+
+    containerView.onMouseHovered = { [weak self] isHovered in
+      self?.highlightView.setAlphaValue(isHovered ? 1 : 0)
+    }
+
+    highlightView.translatesAutoresizingMaskIntoConstraints = false
+    containerView.addSubview(highlightView)
 
     solarLabel.translatesAutoresizingMaskIntoConstraints = false
     containerView.addSubview(solarLabel)
@@ -275,19 +299,25 @@ private extension DateGridCell {
     focusRingView.translatesAutoresizingMaskIntoConstraints = false
     containerView.addSubview(focusRingView)
     NSLayoutConstraint.activate([
-      focusRingView.topAnchor.constraint(equalTo: containerView.topAnchor),
-      focusRingView.bottomAnchor.constraint(equalTo: eventView.bottomAnchor),
-      focusRingView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+      highlightView.topAnchor.constraint(equalTo: containerView.topAnchor),
+      highlightView.bottomAnchor.constraint(equalTo: eventView.bottomAnchor),
+      highlightView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
 
-      // Here we need to make sure the focus ring is wider than both labels
-      focusRingView.widthAnchor.constraint(
+      // Here we need to make sure the highlight view is wider than both labels
+      highlightView.widthAnchor.constraint(
         greaterThanOrEqualTo: solarLabel.widthAnchor,
         constant: Constants.focusRingBorderWidth
       ),
-      focusRingView.widthAnchor.constraint(
+      highlightView.widthAnchor.constraint(
         greaterThanOrEqualTo: lunarLabel.widthAnchor,
         constant: Constants.focusRingBorderWidth
       ),
+
+      // The focus ring has the same frame as the highlight view
+      focusRingView.leadingAnchor.constraint(equalTo: highlightView.leadingAnchor),
+      focusRingView.trailingAnchor.constraint(equalTo: highlightView.trailingAnchor),
+      focusRingView.topAnchor.constraint(equalTo: highlightView.topAnchor),
+      focusRingView.bottomAnchor.constraint(equalTo: highlightView.bottomAnchor),
     ])
 
     holidayView.translatesAutoresizingMaskIntoConstraints = false

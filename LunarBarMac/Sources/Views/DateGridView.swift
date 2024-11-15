@@ -158,6 +158,14 @@ private extension DateGridView {
     let animated = !AppPreferences.Accessibility.reduceMotion
     dataSource?.apply(snapshot, animatingDifferences: animated)
     Logger.log(.info, "Reloaded dateGridView: \(allDates.count) items")
+
+    collectionView.visibleItems()
+    .compactMap {
+      $0 as? DateGridCell
+    }
+    .forEach {
+      $0.cancelHighlight()
+    }
   }
 }
 
