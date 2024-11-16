@@ -18,8 +18,12 @@ import LunarBarKit
 final class DateGridCell: NSCollectionViewItem {
   static let reuseIdentifier = NSUserInterfaceItemIdentifier("DateGridCell")
 
-  // The current represented object, mainly used to reveal the date later
   private var cellDate: Date?
+  private var cellEvents = [EKCalendarItem]()
+  private var mainInfo = ""
+
+  private var detailsTask: Task<Void, Never>?
+  private weak var detailsPopover: NSPopover?
 
   private let containerView: CustomButton = {
     let button = CustomButton()
@@ -115,6 +119,7 @@ extension DateGridCell {
 extension DateGridCell {
   func update(cellDate: Date, cellEvents: [EKCalendarItem], monthDate: Date?, lunarInfo: LunarInfo?) {
     self.cellDate = cellDate
+    self.cellEvents = cellEvents
 
     let currentDate = Date.now
     let solarComponents = Calendar.solar.dateComponents([.year, .month, .day], from: cellDate)
@@ -201,8 +206,7 @@ extension DateGridCell {
       holidayView.contentTintColor = Colors.systemTeal
     }
 
-    // More info, set it as the tooltip
-    containerView.toolTip = {
+    self.mainInfo = {
       var components: [String] = []
       // E.g. [Holiday]
       if let holidayLabel = AppLocalizer.holidayLabel(of: holidayType) {
@@ -223,7 +227,10 @@ extension DateGridCell {
         }
       }
 
-      let mainInfo = components.joined()
+      return components.joined()
+    }()
+
+    let accessibleDetails = {
       let eventTitles = cellEvents.compactMap { $0.title }
 
       // Only the main info
@@ -239,12 +246,14 @@ extension DateGridCell {
     containerView.setAccessibilityLabel([
       solarLabel.stringValue,
       lunarLabel.stringValue,
-      containerView.toolTip,
+      accessibleDetails,
     ].compactMap { $0 }.joined(separator: " "))
   }
 
-  func cancelHighlight() {
+  @discardableResult
+  func cancelHighlight() -> Bool {
     highlightView.alphaValue = 0
+    return dismissDetails()
   }
 }
 
@@ -267,8 +276,8 @@ private extension DateGridCell {
       self?.revealDateInCalendar()
     }
 
-    containerView.onMouseHovered = { [weak self] isHovered in
-      self?.highlightView.setAlphaValue(isHovered ? 1 : 0)
+    containerView.onMouseHover = { [weak self] isHovered in
+      self?.onMouseHover(isHovered)
     }
 
     highlightView.translatesAutoresizingMaskIntoConstraints = false
@@ -335,8 +344,48 @@ private extension DateGridCell {
       return Logger.assertFail("Missing cellDate to continue")
     }
 
-    // Order out the window because activating another app doesn't dismiss the popover
+    // Clear states and open the Calendar app
     view.window?.orderOut(nil)
+    dismissDetails()
     CalendarManager.default.revealDateInCalendar(cellDate)
+  }
+
+  func onMouseHover(_ isHovered: Bool) {
+    highlightView.setAlphaValue(isHovered ? 1 : 0)
+    dismissDetails()
+
+    guard isHovered else {
+      return
+    }
+
+    let showDetails = {
+      try await Task.sleep(for: .seconds(0.8))
+      let popover = DateDetailsView.createPopover(
+        title: self.mainInfo,
+        events: self.cellEvents
+      )
+
+      popover.show(
+        relativeTo: self.containerView.bounds,
+        of: self.containerView,
+        preferredEdge: .maxY
+      )
+
+      self.detailsPopover = popover
+    }
+
+    detailsTask = Task {
+      try? await showDetails()
+    }
+  }
+
+  @discardableResult
+  func dismissDetails() -> Bool {
+    let wasOpen = detailsPopover?.isShown == true
+    detailsPopover?.close()
+    detailsPopover = nil
+
+    detailsTask?.cancel()
+    return wasOpen
   }
 }

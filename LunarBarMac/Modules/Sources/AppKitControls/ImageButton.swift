@@ -50,7 +50,7 @@ public final class ImageButton: CustomButton {
       height: Constants.buttonSize
     ))
 
-    onMouseHovered = { [weak self] isHovered in
+    onMouseHover = { [weak self] isHovered in
       self?.highlightView.setAlphaValue(isHovered ? 1 : 0)
     }
   }

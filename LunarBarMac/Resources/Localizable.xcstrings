@@ -163,6 +163,23 @@
         }
       }
     },
+    "all-day" : {
+      "comment" : "Label for an all-day event",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全天"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全天"
+          }
+        }
+      }
+    },
     "Appearance" : {
       "comment" : "[Menu] Change dark mode preference",
       "localizations" : {

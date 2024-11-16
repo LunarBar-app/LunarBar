@@ -67,6 +67,7 @@ enum Localized {
     static let todayLabel = String(localized: " (today)", comment: "Label for today")
     static let workdayLabel = String(localized: "[Workday] ", comment: "Label for workdays")
     static let holidayLabel = String(localized: "[Holiday] ", comment: "Label for holidays")
+    static let allDayLabel = String(localized: "all-day", comment: "Label for an all-day event")
 
     /// https://en.wikipedia.org/wiki/Solar_term
     static let solarTerms = [
@@ -193,11 +194,12 @@ enum AlphaLevels {
   static let tertiary: Double = 0.4
 }
 
-// Getting these codes seems to require the use of Carbon.framework, but it is deprecated
+// https://gist.github.com/eegrok/949034
 extension UInt16 {
   static let kVK_ANSI_Q: Self = 0x0C
   static let kVK_ANSI_W: Self = 0x0D
   static let kVK_Space: Self = 0x31
+  static let kVK_Escape: Self = 0x35
   static let kVK_LeftArrow: Self = 0x7B
   static let kVK_RightArrow: Self = 0x7C
   static let kVK_DownArrow: Self = 0x7D
