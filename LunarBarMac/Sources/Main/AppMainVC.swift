@@ -163,12 +163,15 @@ private extension AppMainVC {
         }
 
         self.updateCalendar()
+        self.headerView.showClickEffect(for: .actions)
         return nil
       case .kVK_LeftArrow:
         self.updateCalendar(moveBy: -1, unit: .month)
+        self.headerView.showClickEffect(for: .previous)
         return nil
       case .kVK_RightArrow:
         self.updateCalendar(moveBy: 1, unit: .month)
+        self.headerView.showClickEffect(for: .next)
         return nil
       case .kVK_UpArrow:
         self.updateCalendar(moveBy: -1, unit: .year)

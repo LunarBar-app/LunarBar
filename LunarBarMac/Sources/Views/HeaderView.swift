@@ -96,29 +96,35 @@ final class HeaderView: NSView {
     dateLabel.translatesAutoresizingMaskIntoConstraints = false
     addSubview(dateLabel)
     NSLayoutConstraint.activate([
-      dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.smallPadding),
+      dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.datePadding),
       dateLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
     ])
 
     nextButton.translatesAutoresizingMaskIntoConstraints = false
     addSubview(nextButton)
     NSLayoutConstraint.activate([
-      nextButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.mediumPadding),
+      nextButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.buttonPadding),
       nextButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+      nextButton.widthAnchor.constraint(equalToConstant: nextButton.frame.width),
+      nextButton.heightAnchor.constraint(equalToConstant: nextButton.frame.height),
     ])
 
     actionsButton.translatesAutoresizingMaskIntoConstraints = false
     addSubview(actionsButton)
     NSLayoutConstraint.activate([
-      actionsButton.trailingAnchor.constraint(equalTo: nextButton.leadingAnchor, constant: -Constants.mediumPadding),
+      actionsButton.trailingAnchor.constraint(equalTo: nextButton.leadingAnchor),
       actionsButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+      actionsButton.widthAnchor.constraint(equalToConstant: actionsButton.frame.width),
+      actionsButton.heightAnchor.constraint(equalToConstant: actionsButton.frame.height),
     ])
 
     previousButton.translatesAutoresizingMaskIntoConstraints = false
     addSubview(previousButton)
     NSLayoutConstraint.activate([
-      previousButton.trailingAnchor.constraint(equalTo: actionsButton.leadingAnchor, constant: -Constants.mediumPadding),
+      previousButton.trailingAnchor.constraint(equalTo: actionsButton.leadingAnchor),
       previousButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+      previousButton.widthAnchor.constraint(equalToConstant: previousButton.frame.width),
+      previousButton.heightAnchor.constraint(equalToConstant: previousButton.frame.height),
     ])
   }
 
@@ -140,6 +146,12 @@ final class HeaderView: NSView {
 // MARK: - Updating
 
 extension HeaderView {
+  enum ButtonIdentifier {
+    case previous
+    case actions
+    case next
+  }
+
   func updateCalendar(date: Date) {
     dateLabel.stringValue = Constants.dateFormatter.string(from: date)
 
@@ -157,6 +169,24 @@ extension HeaderView {
 
     previousDate = date
   }
+
+  func showClickEffect(for identifier: ButtonIdentifier) {
+    guard !AppPreferences.Accessibility.reduceMotion else {
+      return
+    }
+
+    let button = {
+      switch identifier {
+      case .previous: return previousButton
+      case .actions: return actionsButton
+      case .next: return nextButton
+      }
+    }()
+
+    button.setAlphaValue(0.6) {
+      button.setAlphaValue(1)
+    }
+  }
 }
 
 // MARK: - Private
@@ -164,8 +194,8 @@ extension HeaderView {
 private extension HeaderView {
   enum Constants {
     static let dateFontSize: Double = FontSizes.large
-    static let smallPadding: Double = 9
-    static let mediumPadding: Double = 12
+    static let datePadding: Double = 9
+    static let buttonPadding: Double = 6
     static let dateFormatter: DateFormatter = .localizedMonth
   }
 }

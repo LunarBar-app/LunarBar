@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		87007C1F2CE7157F006E98DE /* RuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87007C1E2CE7157F006E98DE /* RuntimeTests.swift */; };
 		871429192B3DAF4A003FA2CB /* AppLocalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871429182B3DAF4A003FA2CB /* AppLocalizer.swift */; };
 		8714291C2B3DBFDF003FA2CB /* AppMainVC+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8714291B2B3DBFDF003FA2CB /* AppMainVC+Menu.swift */; };
 		8732DDF32B3E896D004B72DE /* HolidayManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732DDF22B3E896D004B72DE /* HolidayManagerTests.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		87007C1E2CE7157F006E98DE /* RuntimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeTests.swift; sourceTree = "<group>"; };
 		871429182B3DAF4A003FA2CB /* AppLocalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLocalizer.swift; sourceTree = "<group>"; };
 		8714291B2B3DBFDF003FA2CB /* AppMainVC+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppMainVC+Menu.swift"; sourceTree = "<group>"; };
 		8732DDF02B3E896D004B72DE /* LunarBarMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LunarBarMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +122,7 @@
 		8732DDF12B3E896D004B72DE /* LunarBarMacTests */ = {
 			isa = PBXGroup;
 			children = (
+				87007C1E2CE7157F006E98DE /* RuntimeTests.swift */,
 				8739F9C82B5F611D00BD1F1B /* DateFormatterTests.swift */,
 				87D65EB52B412A4700E41049 /* AppDefinitionsTests.swift */,
 				87D65EB02B41200100E41049 /* AppPreferencesTests.swift */,
@@ -356,6 +359,7 @@
 			files = (
 				8739F9C92B5F611D00BD1F1B /* DateFormatterTests.swift in Sources */,
 				87D65EB12B41200100E41049 /* AppPreferencesTests.swift in Sources */,
+				87007C1F2CE7157F006E98DE /* RuntimeTests.swift in Sources */,
 				8732DDF32B3E896D004B72DE /* HolidayManagerTests.swift in Sources */,
 				87D65EB62B412A4700E41049 /* AppDefinitionsTests.swift in Sources */,
 			);

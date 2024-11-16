@@ -47,6 +47,17 @@ public extension NSView {
     return node
   }
 
+  /// Enumerate all descendants, recursively, self first.
+  func enumerateDescendants<T: NSView>(where: ((T) -> Bool)? = nil, handler: (T) -> Void) {
+    if let view = self as? T, `where`?(view) ?? true {
+      handler(view)
+    }
+
+    subviews.forEach {
+      $0.enumerateDescendants(where: `where`, handler: handler)
+    }
+  }
+
   /// Returns the first descendant that matches a predicate, self is included.
   func firstDescendant<T: NSView>(where: ((T) -> Bool)? = nil) -> T? {
     var stack = [self]
@@ -61,5 +72,18 @@ public extension NSView {
     }
 
     return nil
+  }
+
+  func setAlphaValue(
+    _ alphaValue: Double,
+    duration: TimeInterval = 0.2,
+    completionHandler: (() -> Void)? = nil
+  ) {
+    NSAnimationContext.runAnimationGroup { context in
+      context.duration = duration
+      animator().alphaValue = alphaValue
+    } completionHandler: {
+      completionHandler?()
+    }
   }
 }
