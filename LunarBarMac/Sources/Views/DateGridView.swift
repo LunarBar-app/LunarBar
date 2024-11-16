@@ -97,7 +97,7 @@ extension DateGridView {
 
     Task {
       let items = try await CalendarManager.default.items(from: startDate, to: endDate)
-      reloadData(allDates: allDates, events: items)
+      reloadData(allDates: allDates, events: items, diffable: false)
 
       if let prevMonth = Calendar.solar.date(byAdding: .day, value: -1, to: startDate) {
         await CalendarManager.default.preload(date: prevMonth)
@@ -142,7 +142,7 @@ private extension DateGridView {
   }
 
   @MainActor
-  func reloadData(allDates: [Date], events: [EKCalendarItem] = []) {
+  func reloadData(allDates: [Date], events: [EKCalendarItem] = [], diffable: Bool = true) {
     var snapshot = NSDiffableDataSourceSnapshot<Section, Model>()
     snapshot.appendSections([Section.default])
 
@@ -155,7 +155,7 @@ private extension DateGridView {
       }.oldestToNewest)
     })
 
-    let animated = !AppPreferences.Accessibility.reduceMotion
+    let animated = diffable && !AppPreferences.Accessibility.reduceMotion
     dataSource?.apply(snapshot, animatingDifferences: animated)
     Logger.log(.info, "Reloaded dateGridView: \(allDates.count) items")
 
