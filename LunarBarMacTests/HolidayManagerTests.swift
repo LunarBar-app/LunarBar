@@ -2,7 +2,7 @@
 //  HolidayManagerTests.swift
 //  LunarBarMacTests
 //
-//  Created by cyan on 2023/12/29.
+//  Created by cyan on 12/29/23.
 //
 
 import XCTest

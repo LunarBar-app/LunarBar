@@ -1,7 +1,7 @@
 //
 //  String+Extension.swift
 //
-//  Created by cyan on 2024/11/14.
+//  Created by cyan on 11/14/24.
 //
 
 import Foundation

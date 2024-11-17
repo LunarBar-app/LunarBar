@@ -1,7 +1,7 @@
 //
 //  NSBezierPath+Extension.swift
 //
-//  Created by cyan on 2024/1/8.
+//  Created by cyan on 1/8/24.
 //
 
 import AppKit
