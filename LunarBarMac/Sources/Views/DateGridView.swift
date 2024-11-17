@@ -62,6 +62,20 @@ final class DateGridView: NSView {
     super.layout()
     collectionView.frame = bounds
   }
+
+  @discardableResult
+  func cancelHighlight() -> Bool {
+    var cancelled = false
+    collectionView.visibleItems()
+    .compactMap {
+      $0 as? DateGridCell
+    }
+    .forEach {
+      cancelled = cancelled || $0.cancelHighlight()
+    }
+
+    return cancelled
+  }
 }
 
 // MARK: - NSCollectionViewDelegate
@@ -157,15 +171,9 @@ private extension DateGridView {
 
     let animated = diffable && !AppPreferences.Accessibility.reduceMotion
     dataSource?.apply(snapshot, animatingDifferences: animated)
-    Logger.log(.info, "Reloaded dateGridView: \(allDates.count) items")
 
-    collectionView.visibleItems()
-    .compactMap {
-      $0 as? DateGridCell
-    }
-    .forEach {
-      $0.cancelHighlight()
-    }
+    cancelHighlight()
+    Logger.log(.info, "Reloaded dateGridView: \(allDates.count) items")
   }
 }
 

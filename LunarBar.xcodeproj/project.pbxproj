@@ -37,6 +37,7 @@
 		87D65EB62B412A4700E41049 /* AppDefinitionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D65EB52B412A4700E41049 /* AppDefinitionsTests.swift */; };
 		87DA5AFF2B3433D400CE2C1A /* WeekdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DA5AFE2B3433D400CE2C1A /* WeekdayView.swift */; };
 		87F81C542B43EBDE0071CA30 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F81C532B43EBDE0071CA30 /* main.swift */; };
+		87FF2E822CE89F6700CBC2E0 /* DateDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FF2E812CE89F6000CBC2E0 /* DateDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		87DA5AFE2B3433D400CE2C1A /* WeekdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdayView.swift; sourceTree = "<group>"; };
 		87F81C532B43EBDE0071CA30 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		87F862152B33DE1E00857541 /* Build.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Build.xcconfig; sourceTree = "<group>"; };
+		87FF2E812CE89F6000CBC2E0 /* DateDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +245,7 @@
 				8740E30A2B37F969004A06C2 /* EventView.swift */,
 				87A28A5C2B344D50006655F2 /* DateGridView.swift */,
 				873424CF2B35357B00C364BF /* DateGridCell.swift */,
+				87FF2E812CE89F6000CBC2E0 /* DateDetailsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				875A81282B39558000C031C3 /* AppVersion.swift in Sources */,
 				8782F46F2B33F627008B1912 /* AppDefinitions.swift in Sources */,
 				8740E31B2B39210F004A06C2 /* AppPreferences.swift in Sources */,
+				87FF2E822CE89F6700CBC2E0 /* DateDetailsView.swift in Sources */,
 				874D77772BCF94900093662D /* Unchecked.swift in Sources */,
 				87F81C542B43EBDE0071CA30 /* main.swift in Sources */,
 				87DA5AFF2B3433D400CE2C1A /* WeekdayView.swift in Sources */,

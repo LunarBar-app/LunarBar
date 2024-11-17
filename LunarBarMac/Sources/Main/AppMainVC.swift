@@ -53,7 +53,7 @@ extension AppMainVC {
 
   override func viewWillAppear() {
     super.viewWillAppear()
-    popover?.material = AppPreferences.Accessibility.popoverMaterial
+    material = AppPreferences.Accessibility.popoverMaterial
 
     updateAppearance()
     updateCalendar()
@@ -165,6 +165,12 @@ private extension AppMainVC {
         self.updateCalendar()
         self.headerView.showClickEffect(for: .actions)
         return nil
+      case .kVK_Escape:
+        if self.dateGridView.cancelHighlight() {
+          return nil
+        }
+
+        return event
       case .kVK_LeftArrow:
         self.updateCalendar(moveBy: -1, unit: .month)
         self.headerView.showClickEffect(for: .previous)
