@@ -44,7 +44,8 @@ public class CustomButton: NSButton {
 
     trackingArea = {
       let trackingArea = NSTrackingArea(
-        rect: bounds,
+        // The rect is slightly smaller to prevent two adjacent views from being hovered simultaneously
+        rect: bounds.insetBy(dx: 0.5, dy: 0.5),
         options: [.activeAlways, .mouseEnteredAndExited],
         owner: self
       )
