@@ -159,6 +159,9 @@ private extension DateGridView {
 
   @MainActor
   func reloadData(allDates: [Date], events: [EKCalendarItem] = [], diffable: Bool = true) {
+    cancelHighlight()
+    Logger.log(.info, "Reloading dateGridView: \(allDates.count) items")
+
     var snapshot = NSDiffableDataSourceSnapshot<Section, Model>()
     snapshot.appendSections([Section.default])
 
@@ -173,9 +176,6 @@ private extension DateGridView {
 
     let animated = diffable && !AppPreferences.Accessibility.reduceMotion
     dataSource?.apply(snapshot, animatingDifferences: animated)
-
-    cancelHighlight()
-    Logger.log(.info, "Reloaded dateGridView: \(allDates.count) items")
 
     // Force update of certain properties that are not part of the diffable model
     if !diffable {
