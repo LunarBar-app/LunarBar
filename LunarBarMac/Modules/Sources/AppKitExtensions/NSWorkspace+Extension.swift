@@ -1,7 +1,7 @@
 //
 //  NSWorkspace+Extension.swift
 //
-//  Created by cyan on 2023/12/31.
+//  Created by cyan on 12/31/23.
 //
 
 import AppKit

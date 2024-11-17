@@ -2,7 +2,7 @@
 //  DateFormatterTests.swift
 //  LunarBarMacTests
 //
-//  Created by cyan on 2024/1/23.
+//  Created by cyan on 1/23/24.
 //
 
 import XCTest
