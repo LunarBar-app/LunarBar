@@ -111,6 +111,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     NotificationCenter.default.addObserver(
       self,
+      selector: #selector(windowDidUpdate(_:)),
+      name: NSWindow.didUpdateNotification,
+      object: nil
+    )
+
+    NotificationCenter.default.addObserver(
+      self,
       selector: #selector(windowDidResignKey(_:)),
       name: NSWindow.didResignKeyNotification,
       object: nil
@@ -168,6 +175,19 @@ private extension AppDelegate {
     DispatchQueue.main.async {
       self.updateMenuBarIcon()
     }
+  }
+
+  @objc func windowDidUpdate(_ notification: Notification) {
+    guard let window = notification.object as? NSWindow, window.className == "NSToolTipPanel" else {
+      return
+    }
+
+    guard presentedPopover == nil else {
+      return
+    }
+
+    // Tooltip from the status bar sometimes has incorrect appearance
+    window.appearance = NSApp.effectiveAppearance
   }
 
   @objc func windowDidResignKey(_ notification: Notification) {
