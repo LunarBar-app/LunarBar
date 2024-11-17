@@ -4,7 +4,7 @@
 
 [![](https://img.shields.io/badge/Platform-macOS_14.0+-blue?color=007bff)](https://github.com/LunarBar-app/LunarBar/releases/latest) [![](https://github.com/LunarBar-app/LunarBar/actions/workflows/build-and-test.yml/badge.svg?branch=main)](https://github.com/LunarBar-app/LunarBar/actions/workflows/build-and-test.yml)
 
-完全免费且开源的 Mac 状态栏极简日历，支持阴历、公共假日、系统日历及提醒等功能。
+完全免费且开源的 Mac 状态栏极简日历，支持农历、公共假日、系统日历及提醒等功能。
 
 <img src="./Screenshots/01.png" width="320" alt="截图 01"> <img src="./Screenshots/02.png" width="320" alt="截图 02">
 
@@ -25,7 +25,7 @@ LunarBar 会自动检查更新，你也可以在应用内手动检查更新，�
 如果你是这类人，欢迎试试：
 
 - 日常使用 Mac
-- 需要查看阴历
+- 需要查看农历
 - 需要查看公共假日
 - 喜欢极致的应用
 - 喜欢简单的事物
