@@ -117,7 +117,12 @@ extension DateGridCell {
 // MARK: - Updating
 
 extension DateGridCell {
-  func update(cellDate: Date, cellEvents: [EKCalendarItem], monthDate: Date?, lunarInfo: LunarInfo?) {
+  func updateViews(
+    cellDate: Date,
+    cellEvents: [EKCalendarItem],
+    monthDate: Date?,
+    lunarInfo: LunarInfo?
+  ) {
     self.cellDate = cellDate
     self.cellEvents = cellEvents
 
@@ -174,23 +179,7 @@ extension DateGridCell {
     let isDateToday = Calendar.solar.isDate(cellDate, inSameDayAs: currentDate)
     focusRingView.isHidden = !isDateToday
 
-    // Dim dates and decorating views
-    if let monthDate, Calendar.solar.month(from: monthDate) == solarComponents.month {
-      if Calendar.solar.isDateInWeekend(cellDate) && !isDateToday {
-        solarLabel.alphaValue = AlphaLevels.secondary
-      } else {
-        solarLabel.alphaValue = AlphaLevels.primary
-      }
-
-      // Intentional, secondary alpha is used only for labels at weekends
-      eventView.alphaValue = AlphaLevels.primary
-    } else {
-      solarLabel.alphaValue = AlphaLevels.tertiary
-      eventView.alphaValue = AlphaLevels.tertiary
-    }
-
-    lunarLabel.alphaValue = solarLabel.alphaValue
-    holidayView.alphaValue = eventView.alphaValue
+    // Reload event dot views
     eventView.updateEvents(cellEvents)
 
     // Bookmark for holiday plans
@@ -248,6 +237,31 @@ extension DateGridCell {
       lunarLabel.stringValue,
       accessibleDetails,
     ].compactMap { $0 }.joined(separator: " "))
+  }
+
+  func updateOpacity(monthDate: Date?) {
+    let currentDate = Date.now
+    let cellDate = cellDate ?? currentDate
+
+    let solarComponents = Calendar.solar.dateComponents([.month], from: cellDate)
+    let isDateToday = Calendar.solar.isDate(cellDate, inSameDayAs: currentDate)
+
+    if let monthDate, Calendar.solar.month(from: monthDate) == solarComponents.month {
+      if Calendar.solar.isDateInWeekend(cellDate) && !isDateToday {
+        solarLabel.alphaValue = AlphaLevels.secondary
+      } else {
+        solarLabel.alphaValue = AlphaLevels.primary
+      }
+
+      // Intentional, secondary alpha is used only for labels at weekends
+      eventView.alphaValue = AlphaLevels.primary
+    } else {
+      solarLabel.alphaValue = AlphaLevels.tertiary
+      eventView.alphaValue = AlphaLevels.tertiary
+    }
+
+    lunarLabel.alphaValue = solarLabel.alphaValue
+    holidayView.alphaValue = eventView.alphaValue
   }
 
   @discardableResult

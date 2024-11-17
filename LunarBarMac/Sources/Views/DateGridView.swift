@@ -34,7 +34,7 @@ final class DateGridView: NSView {
     dataSource = NSCollectionViewDiffableDataSource<Section, Model>(collectionView: collectionView) { [weak self] (collectionView: NSCollectionView, indexPath: IndexPath, object: Model) -> NSCollectionViewItem? in
       let cell = collectionView.makeItem(withIdentifier: DateGridCell.reuseIdentifier, for: indexPath)
       if let cell = cell as? DateGridCell {
-        cell.update(
+        cell.updateViews(
           cellDate: object.date,
           cellEvents: object.events,
           monthDate: self?.monthDate,
@@ -66,11 +66,7 @@ final class DateGridView: NSView {
   @discardableResult
   func cancelHighlight() -> Bool {
     var cancelled = false
-    collectionView.visibleItems()
-    .compactMap {
-      $0 as? DateGridCell
-    }
-    .forEach {
+    visibleCells.forEach {
       cancelled = cancelled || $0.cancelHighlight()
     }
 
@@ -131,6 +127,12 @@ private extension DateGridView {
     case `default`
   }
 
+  var visibleCells: [DateGridCell] {
+    collectionView.visibleItems().compactMap {
+      $0 as? DateGridCell
+    }
+  }
+
   /**
    Returns a 7 (column) * 6 (rows) grid layout for the collection.
    */
@@ -174,6 +176,13 @@ private extension DateGridView {
 
     cancelHighlight()
     Logger.log(.info, "Reloaded dateGridView: \(allDates.count) items")
+
+    // Force update of certain properties that are not part of the diffable model
+    if !diffable {
+      visibleCells.forEach {
+        $0.updateOpacity(monthDate: monthDate)
+      }
+    }
   }
 }
 
@@ -187,6 +196,6 @@ private struct Model: Hashable {
   }
 
   static func == (lhs: Self, rhs: Self) -> Bool {
-    return lhs.date == rhs.date && lhs.events == rhs.events
+    lhs.date == rhs.date && lhs.events == rhs.events
   }
 }
