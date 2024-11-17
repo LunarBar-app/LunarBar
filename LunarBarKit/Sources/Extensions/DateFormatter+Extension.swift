@@ -21,12 +21,9 @@ public extension DateFormatter {
     formatter.dateStyle = .long
     formatter.timeStyle = .none
 
-    // Always use Chinese for lunar dates,
+    // Always use a Chinese locale for lunar dates,
     // the English version of the Heavenly Stems and Earthly Branches is strange
-    if Locale.autoupdatingCurrent.language.languageCode == "en" {
-      formatter.locale = Locale(identifier: "zh-Hans")
-    }
-
+    formatter.locale = .chinese
     return formatter
   }
 
@@ -37,5 +34,19 @@ public extension DateFormatter {
     // E.g., Dec 2023 in en-US, 2023年12月 in zh-Hans
     formatter.setLocalizedDateFormatFromTemplate("MMM y")
     return formatter
+  }
+}
+
+// MARK: - Private
+
+private extension Locale {
+  static var chinese: Self {
+    if ["zh_TW", "zh_HK", "zh-Hant"].contains(autoupdatingCurrent.identifier) {
+      // Traditional Chinese
+      return Locale(identifier: "zh-Hant")
+    }
+
+    // Simplified Chinese
+    return Locale(identifier: "zh-Hans")
   }
 }
