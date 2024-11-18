@@ -28,7 +28,7 @@ struct DateDetailsView: View {
         Divider()
       }
 
-      ForEach(0..<events.count, id: \.self) { index in
+      ForEach(0..<min(events.count, Constants.maximumRows), id: \.self) { index in
         let event = events[index]
         HStack {
           Circle()
@@ -38,7 +38,7 @@ struct DateDetailsView: View {
             .font(.system(size: Constants.fontSize))
             .frame(maxWidth: .infinity, alignment: .leading)
             .strikethrough(event.isCompletedItem)
-          Spacer(minLength: Constants.smallPadding * 3)
+          Spacer(minLength: Constants.largePadding)
           Text(event.labelOfDates)
             .font(.system(size: Constants.fontSize))
             .frame(alignment: .trailing)
@@ -51,6 +51,13 @@ struct DateDetailsView: View {
         }
       }
       .padding(.horizontal, Constants.smallPadding)
+
+      // Indicator for more events
+      if events.count > Constants.maximumRows {
+        Image(systemName: "ellipsis")
+          .foregroundStyle(.secondary)
+          .padding(.vertical, 2)
+      }
     }
   }
 
@@ -140,7 +147,9 @@ private enum Constants {
   static let dotSize: Double = 6
   static let rowHeight: Double = 28
   static let smallPadding: Double = 8
+  static let largePadding: Double = 24
   static let maximumWidth: Double = 280
+  static let maximumRows: Int = 12
   static let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateFormat = "HH:mm"
