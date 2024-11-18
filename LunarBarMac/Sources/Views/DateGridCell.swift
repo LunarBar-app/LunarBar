@@ -109,7 +109,7 @@ extension DateGridCell {
     super.viewDidLayout()
     containerView.frame = view.bounds
 
-    highlightView.layerBackgroundColor = Colors.systemGray.withAlphaComponent(0.15)
+    highlightView.layerBackgroundColor = .highlightedBackground
     focusRingView.layer?.borderColor = Colors.controlAccent.cgColor
   }
 }

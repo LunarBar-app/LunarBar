@@ -178,10 +178,8 @@ private extension DateGridView {
     dataSource?.apply(snapshot, animatingDifferences: animated)
 
     // Force update of certain properties that are not part of the diffable model
-    if !diffable {
-      visibleCells.forEach {
-        $0.updateOpacity(monthDate: monthDate)
-      }
+    visibleCells.forEach {
+      $0.updateOpacity(monthDate: monthDate)
     }
   }
 }

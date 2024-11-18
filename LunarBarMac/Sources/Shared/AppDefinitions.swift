@@ -177,7 +177,6 @@ enum Colors {
   static let controlAccent: NSColor = .controlAccentColor
   static let darkGray: NSColor = .darkGray
   static let primaryLabel: NSColor = .labelColor
-  static let systemGray: NSColor = .systemGray
   static let systemTeal: NSColor = .systemTeal
   static let systemOrange: NSColor = .systemOrange
 }

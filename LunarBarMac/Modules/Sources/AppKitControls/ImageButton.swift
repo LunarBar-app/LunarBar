@@ -58,7 +58,7 @@ public final class ImageButton: CustomButton {
   override public func layout() {
     super.layout()
 
-    highlightView.layerBackgroundColor = .systemGray.withAlphaComponent(0.15)
+    highlightView.layerBackgroundColor = .highlightedBackground
     highlightView.frame = bounds.insetBy(
       dx: Constants.highlightViewInset,
       dy: Constants.highlightViewInset
