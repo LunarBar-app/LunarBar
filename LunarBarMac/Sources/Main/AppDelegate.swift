@@ -156,6 +156,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       DateFormatter.lunarDate.string(from: currentDate).removingLeadingDigits,
     ].joined(separator: "\n\n")
   }
+
+  @MainActor
+  func openPanel() {
+    guard let sender = statusItem.button else {
+      return Logger.assertFail("Missing source view to proceed")
+    }
+
+    let popover = AppMainVC.createPopover()
+    popover.delegate = self
+    popover.show(relativeTo: sender.bounds, of: sender, preferredEdge: .maxY)
+    presentedPopover = popover
+
+    // Ensure the app is activated and the window is key and ordered front
+    NSApp.activate(ignoringOtherApps: true)
+    popover.contentViewController?.view.window?.makeKeyAndOrderFront(nil)
+
+    // Keep the button highlighted to mimic the system behavior
+    sender.highlight(true)
+
+    // Clear the tooltip to prevent overlap
+    sender.toolTip = nil
+  }
 }
 
 // MARK: - NSPopoverDelegate
@@ -226,26 +248,5 @@ private extension AppDelegate {
     }
 
     return true
-  }
-
-  func openPanel() {
-    guard let sender = statusItem.button else {
-      return Logger.assertFail("Missing source view to proceed")
-    }
-
-    let popover = AppMainVC.createPopover()
-    popover.delegate = self
-    popover.show(relativeTo: sender.bounds, of: sender, preferredEdge: .maxY)
-    presentedPopover = popover
-
-    // Ensure the app is activated and the window is key and ordered front
-    NSApp.activate(ignoringOtherApps: true)
-    popover.contentViewController?.view.window?.makeKeyAndOrderFront(nil)
-
-    // Keep the button highlighted to mimic the system behavior
-    sender.highlight(true)
-
-    // Clear the tooltip to prevent overlap
-    sender.toolTip = nil
   }
 }

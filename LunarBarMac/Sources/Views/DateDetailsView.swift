@@ -18,11 +18,12 @@ struct DateDetailsView: View {
   private let events: [EKCalendarItem]
 
   var body: some View {
+    let scale = AppPreferences.General.contentScale.rawValue
     VStack(spacing: 0) {
       Text(title)
-        .font(.system(size: Constants.fontSize, weight: .medium))
-        .frame(height: Constants.rowHeight)
-        .padding(.horizontal, Constants.smallPadding)
+        .font(font(weight: .medium, scale: scale))
+        .frame(height: Constants.rowHeight * scale)
+        .padding(.horizontal, Constants.smallPadding * scale)
 
       if !events.isEmpty {
         Divider()
@@ -33,32 +34,37 @@ struct DateDetailsView: View {
         HStack {
           Circle()
             .fill(Color(event.calendar.color))
-            .frame(width: Constants.dotSize, height: Constants.dotSize)
+            .frame(width: Constants.dotSize * scale, height: Constants.dotSize * scale)
           Text(event.title)
-            .font(.system(size: Constants.fontSize))
+            .font(font(weight: .regular, scale: scale))
             .frame(maxWidth: .infinity, alignment: .leading)
             .strikethrough(event.isCompletedItem)
-          Spacer(minLength: Constants.largePadding)
+          Spacer(minLength: Constants.largePadding * scale)
           Text(event.labelOfDates)
-            .font(.system(size: Constants.fontSize))
+            .font(font(weight: .regular, scale: scale))
             .frame(alignment: .trailing)
             .fixedSize()
         }
-        .frame(height: Constants.rowHeight)
+        .frame(height: Constants.rowHeight * scale)
 
         if index < events.count - 1 {
           Divider()
         }
       }
-      .padding(.horizontal, Constants.smallPadding)
+      .padding(.horizontal, Constants.smallPadding * scale)
 
       // Indicator for more events
       if events.count > Constants.maximumRows {
         Image(systemName: "ellipsis")
           .foregroundStyle(.secondary)
-          .padding(.vertical, 2)
+          .padding(.vertical, 2) // Tiny element, no need to scale
       }
     }
+  }
+
+  func font(weight: Font.Weight, scale: Double) -> Font {
+    // The minimum acceptable font size for readability is 11 point
+    .system(size: max(Constants.fontSize * scale, 11.0), weight: weight)
   }
 
   static func createPopover(title: String, events: [EKCalendarItem]) -> NSPopover {
@@ -111,7 +117,11 @@ private final class DateDetailsHostVC: NSViewController {
     super.viewDidLayout()
 
     var contentSize = contentView.fittingSize
-    contentSize.width = min(Constants.maximumWidth, contentSize.width)
+    contentSize.width = min(
+      Constants.maximumWidth * AppPreferences.General.contentScale.rawValue,
+      contentSize.width
+    )
+
     preferredContentSize = contentSize
   }
 }

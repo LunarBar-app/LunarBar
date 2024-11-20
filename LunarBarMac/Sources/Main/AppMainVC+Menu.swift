@@ -129,18 +129,7 @@ private extension AppMainVC {
     let menu = NSMenu()
 
     // Icon styles
-    menu.addItem({
-      let item = NSMenuItem(title: Localized.UI.menuTitleCalendarIcon)
-      item.image = AppIconFactory.createCalendarIcon(pointSize: 14)
-      item.setOn(AppPreferences.General.menuBarIcon == .calendar)
-
-      item.addAction {
-        AppPreferences.General.menuBarIcon = .calendar
-      }
-
-      return item
-    }())
-
+    menu.addItem(withTitle: Localized.UI.menuTitleMenuBarIcon).isEnabled = false
     menu.addItem({
       let item = NSMenuItem(title: Localized.UI.menuTitleCurrentDate)
       item.setOn(AppPreferences.General.menuBarIcon == .date)
@@ -158,18 +147,53 @@ private extension AppMainVC {
       return item
     }())
 
+    menu.addItem({
+      let item = NSMenuItem(title: Localized.UI.menuTitleCalendarIcon)
+      item.image = AppIconFactory.createCalendarIcon(pointSize: 14)
+      item.setOn(AppPreferences.General.menuBarIcon == .calendar)
+
+      item.addAction {
+        AppPreferences.General.menuBarIcon = .calendar
+      }
+
+      return item
+    }())
+
     menu.addSeparator()
 
     // Dark mode preferences
+    menu.addItem(withTitle: Localized.UI.menuTitleColorScheme).isEnabled = false
     [
+      (Localized.UI.menuTitleSystem, Appearance.system),
       (Localized.UI.menuTitleLight, Appearance.light),
       (Localized.UI.menuTitleDark, Appearance.dark),
-      (Localized.UI.menuTitleSystem, Appearance.system),
     ].forEach { (title: String, appearance: Appearance) in
       menu.addItem(withTitle: title) { [weak self] in
         self?.updateAppearance(appearance)
       }
       .setOn(AppPreferences.General.appearance == appearance)
+    }
+
+    menu.addSeparator()
+
+    // Content scale preferences
+    menu.addItem(withTitle: Localized.UI.menuTitleContentScale).isEnabled = false
+    [
+      (Localized.UI.menuTitleScaleDefault, ContentScale.default),
+      (Localized.UI.menuTitleScaleCompact, ContentScale.compact),
+      (Localized.UI.menuTitleScaleRoomy, ContentScale.roomy),
+    ].forEach { (title: String, scale: ContentScale) in
+      menu.addItem(withTitle: title) { [weak self] in
+        AppPreferences.General.contentScale = scale
+        self?.popover?.close()
+
+        if let delegate = NSApp.delegate as? AppDelegate {
+          delegate.openPanel()
+        } else {
+          Logger.assertFail("Unexpected app delegate: \(String(describing: NSApp.delegate))")
+        }
+      }
+      .setOn(AppPreferences.General.contentScale == scale)
     }
 
     menu.addSeparator()
