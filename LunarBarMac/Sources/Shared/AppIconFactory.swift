@@ -22,7 +22,7 @@ enum AppIconFactory {
 
 private class DateIconView: NSView {
   private enum Constants {
-    static let iconSize = CGSize(width: 20, height: 14)
+    static let iconSize = CGSize(width: 21, height: 15)
     static let fontSize: Double = 12
     static let cornerRadius: Double = 2.5
   }
