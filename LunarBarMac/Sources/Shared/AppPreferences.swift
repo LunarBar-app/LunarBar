@@ -16,7 +16,7 @@ enum AppPreferences {
     @Storage(key: "general.initial-launch", defaultValue: true)
     static var initialLaunch: Bool
 
-    @Storage(key: "general.menu-bar-icon", defaultValue: .calendar)
+    @Storage(key: "general.menu-bar-icon", defaultValue: .date)
     static var menuBarIcon: MenuBarIcon {
       didSet {
         guard let delegate = NSApp.delegate as? AppDelegate else {
@@ -64,19 +64,19 @@ enum MenuBarIcon: Codable {
 }
 
 enum Appearance: Codable {
-  case system
   case light
   case dark
+  case system
 
   @MainActor
   func resolved(with appearance: NSAppearance = NSApp.effectiveAppearance) -> NSAppearance? {
     switch self {
-    case .system:
-      return nil
     case .light:
       return NSAppearance(named: appearance.resolvedName(isDarkMode: false))
     case .dark:
       return NSAppearance(named: appearance.resolvedName(isDarkMode: true))
+    case .system:
+      return nil
     }
   }
 }

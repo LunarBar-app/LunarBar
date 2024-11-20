@@ -146,7 +146,7 @@ private extension AppMainVC {
       item.setOn(AppPreferences.General.menuBarIcon == .date)
 
       if let image = AppIconFactory.createDateIcon() {
-        item.image = image.resized(with: CGSize(width: 17, height: 12))
+        item.image = image.resized(with: CGSize(width: 16.8, height: 12)) // 1.4:1
       } else {
         Logger.assertFail("Failed to create the icon")
       }
@@ -162,9 +162,9 @@ private extension AppMainVC {
 
     // Dark mode preferences
     [
-      (Localized.UI.menuTitleSystem, Appearance.system),
       (Localized.UI.menuTitleLight, Appearance.light),
       (Localized.UI.menuTitleDark, Appearance.dark),
+      (Localized.UI.menuTitleSystem, Appearance.system),
     ].forEach { (title: String, appearance: Appearance) in
       menu.addItem(withTitle: title) { [weak self] in
         self?.updateAppearance(appearance)
