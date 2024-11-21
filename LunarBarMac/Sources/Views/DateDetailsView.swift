@@ -147,8 +147,8 @@ private extension EKCalendarItem {
       return Constants.dateFormatter.string(from: startOfItem)
     }
 
-    // 12:00 - 13:30
-    return "\(Constants.dateFormatter.string(from: startOfItem)) - \(Constants.dateFormatter.string(from: endOfItem))"
+    // 12:00–13:30
+    return "\(Constants.dateFormatter.string(from: startOfItem))–\(Constants.dateFormatter.string(from: endOfItem))"
   }
 }
 
