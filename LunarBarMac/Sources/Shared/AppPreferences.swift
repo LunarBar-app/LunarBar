@@ -29,6 +29,9 @@ enum AppPreferences {
 
     @Storage(key: "general.appearance", defaultValue: .system)
     static var appearance: Appearance
+
+    @Storage(key: "general.content-scale", defaultValue: .default)
+    static var contentScale: ContentScale
   }
 
   enum Calendar {
@@ -59,26 +62,32 @@ enum AppPreferences {
 // MARK: - Types
 
 enum MenuBarIcon: Codable {
-  case calendar
   case date
+  case calendar
 }
 
 enum Appearance: Codable {
+  case system
   case light
   case dark
-  case system
 
   @MainActor
   func resolved(with appearance: NSAppearance = NSApp.effectiveAppearance) -> NSAppearance? {
     switch self {
+    case .system:
+      return nil
     case .light:
       return NSAppearance(named: appearance.resolvedName(isDarkMode: false))
     case .dark:
       return NSAppearance(named: appearance.resolvedName(isDarkMode: true))
-    case .system:
-      return nil
     }
   }
+}
+
+enum ContentScale: Double, Codable {
+  case `default` = 1.0
+  case compact = 0.9
+  case roomy = 1.1
 }
 
 @MainActor

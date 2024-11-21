@@ -351,6 +351,57 @@
         }
       }
     },
+    "Color Scheme" : {
+      "comment" : "[Menu] Section title for color schemes",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "颜色偏好"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "顏色偏好"
+          }
+        }
+      }
+    },
+    "Compact" : {
+      "comment" : "[Menu] Content scale: compact",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "紧凑"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "緊湊"
+          }
+        }
+      }
+    },
+    "Content Scale" : {
+      "comment" : "[Menu] Section title for content scales",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "缩放显示"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "縮放顯示"
+          }
+        }
+      }
+    },
     "Current Date" : {
       "comment" : "[Menu] Use the current date as the menu bar icon",
       "localizations" : {
@@ -1178,6 +1229,23 @@
         }
       }
     },
+    "Default" : {
+      "comment" : "[Menu] Content scale: default",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "默认"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "預設"
+          }
+        }
+      }
+    },
     "Default (Mainland China)" : {
       "comment" : "[Menu] Default public holidays (Mainland China)",
       "localizations" : {
@@ -1465,6 +1533,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "寒露"
+          }
+        }
+      }
+    },
+    "Icon" : {
+      "comment" : "[Menu] Section title for icons",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "图标"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "圖像"
           }
         }
       }
@@ -2375,6 +2460,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "稍後提醒我"
+          }
+        }
+      }
+    },
+    "Roomy" : {
+      "comment" : "[Menu] Content scale: roomy",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "宽松"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "寬鬆"
           }
         }
       }

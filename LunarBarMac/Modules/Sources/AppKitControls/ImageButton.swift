@@ -41,8 +41,10 @@ public final class ImageButton: CustomButton {
     addSubview(iconView)
 
     NSLayoutConstraint.activate([
-      iconView.centerXAnchor.constraint(equalTo: centerXAnchor),
-      iconView.centerYAnchor.constraint(equalTo: centerYAnchor),
+      iconView.leadingAnchor.constraint(equalTo: leadingAnchor),
+      iconView.trailingAnchor.constraint(equalTo: trailingAnchor),
+      iconView.topAnchor.constraint(equalTo: topAnchor),
+      iconView.bottomAnchor.constraint(equalTo: bottomAnchor),
     ])
 
     setFrameSize(CGSize(

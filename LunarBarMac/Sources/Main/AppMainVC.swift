@@ -18,6 +18,7 @@ final class AppMainVC: NSViewController {
   weak var popover: NSPopover?
 
   // Views
+  private let scalableView = ScalableView()
   private let headerView = HeaderView()
   private let weekdayView = WeekdayView()
   private let dateGridView = DateGridView()
@@ -26,7 +27,7 @@ final class AppMainVC: NSViewController {
   static func createPopover() -> NSPopover {
     let popover = NSPopover()
     popover.behavior = .transient
-    popover.contentSize = Constants.contentSize
+    popover.contentSize = desiredContentSize
     popover.animates = !AppPreferences.Accessibility.reduceMotion
 
     let contentVC = Self()
@@ -42,7 +43,8 @@ final class AppMainVC: NSViewController {
 extension AppMainVC {
   override func loadView() {
     // Required prior to macOS Sonoma
-    view = NSView(frame: CGRect(origin: .zero, size: Constants.contentSize))
+    view = NSView(frame: CGRect(origin: .zero, size: Self.desiredContentSize))
+    view.addScalableView(scalableView, scale: AppPreferences.General.contentScale.rawValue)
   }
 
   override func viewDidLoad() {
@@ -113,13 +115,20 @@ extension AppMainVC: HeaderViewDelegate {
 
 private extension AppMainVC {
   enum Constants {
-    static let contentSize = CGSize(width: 240, height: 320)
     static let headerViewHeight: Double = 40
     static let weekdayViewHeight: Double = 17
     static let dateGridViewMarginTop: Double = 10
   }
 
+  @MainActor static var desiredContentSize: CGSize {
+    CGSize(
+      width: 240 * AppPreferences.General.contentScale.rawValue,
+      height: 320 * AppPreferences.General.contentScale.rawValue
+    )
+  }
+
   func setUp() {
+    let view = scalableView.container
     headerView.delegate = self
     headerView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(headerView)
