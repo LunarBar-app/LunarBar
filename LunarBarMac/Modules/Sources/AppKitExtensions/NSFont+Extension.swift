@@ -7,7 +7,7 @@
 import AppKit
 
 public extension NSFont {
-  static func mediumSystemFont(ofSize fontSize: CGFloat) -> NSFont {
+  static func mediumSystemFont(ofSize fontSize: Double) -> NSFont {
     .systemFont(ofSize: fontSize, weight: .medium)
   }
 }

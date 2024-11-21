@@ -1417,23 +1417,6 @@
         }
       }
     },
-    "Float on Top" : {
-      "comment" : "[Menu] Float the popover on top",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "保持在顶部"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "保持在頂部"
-          }
-        }
-      }
-    },
     "Ghost Festival" : {
       "comment" : "Chinese traditional festival",
       "localizations" : {
@@ -2238,6 +2221,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "開啟目錄"
+          }
+        }
+      }
+    },
+    "Pin on Top" : {
+      "comment" : "[Menu] Pin the popover on top",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "置顶显示"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "置頂顯示"
           }
         }
       }

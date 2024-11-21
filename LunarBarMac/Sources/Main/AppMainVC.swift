@@ -13,7 +13,7 @@ import LunarBarKit
  */
 final class AppMainVC: NSViewController {
   // States
-  var floatOnTop = false
+  var pinnedOnTop = false
   var monthDate = Date.now
   weak var popover: NSPopover?
 
@@ -89,6 +89,11 @@ extension AppMainVC {
 
     Logger.log(.info, "Moving the calendar by \(offset) \(unit)")
     updateCalendar(targetDate: newDate)
+  }
+
+  func togglePinnedOnTop() {
+    pinnedOnTop.toggle()
+    popover?.behavior = pinnedOnTop ? .applicationDefined : .transient
   }
 }
 
@@ -193,6 +198,9 @@ private extension AppMainVC {
         return nil
       case .kVK_DownArrow:
         self.updateCalendar(moveBy: 1, unit: .year)
+        return nil
+      case .kVK_ANSI_P:
+        self.togglePinnedOnTop()
         return nil
       default:
         return event
