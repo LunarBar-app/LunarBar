@@ -40,7 +40,7 @@ enum Localized {
     static let menuTitleScaleRoomy = String(localized: "Roomy", comment: "[Menu] Content scale: roomy")
     static let menuTitleReduceMotion = String(localized: "Reduce Motion", comment: "[Menu] Disable animations when presenting the calendar popover")
     static let menuTitleReduceTransparency = String(localized: "Reduce Transparency", comment: "[Menu] Reduce transparency of the calendar panel")
-    static let menuTitleFloatOnTop = String(localized: "Float on Top", comment: "[Menu] Float the popover on top")
+    static let menuTitlePinOnTop = String(localized: "Pin on Top", comment: "[Menu] Pin the popover on top")
     static let menuTitleCalendars = String(localized: "Calendars", comment: "[Menu] Show or hide system calendars")
     static let menuTitleShowReminders = String(localized: "Show Reminders", comment: "[Menu] To request access for Reminders")
     static let menuTitleSelectAll = String(localized: "Select All", comment: "[Menu] Select all calendars")
@@ -203,6 +203,7 @@ enum AlphaLevels {
 extension UInt16 {
   static let kVK_ANSI_Q: Self = 0x0C
   static let kVK_ANSI_W: Self = 0x0D
+  static let kVK_ANSI_P: Self = 0x23
   static let kVK_Space: Self = 0x31
   static let kVK_Escape: Self = 0x35
   static let kVK_LeftArrow: Self = 0x7B

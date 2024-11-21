@@ -239,9 +239,9 @@ private extension AppDelegate {
       return false
     }
 
-    // Prevent multiple popovers, e.g., when float on top is enabled
+    // Prevent multiple popovers, e.g., when pin on top is enabled
     if let popover = presentedPopover, popover.isShown {
-      // Just think of it as a "float on top" cancellation
+      // Just think of it as a "pin on top" cancellation
       popover.behavior = .transient
       popover.close()
       return false

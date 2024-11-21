@@ -213,11 +213,19 @@ private extension AppMainVC {
 
     menu.addSeparator()
 
-    menu.addItem(withTitle: Localized.UI.menuTitleFloatOnTop) { [weak self] in
-      self?.floatOnTop.toggle()
-      self?.popover?.behavior = self?.floatOnTop == true ? .applicationDefined : .transient
-    }
-    .setOn(floatOnTop)
+    menu.addItem({
+      let item = NSMenuItem(title: Localized.UI.menuTitlePinOnTop)
+      item.addAction { [weak self] in
+        self?.togglePinnedOnTop()
+      }
+
+      // Just a hint here, event is handled using NSEvent.addLocalMonitor
+      item.keyEquivalent = "p"
+      item.keyEquivalentModifierMask = []
+
+      item.setOn(pinnedOnTop)
+      return item
+    }())
 
     let item = NSMenuItem(title: Localized.UI.menuTitleAppearance)
     item.submenu = menu
