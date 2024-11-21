@@ -28,7 +28,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "（%lld 天前）"
+                  "value" : "（%lld天前）"
                 }
               }
             }
@@ -40,7 +40,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "（%lld 天前）"
+                  "value" : "（%lld天前）"
                 }
               }
             }
@@ -75,7 +75,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "（%lld 天后）"
+                  "value" : "（%lld天后）"
                 }
               }
             }
@@ -87,7 +87,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "（%lld 天前）"
+                  "value" : "（%lld天後）"
                 }
               }
             }
