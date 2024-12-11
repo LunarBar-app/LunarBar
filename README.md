@@ -8,6 +8,9 @@
 
 <img src="./Screenshots/01.png" width="320" alt="截图 01"> <img src="./Screenshots/02.png" width="320" alt="截图 02">
 
+> [!TIP]
+> 在 [libremac.github.io](https://libremac.github.io/) 探索我们的其他免费开源应用。
+
 ## 安装 LunarBar
 
 从 <a href="https://github.com/LunarBar-app/LunarBar/releases/latest" target="_blank">latest release</a> 获取 `LunarBar.dmg`，打开后将 `LunarBar.app` 拖拽至 `Applications` 即可。
