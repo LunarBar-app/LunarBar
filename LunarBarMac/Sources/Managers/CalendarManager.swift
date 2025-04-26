@@ -170,12 +170,16 @@ private extension CalendarManager {
     let perfStartTime = Date.timeIntervalSinceReferenceDate
   #endif
 
+    // Get the earliest of the start and the latest of the end
+    let startOfDayDate = Calendar.solar.startOfDay(for: startDate)
+    let endOfDayDate = Calendar.solar.endOfDay(for: endDate)
+
     let events = try await {
       switch type {
       case .event:
-        return try await eventStore.events(from: startDate, to: endDate, calendars: calendars)
+        return try await eventStore.events(from: startOfDayDate, to: endOfDayDate, calendars: calendars)
       case .reminder:
-        return try await eventStore.reminders(from: startDate, to: endDate, calendars: calendars)
+        return try await eventStore.reminders(from: startOfDayDate, to: endOfDayDate, calendars: calendars)
       default:
         Logger.assertFail("Invalid type: \(type) of items to fetch for")
         return []
