@@ -109,12 +109,16 @@ extension DateGridView {
       let items = try await CalendarManager.default.items(from: startDate, to: endDate)
       reloadData(allDates: allDates, events: items, diffable: false)
 
-      if let prevMonth = Calendar.solar.date(byAdding: .day, value: -1, to: startDate) {
-        await CalendarManager.default.preload(date: prevMonth)
-      }
+      // Months that can be easily navigated
+      let preloadDates = [
+        Calendar.solar.date(byAdding: .day, value: -1, to: startDate),
+        Calendar.solar.date(byAdding: .day, value: 1, to: endDate),
+        Calendar.solar.date(byAdding: .year, value: -1, to: monthDate),
+        Calendar.solar.date(byAdding: .year, value: 1, to: monthDate),
+      ].compactMap { $0 }
 
-      if let nextMonth = Calendar.solar.date(byAdding: .day, value: 1, to: endDate) {
-        await CalendarManager.default.preload(date: nextMonth)
+      for preloadDate in preloadDates {
+        await CalendarManager.default.preload(date: preloadDate)
       }
     }
   }
@@ -158,7 +162,7 @@ private extension DateGridView {
   }
 
   @MainActor
-  func reloadData(allDates: [Date], events: [EKCalendarItem] = [], diffable: Bool = true) {
+  func reloadData(allDates: [Date], events: [EKCalendarItem]?, diffable: Bool = true) {
     cancelHighlight()
     Logger.log(.info, "Reloading dateGridView: \(allDates.count) items")
 
@@ -166,15 +170,16 @@ private extension DateGridView {
     snapshot.appendSections([Section.default])
 
     snapshot.appendItems(allDates.map { date in
-      Model(date: date, events: events.filter {
+      Model(date: date, events: events?.filter {
         $0.overlaps(
           startOfDay: Calendar.solar.startOfDay(for: date),
           endOfDay: Calendar.solar.endOfDay(for: date)
         )
-      }.oldestToNewest)
+      }.oldestToNewest ?? [])
     })
 
-    let animated = diffable && !AppPreferences.Accessibility.reduceMotion
+    // Disable the animation when cache is not hit, to avoid subsequent updates being ignored
+    let animated = diffable && events != nil && !AppPreferences.Accessibility.reduceMotion
     dataSource?.apply(snapshot, animatingDifferences: animated)
 
     // Force update of certain properties that are not part of the diffable model
