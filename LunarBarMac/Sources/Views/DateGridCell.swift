@@ -373,7 +373,7 @@ private extension DateGridCell {
     }
 
     let showDetails = {
-      try await Task.sleep(for: .seconds(0.6))
+      try await Task.sleep(for: .seconds(0.5))
       let popover = DateDetailsView.createPopover(
         title: self.mainInfo,
         events: self.cellEvents
