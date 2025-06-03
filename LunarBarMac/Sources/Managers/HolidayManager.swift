@@ -149,7 +149,7 @@ private extension HolidayManager {
     }
 
     do {
-      try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: false)
+      try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
     } catch {
       Logger.log(.error, error.localizedDescription)
     }
