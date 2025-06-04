@@ -26,13 +26,15 @@ enum AppLocalizer {
   }
 
   static func holidayLabel(of type: HolidayType?) -> String? {
+    let middleDot = " · "
+
     switch type {
     case .none:
       return nil
     case .workday:
-      return Localized.Calendar.workdayLabel
+      return Localized.Calendar.workdayLabel + middleDot
     case .holiday:
-      return Localized.Calendar.holidayLabel
+      return Localized.Calendar.holidayLabel + middleDot
     }
   }
 }

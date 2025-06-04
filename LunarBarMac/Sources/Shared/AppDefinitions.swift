@@ -71,8 +71,8 @@ enum Localized {
     static let daysAgoFormat = String(localized: " (%lld day ago)", comment: "Label format for dates in the past, e.g., (10 days ago)")
     static let daysLaterFormat = String(localized: " (%lld day later)", comment: "Label format for dates in the future, e.g., (10 days later)")
     static let todayLabel = String(localized: " (today)", comment: "Label for today")
-    static let workdayLabel = String(localized: "[Workday] ", comment: "Label for workdays")
-    static let holidayLabel = String(localized: "[Holiday] ", comment: "Label for holidays")
+    static let workdayLabel = String(localized: "Workday", comment: "Label for workdays")
+    static let holidayLabel = String(localized: "Holiday", comment: "Label for holidays")
     static let allDayLabel = String(localized: "all-day", comment: "Label for an all-day event")
 
     /// https://en.wikipedia.org/wiki/Solar_term

@@ -112,40 +112,6 @@
         }
       }
     },
-    "[Holiday] " : {
-      "comment" : "Label for holidays",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "【休假】"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "【休假】"
-          }
-        }
-      }
-    },
-    "[Workday] " : {
-      "comment" : "Label for workdays",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "【上班】"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "【上班】"
-          }
-        }
-      }
-    },
     "About LunarBar" : {
       "comment" : "[Menu] Open the standard about panel",
       "localizations" : {
@@ -431,7 +397,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "自定義教程"
+            "value" : "自訂教程"
           }
         }
       }
@@ -1520,6 +1486,23 @@
         }
       }
     },
+    "Holiday" : {
+      "comment" : "Label for holidays",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "休假"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "休假"
+          }
+        }
+      }
+    },
     "Icon" : {
       "comment" : "[Menu] Section title for icons",
       "localizations" : {
@@ -2442,7 +2425,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "重載自定義假日"
+            "value" : "重載自訂假日"
           }
         }
       }
@@ -2665,6 +2648,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "寒衣節"
+          }
+        }
+      }
+    },
+    "Workday" : {
+      "comment" : "Label for workdays",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上班"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上班"
           }
         }
       }
