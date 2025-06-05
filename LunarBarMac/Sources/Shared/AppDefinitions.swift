@@ -15,6 +15,11 @@ import LunarBarKit
  https://developer.apple.com/documentation/xcode/localizing-and-varying-text-with-a-string-catalog
  */
 enum Localized {
+  enum General {
+    static let cancel = String(localized: "Cancel", comment: "Title for the \"Cancel\" button")
+    static let learnMore = String(localized: "Learn More", comment: "Title for the \"Learn More\" button")
+  }
+
   // swiftlint:disable:next type_name
   enum UI {
     // General
@@ -30,6 +35,7 @@ enum Localized {
     static let menuTitleMenuBarIcon = String(localized: "Icon", comment: "[Menu] Section title for icons")
     static let menuTitleCurrentDate = String(localized: "Current Date", comment: "[Menu] Use the current date as the menu bar icon")
     static let menuTitleCalendarIcon = String(localized: "Calendar Icon", comment: "[Menu] Use a calendar icon as the menu bar icon")
+    static let menuTitleCustomFormat = String(localized: "Custom Format", comment: "[Menu] Use a formatted date as the menu bar icon")
     static let menuTitleColorScheme = String(localized: "Color Scheme", comment: "[Menu] Section title for color schemes")
     static let menuTitleSystem = String(localized: "System", comment: "[Menu] Follow the system appearance")
     static let menuTitleLight = String(localized: "Light", comment: "[Menu] Use the light appearance")
@@ -57,6 +63,9 @@ enum Localized {
     static let menuTitleGitHub = String(localized: "GitHub", comment: "[Menu] Open the LunarBar repository on GitHub")
     static let menuTitleCheckForUpdates = String(localized: "Check for Updates...", comment: "[Menu] Check for new versions")
     static let menuTitleQuitLunarBar = String(localized: "Quit LunarBar", comment: "[Menu] Quit the app")
+
+    static let buttonTitleSetDateFormat = String(localized: "Set Date Format", comment: "[Button] Configure the custom date format")
+    static let buttonTitleApplyChanges = String(localized: "Apply Changes", comment: "[Button] Apply the custom date format")
 
     // Accessibility
     static let accessibilityWeekdayArea = String(localized: "Weekday symbol area", comment: "[AX] Indicate the current group is for weekday symbols")
@@ -177,6 +186,8 @@ enum Icons {
   static let chevronBackward = "chevron.backward"
   static let chevronForward = "chevron.forward"
   static let circle = "circle"
+  static let exclamationmarkTriangle = "exclamationmark.triangle"
+  static let wandAndSparkles = "wand.and.sparkles"
 }
 
 enum Colors {

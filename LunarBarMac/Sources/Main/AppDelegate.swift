@@ -18,6 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   }()
 
   private weak var presentedPopover: NSPopover?
+  private var dateRefreshTimer: DateRefreshTimer?
   private var popoverClosedTime: TimeInterval = 0
 
   func applicationDidFinishLaunching(_ notification: Notification) {
@@ -30,6 +31,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // Update the icon and attach it to the menu bar
     updateMenuBarIcon()
     statusItem.isVisible = true
+
+    // Repeated refresh based on the date format granularity
+    dateRefreshTimer = DateRefreshTimer { [weak self] in self?.updateMenuBarIcon() }
+    updateDateRefreshTimer()
 
     // Observe events that do not require a specific window
     NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
@@ -122,6 +127,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       name: NSWindow.didResignKeyNotification,
       object: nil
     )
+
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(menuBarIconDidChange(_:)),
+      name: .menuBarIconDidChange,
+      object: nil
+    )
   }
 
   func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
@@ -137,6 +149,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       statusItem.button?.image = AppIconFactory.createCalendarIcon()
     case .date:
       statusItem.button?.image = AppIconFactory.createDateIcon()
+    case .custom:
+      statusItem.button?.image = AppIconFactory.createCustomIcon()
     }
 
     // The popover position will be slightly moved without this trick
@@ -146,6 +160,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     updateTooltip()
+  }
+
+  @MainActor
+  func updateDateRefreshTimer() {
+    if AppPreferences.General.menuBarIcon == .custom {
+      dateRefreshTimer?.dateFormat = AppPreferences.General.customDateFormat
+    } else {
+      dateRefreshTimer?.dateFormat = nil
+    }
   }
 
   @MainActor
@@ -199,6 +222,7 @@ private extension AppDelegate {
     }
   }
 
+  // periphery:ignore:parameters notification
   @objc func windowDidUpdate(_ notification: Notification) {
     guard let window = notification.object as? NSWindow, window.className == "NSToolTipPanel" else {
       return
@@ -212,6 +236,7 @@ private extension AppDelegate {
     window.appearance = NSApp.effectiveAppearance
   }
 
+  // periphery:ignore:parameters notification
   @objc func windowDidResignKey(_ notification: Notification) {
     guard (notification.object as? NSWindow)?.contentViewController is AppMainVC else {
       return
@@ -220,6 +245,11 @@ private extension AppDelegate {
     // Cancel the highlight when the popover window is no longer the key window
     statusItem.button?.highlight(false)
     updateTooltip()
+  }
+
+  // periphery:ignore:parameters notification
+  @objc func menuBarIconDidChange(_ notification: Notification) {
+    updateMenuBarIcon()
   }
 
   func shouldOpenPanel(for event: NSEvent) -> Bool {

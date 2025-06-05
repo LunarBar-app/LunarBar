@@ -92,7 +92,7 @@ private extension AppUpdater {
     let alert = NSAlert()
     alert.messageText = String(format: Localized.Updater.newVersionAvailableTitle, newVersion.name)
     alert.markdownBody = newVersion.body
-    alert.addButton(withTitle: Localized.Updater.learnMore)
+    alert.addButton(withTitle: Localized.General.learnMore)
 
     if explicitly {
       alert.addButton(withTitle: Localized.Updater.notNow)
@@ -121,7 +121,6 @@ private extension Localized {
     static let newVersionAvailableTitle = String(localized: "LunarBar %@ is available!", comment: "Title for new version available")
     static let updateFailedTitle = String(localized: "Failed to get the update.", comment: "Title for failed to get the update")
     static let updateFailedMessage = String(localized: "Please check your network connection or get the latest release from the version history.", comment: "Message for failed to get the update")
-    static let learnMore = String(localized: "Learn More", comment: "Title for the \"Learn More\" button")
     static let notNow = String(localized: "Not Now", comment: "Title for the \"Not Now\" button")
     static let remindMeLater = String(localized: "Remind Me Later", comment: "Title for the \"Remind Me Later\" button")
     static let skipThisVersion = String(localized: "Skip This Version", comment: "Title for the \"Skip This Version\" button")

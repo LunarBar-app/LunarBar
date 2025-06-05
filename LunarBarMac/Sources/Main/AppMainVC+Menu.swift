@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import AppKitControls
 import AppKitExtensions
 import LunarBarKit
 import ServiceManagement
@@ -41,6 +42,10 @@ extension AppMainVC {
 // MARK: - Private
 
 private extension AppMainVC {
+  enum Constants {
+    static let menuIconSize: Double = 14
+  }
+
   var menuItemGotoToday: NSMenuItem {
     let item = NSMenuItem(title: Localized.UI.menuTitleGotoToday, action: nil, keyEquivalent: " ")
     item.keyEquivalentModifierMask = []
@@ -149,11 +154,42 @@ private extension AppMainVC {
 
     menu.addItem({
       let item = NSMenuItem(title: Localized.UI.menuTitleCalendarIcon)
-      item.image = AppIconFactory.createCalendarIcon(pointSize: 14)
+      item.image = AppIconFactory.createCalendarIcon(pointSize: Constants.menuIconSize)
       item.setOn(AppPreferences.General.menuBarIcon == .calendar)
 
       item.addAction {
         AppPreferences.General.menuBarIcon = .calendar
+      }
+
+      return item
+    }())
+
+    menu.addItem({
+      let item = NSMenuItem(title: Localized.UI.menuTitleCustomFormat)
+      item.image = .with(symbolName: Icons.wandAndSparkles, pointSize: Constants.menuIconSize)
+      item.setOn(AppPreferences.General.menuBarIcon == .custom)
+
+      item.addAction {
+        let inputField = EditableTextField(frame: CGRect(x: 0, y: 0, width: 256, height: 22))
+        inputField.cell?.usesSingleLineMode = true
+        inputField.cell?.lineBreakMode = .byTruncatingTail
+        inputField.stringValue = AppPreferences.General.customDateFormat ?? ""
+
+        let alert = NSAlert()
+        alert.messageText = Localized.UI.buttonTitleSetDateFormat
+        alert.accessoryView = inputField
+        alert.addButton(withTitle: Localized.UI.buttonTitleApplyChanges)
+        alert.addButton(withTitle: Localized.General.learnMore)
+        alert.addButton(withTitle: Localized.General.cancel)
+
+        switch alert.runModal() {
+        case .alertFirstButtonReturn: // Apply Changes
+          AppPreferences.General.customDateFormat = inputField.stringValue
+          AppPreferences.General.menuBarIcon = .custom
+        case .alertSecondButtonReturn: // Learn More
+          NSWorkspace.shared.safelyOpenURL(string: "https://github.com/LunarBar-app/LunarBar/wiki")
+        default: break // Cancel
+        }
       }
 
       return item
