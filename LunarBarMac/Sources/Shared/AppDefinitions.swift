@@ -187,7 +187,13 @@ enum Icons {
   static let chevronForward = "chevron.forward"
   static let circle = "circle"
   static let exclamationmarkTriangle = "exclamationmark.triangle"
-  static let wandAndSparkles = "wand.and.sparkles"
+  static let wandAndSparkles = {
+    if #available(macOS 15.0, *) {
+      return "wand.and.sparkles"
+    }
+
+    return "wand.and.rays"
+  }()
 }
 
 enum Colors {
