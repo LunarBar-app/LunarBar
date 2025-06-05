@@ -163,6 +163,23 @@
         }
       }
     },
+    "Apply Changes" : {
+      "comment" : "[Button] Apply the custom date format",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确认更改"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確認變更"
+          }
+        }
+      }
+    },
     "Bailu" : {
       "comment" : "The 15th solar term, always in Chinese",
       "localizations" : {
@@ -216,6 +233,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "日曆"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "comment" : "Title for the \"Cancel\" button",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
           }
         }
       }
@@ -381,6 +415,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "當前日期"
+          }
+        }
+      }
+    },
+    "Custom Format" : {
+      "comment" : "[Menu] Use a formatted date as the menu bar icon",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自定义格式"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自訂格式"
           }
         }
       }
@@ -2477,6 +2528,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "選擇全部"
+          }
+        }
+      }
+    },
+    "Set Date Format" : {
+      "comment" : "[Button] Configure the custom date format",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置日期格式"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定日期格式"
           }
         }
       }

@@ -24,8 +24,12 @@ enum AppPreferences {
         }
 
         delegate.updateMenuBarIcon(needsLayout: true)
+        delegate.updateDateRefreshTimer()
       }
     }
+
+    @Storage(key: "general.custom-date-format", defaultValue: nil)
+    static var customDateFormat: String?
 
     @Storage(key: "general.appearance", defaultValue: .system)
     static var appearance: Appearance
@@ -64,6 +68,7 @@ enum AppPreferences {
 enum MenuBarIcon: Codable {
   case date
   case calendar
+  case custom
 }
 
 enum Appearance: Codable {

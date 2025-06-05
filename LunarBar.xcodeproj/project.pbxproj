@@ -32,6 +32,7 @@
 		8782F4732B33F8AC008B1912 /* LunarBarKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8782F4722B33F8AC008B1912 /* LunarBarKit */; };
 		8782F4772B33F904008B1912 /* AppMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8782F4762B33F904008B1912 /* AppMainVC.swift */; };
 		8782F4832B342413008B1912 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8782F4822B342413008B1912 /* HeaderView.swift */; };
+		878B73AB2DEFE8EC00F0E331 /* DateRefreshTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878B73AA2DEFE8EB00F0E331 /* DateRefreshTimer.swift */; };
 		87A28A5D2B344D50006655F2 /* DateGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A28A5C2B344D50006655F2 /* DateGridView.swift */; };
 		87D65EB12B41200100E41049 /* AppPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D65EB02B41200100E41049 /* AppPreferencesTests.swift */; };
 		87D65EB62B412A4700E41049 /* AppDefinitionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D65EB52B412A4700E41049 /* AppDefinitionsTests.swift */; };
@@ -81,6 +82,7 @@
 		8782F4702B33F841008B1912 /* LunarBarKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LunarBarKit; sourceTree = "<group>"; };
 		8782F4762B33F904008B1912 /* AppMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMainVC.swift; sourceTree = "<group>"; };
 		8782F4822B342413008B1912 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		878B73AA2DEFE8EB00F0E331 /* DateRefreshTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRefreshTimer.swift; sourceTree = "<group>"; };
 		87A28A5C2B344D50006655F2 /* DateGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateGridView.swift; sourceTree = "<group>"; };
 		87D65EB02B41200100E41049 /* AppPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreferencesTests.swift; sourceTree = "<group>"; };
 		87D65EB52B412A4700E41049 /* AppDefinitionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefinitionsTests.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			children = (
 				8740E30E2B37FB36004A06C2 /* CalendarManager.swift */,
 				8740E2FE2B37C841004A06C2 /* HolidayManager.swift */,
+				878B73AA2DEFE8EB00F0E331 /* DateRefreshTimer.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				87F81C542B43EBDE0071CA30 /* main.swift in Sources */,
 				87DA5AFF2B3433D400CE2C1A /* WeekdayView.swift in Sources */,
 				8740E2FF2B37C841004A06C2 /* HolidayManager.swift in Sources */,
+				878B73AB2DEFE8EC00F0E331 /* DateRefreshTimer.swift in Sources */,
 				873AD8F62B4C3DAB001C90B1 /* AppIconFactory.swift in Sources */,
 				8740E30F2B37FB36004A06C2 /* CalendarManager.swift in Sources */,
 				8714291C2B3DBFDF003FA2CB /* AppMainVC+Menu.swift in Sources */,

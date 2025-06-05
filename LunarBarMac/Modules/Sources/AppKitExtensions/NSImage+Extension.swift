@@ -29,6 +29,18 @@ public extension NSImage {
     return image
   }
 
+  static func with(text: String, font: NSFont) -> NSImage {
+    let attributes: [NSAttributedString.Key: Any] = [.font: font]
+    let string = NSAttributedString(string: text, attributes: attributes)
+
+    let image = NSImage(size: string.size())
+    image.lockFocus()
+
+    string.draw(at: .zero)
+    image.unlockFocus()
+    return image
+  }
+
   @MainActor
   static func with(cellColor: NSColor, borderColor: NSColor? = nil, size: CGSize, cornerRadius: Double) -> NSImage? {
     let view = NSView(frame: CGRect(origin: .zero, size: size))

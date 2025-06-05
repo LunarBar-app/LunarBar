@@ -6,6 +6,11 @@
 //
 
 import AppKit
+@preconcurrency import JavaScriptCore
+
+extension Notification.Name {
+  static let menuBarIconDidChange = Notification.Name("MenuBarIconDidChange")
+}
 
 @MainActor
 enum AppIconFactory {
@@ -15,6 +20,19 @@ enum AppIconFactory {
 
   static func createDateIcon() -> NSImage? {
     DateIconView().snapshotImage?.asTemplate
+  }
+
+  static func createCustomIcon() -> NSImage? {
+    guard let dateFormat = AppPreferences.General.customDateFormat, !dateFormat.isEmpty else {
+      return .with(symbolName: Icons.exclamationmarkTriangle, pointSize: 15)
+    }
+
+    let formatter = DateFormatter()
+    formatter.dateFormat = JSEvaluator.resolve(input: dateFormat)
+
+    let text = formatter.string(from: Date.now)
+    let image: NSImage = .with(text: text, font: .menuBarMonospacedDigitFont)
+    return image.asTemplate
   }
 }
 
@@ -90,5 +108,39 @@ private class DateIconView: NSView {
     }
 
     return true
+  }
+}
+
+@MainActor
+private enum JSEvaluator {
+  // E.g., {{ 1 + 1 }}
+  static let pattern = /\{\{(.*?)\}\}/
+
+  static let context: JSContext? = {
+    let setTimeout: @convention(block) (JSValue, Int) -> Void = { callback, delay in
+      DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(delay)) {
+        callback.call(withArguments: [])
+      }
+    }
+
+    let reload: @convention(block) () -> Void = {
+      NotificationCenter.default.post(name: .menuBarIconDidChange, object: nil)
+    }
+
+    let context = JSContext()
+    context?.setObject(setTimeout, forKeyedSubscript: "setTimeout" as NSString)
+    context?.setObject(reload, forKeyedSubscript: "reload" as NSString)
+    return context
+  }()
+
+  /**
+   Replace all {{expr}} instances with the evaluated result.
+   */
+  static func resolve(input: String) -> String {
+    input.replacing(pattern) {
+      let expr = String($0.1)
+      let result = context?.evaluateScript(expr).toString()
+      return result ?? expr
+    }
   }
 }
