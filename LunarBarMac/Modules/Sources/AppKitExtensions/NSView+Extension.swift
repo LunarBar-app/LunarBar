@@ -77,7 +77,7 @@ public extension NSView {
   func setAlphaValue(
     _ alphaValue: Double,
     duration: TimeInterval = 0.2,
-    completionHandler: (() -> Void)? = nil
+    completionHandler: (@Sendable () -> Void)? = nil
   ) {
     NSAnimationContext.runAnimationGroup { context in
       context.duration = duration
