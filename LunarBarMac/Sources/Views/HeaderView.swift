@@ -184,7 +184,9 @@ extension HeaderView {
     }()
 
     button.setAlphaValue(0.6) {
-      button.setAlphaValue(1)
+      Task { @MainActor in
+        button.setAlphaValue(1)
+      }
     }
   }
 }
