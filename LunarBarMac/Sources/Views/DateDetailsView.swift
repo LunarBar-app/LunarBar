@@ -71,6 +71,7 @@ struct DateDetailsView: View {
     let popover = NSPopover()
     popover.behavior = .applicationDefined
     popover.animates = false
+    popover.material = AppPreferences.Accessibility.popoverMaterial
     popover.contentViewController = DateDetailsHostVC(rootView: Self(
       title: title,
       events: events
