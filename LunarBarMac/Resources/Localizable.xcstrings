@@ -164,7 +164,7 @@
       }
     },
     "Apply Changes" : {
-      "comment" : "[Button] Apply the custom date format",
+      "comment" : "[Alert] Apply the custom date format",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -330,6 +330,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "處暑"
+          }
+        }
+      }
+    },
+    "Classic Interface" : {
+      "comment" : "[Menu] Whether to use classic interface in macOS Tahoe",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "经典界面"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "經典介面"
           }
         }
       }
@@ -2242,6 +2259,23 @@
         }
       }
     },
+    "OK" : {
+      "comment" : "Title for the \"OK\" button",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "好的"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "好的"
+          }
+        }
+      }
+    },
     "Open Directory" : {
       "comment" : "[Menu] Open the directory of user-defined holidays",
       "localizations" : {
@@ -2464,6 +2498,23 @@
         }
       }
     },
+    "Relaunch LunarBar to apply the change." : {
+      "comment" : "[Alert] Message about relaunch after changing the interface",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重启 LunarBar 以应用更改。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重啟 LunarBar 以套用變更。"
+          }
+        }
+      }
+    },
     "Reload Customizations" : {
       "comment" : "[Menu] Reload customized public holidays",
       "localizations" : {
@@ -2533,7 +2584,7 @@
       }
     },
     "Set Date Format" : {
-      "comment" : "[Button] Configure the custom date format",
+      "comment" : "[Alert] Configure the custom date format",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

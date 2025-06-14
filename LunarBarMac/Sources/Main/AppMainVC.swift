@@ -55,7 +55,7 @@ extension AppMainVC {
 
   override func viewWillAppear() {
     super.viewWillAppear()
-    material = AppPreferences.Accessibility.popoverMaterial
+    applyMaterial(AppPreferences.Accessibility.popoverMaterial)
 
     updateAppearance()
     updateCalendar()
@@ -127,39 +127,41 @@ private extension AppMainVC {
 
   @MainActor static var desiredContentSize: CGSize {
     CGSize(
-      width: 240 * AppPreferences.General.contentScale.rawValue,
-      height: 320 * AppPreferences.General.contentScale.rawValue
+      width: 240 * AppPreferences.General.contentScale.rawValue + AppDesign.contentMargin,
+      height: 320 * AppPreferences.General.contentScale.rawValue + AppDesign.contentMargin
     )
   }
 
   func setUp() {
     let view = scalableView.container
+    let margin = AppDesign.contentMargin
+
     headerView.delegate = self
     headerView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(headerView)
     NSLayoutConstraint.activate([
-      headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      headerView.topAnchor.constraint(equalTo: view.topAnchor),
-      headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin),
+      headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: margin),
+      headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -margin),
       headerView.heightAnchor.constraint(equalToConstant: Constants.headerViewHeight),
     ])
 
     weekdayView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(weekdayView)
     NSLayoutConstraint.activate([
-      weekdayView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      weekdayView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin),
       weekdayView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-      weekdayView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      weekdayView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -margin),
       weekdayView.heightAnchor.constraint(equalToConstant: Constants.weekdayViewHeight),
     ])
 
     dateGridView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(dateGridView)
     NSLayoutConstraint.activate([
-      dateGridView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      dateGridView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin),
       dateGridView.topAnchor.constraint(equalTo: weekdayView.bottomAnchor, constant: Constants.dateGridViewMarginTop),
-      dateGridView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      dateGridView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      dateGridView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -margin),
+      dateGridView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -margin),
     ])
   }
 

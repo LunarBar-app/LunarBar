@@ -60,6 +60,7 @@ struct DateDetailsView: View {
           .padding(.vertical, 2) // Tiny element, no need to scale
       }
     }
+    .padding(AppDesign.contentMargin)
   }
 
   func font(weight: Font.Weight, scale: Double) -> Font {
@@ -110,7 +111,7 @@ private final class DateDetailsHostVC: NSViewController {
 
   override func viewWillAppear() {
     super.viewWillAppear()
-    material = AppPreferences.Accessibility.popoverMaterial
+    applyMaterial(AppPreferences.Accessibility.popoverMaterial)
   }
 
   override func viewDidLayout() {

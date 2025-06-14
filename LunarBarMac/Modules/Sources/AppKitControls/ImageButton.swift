@@ -17,18 +17,28 @@ public final class ImageButton: CustomButton {
     let view = NSView()
     view.wantsLayer = true
     view.alphaValue = 0
-
-    view.layer?.cornerRadius = Constants.highlightViewCornerRadius
     view.layer?.cornerCurve = .continuous
 
     return view
   }()
 
-  public init(symbolName: String, tintColor: NSColor? = nil, accessibilityLabel: String) {
+  // The color should be lazily calculated
+  private let highlightColorProvider: () -> NSColor
+
+  public init(
+    symbolName: String,
+    cornerRadius: Double,
+    highlightColorProvider: @escaping (() -> NSColor),
+    tintColor: NSColor? = nil,
+    accessibilityLabel: String
+  ) {
+    self.highlightColorProvider = highlightColorProvider
     super.init()
+
     contentTintColor = tintColor
     toolTip = accessibilityLabel
 
+    highlightView.layer?.cornerRadius = cornerRadius
     highlightView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(highlightView)
 
@@ -60,7 +70,7 @@ public final class ImageButton: CustomButton {
   override public func layout() {
     super.layout()
 
-    highlightView.layerBackgroundColor = .highlightedBackground
+    highlightView.layerBackgroundColor = highlightColorProvider()
     highlightView.frame = bounds.insetBy(
       dx: Constants.highlightViewInset,
       dy: Constants.highlightViewInset
@@ -78,7 +88,6 @@ private extension ImageButton {
   enum Constants {
     static let iconSize: Double = 14
     static let buttonSize: Double = 26
-    static let highlightViewCornerRadius: Double = 4
     static let highlightViewInset: Double = 2
   }
 }
