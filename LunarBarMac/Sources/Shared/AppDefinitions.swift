@@ -16,6 +16,7 @@ import LunarBarKit
  */
 enum Localized {
   enum General {
+    static let okay = String(localized: "OK", comment: "Title for the \"OK\" button")
     static let cancel = String(localized: "Cancel", comment: "Title for the \"Cancel\" button")
     static let learnMore = String(localized: "Learn More", comment: "Title for the \"Learn More\" button")
   }
@@ -32,6 +33,7 @@ enum Localized {
     static let menuTitleGotoMonth = String(localized: "Go to Month", comment: "[Menu] Select year and month")
     static let menuTitleEnterMonth = String(localized: "Enter Month", comment: "[Menu] Enter a month using date picker")
     static let menuTitleAppearance = String(localized: "Appearance", comment: "[Menu] Change dark mode preference")
+    static let menuTitleClassicInterface = String(localized: "Classic Interface", comment: "[Menu] Whether to use classic interface in macOS Tahoe")
     static let menuTitleMenuBarIcon = String(localized: "Icon", comment: "[Menu] Section title for icons")
     static let menuTitleCurrentDate = String(localized: "Current Date", comment: "[Menu] Use the current date as the menu bar icon")
     static let menuTitleCalendarIcon = String(localized: "Calendar Icon", comment: "[Menu] Use a calendar icon as the menu bar icon")
@@ -64,8 +66,10 @@ enum Localized {
     static let menuTitleCheckForUpdates = String(localized: "Check for Updates...", comment: "[Menu] Check for new versions")
     static let menuTitleQuitLunarBar = String(localized: "Quit LunarBar", comment: "[Menu] Quit the app")
 
-    static let buttonTitleSetDateFormat = String(localized: "Set Date Format", comment: "[Button] Configure the custom date format")
-    static let buttonTitleApplyChanges = String(localized: "Apply Changes", comment: "[Button] Apply the custom date format")
+    // Alert
+    static let alertMessageSetDateFormat = String(localized: "Set Date Format", comment: "[Alert] Configure the custom date format")
+    static let alertMessageRelaunchRequired = String(localized: "Relaunch LunarBar to apply the change.", comment: "[Alert] Message about relaunch after changing the interface")
+    static let alertButtonTitleApplyChanges = String(localized: "Apply Changes", comment: "[Alert] Apply the custom date format")
 
     // Accessibility
     static let accessibilityWeekdayArea = String(localized: "Weekday symbol area", comment: "[AX] Indicate the current group is for weekday symbols")
@@ -187,6 +191,7 @@ enum Icons {
   static let chevronForward = "chevron.forward"
   static let circle = "circle"
   static let exclamationmarkTriangle = "exclamationmark.triangle"
+  static let mustacheFill = "mustache.fill"
   static let wandAndSparkles = {
     if #available(macOS 15.0, *) {
       return "wand.and.sparkles"

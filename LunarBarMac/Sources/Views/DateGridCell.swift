@@ -39,7 +39,7 @@ final class DateGridCell: NSCollectionViewItem {
     view.wantsLayer = true
     view.alphaValue = 0
 
-    view.layer?.cornerRadius = Constants.highlightViewCornerRadius
+    view.layer?.cornerRadius = AppDesign.cellCornerRadius
     view.layer?.cornerCurve = .continuous
 
     return view
@@ -77,7 +77,7 @@ final class DateGridCell: NSCollectionViewItem {
     view.setAccessibilityHidden(true)
 
     view.layer?.borderWidth = Constants.focusRingBorderWidth
-    view.layer?.cornerRadius = Constants.highlightViewCornerRadius
+    view.layer?.cornerRadius = AppDesign.cellCornerRadius
     view.layer?.cornerCurve = .continuous
 
     return view
@@ -279,7 +279,6 @@ private extension DateGridCell {
     static let lunarFontSize: Double = FontSizes.small
     static let eventViewHeight: Double = 10
     static let focusRingBorderWidth: Double = 2
-    static let highlightViewCornerRadius: Double = 4
     static let holidayViewImage: NSImage = .with(symbolName: Icons.bookmarkFill, pointSize: 9)
     static let lunarDateFormatter: DateFormatter = .lunarDate
   }

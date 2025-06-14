@@ -133,6 +133,24 @@ private extension AppMainVC {
   var menuItemAppearance: NSMenuItem {
     let menu = NSMenu()
 
+  #if BUILD_WITH_SDK_26_OR_LATER
+    if #available(macOS 26.0, *) {
+      menu.addItem({
+        let item = NSMenuItem(title: Localized.UI.menuTitleClassicInterface)
+        item.image = .with(symbolName: Icons.mustacheFill, pointSize: Constants.menuIconSize)
+        item.setOn(AppPreferences.General.classicInterface)
+
+        item.addAction {
+          AppPreferences.General.classicInterface.toggle()
+        }
+
+        return item
+      }())
+
+      menu.addSeparator()
+    }
+  #endif
+
     // Icon styles
     menu.addItem(withTitle: Localized.UI.menuTitleMenuBarIcon).isEnabled = false
     menu.addItem({
@@ -176,9 +194,9 @@ private extension AppMainVC {
         inputField.stringValue = AppPreferences.General.customDateFormat ?? ""
 
         let alert = NSAlert()
-        alert.messageText = Localized.UI.buttonTitleSetDateFormat
+        alert.messageText = Localized.UI.alertMessageSetDateFormat
         alert.accessoryView = inputField
-        alert.addButton(withTitle: Localized.UI.buttonTitleApplyChanges)
+        alert.addButton(withTitle: Localized.UI.alertButtonTitleApplyChanges)
         alert.addButton(withTitle: Localized.General.learnMore)
         alert.addButton(withTitle: Localized.General.cancel)
 
@@ -243,7 +261,7 @@ private extension AppMainVC {
 
     menu.addItem(withTitle: Localized.UI.menuTitleReduceTransparency) { [weak self] in
       AppPreferences.Accessibility.reduceTransparency.toggle()
-      self?.popover?.material = AppPreferences.Accessibility.popoverMaterial
+      self?.popover?.applyMaterial(AppPreferences.Accessibility.popoverMaterial)
     }
     .setOn(AppPreferences.Accessibility.reduceTransparency)
 

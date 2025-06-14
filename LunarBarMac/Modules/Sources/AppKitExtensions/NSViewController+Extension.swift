@@ -15,11 +15,7 @@ public extension NSViewController {
       visualEffectView?.material = newValue
     }
   }
-}
 
-// MARK: - Private
-
-private extension NSViewController {
   var visualEffectView: NSVisualEffectView? {
     guard let rootView = view.rootView else {
       assertionFailure("Failed to get rootView from: \(self)")
