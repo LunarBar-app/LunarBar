@@ -13,6 +13,17 @@ extension Notification.Name {
 }
 
 @MainActor
+func customDateText() -> String? {
+  guard let dateFormat = AppPreferences.General.customDateFormat, !dateFormat.isEmpty else {
+    return nil
+  }
+
+  let formatter = DateFormatter()
+  formatter.dateFormat = JSEvaluator.resolve(input: dateFormat)
+  return formatter.string(from: Date.now)
+}
+
+@MainActor
 enum AppIconFactory {
   static func createCalendarIcon(pointSize: Double = 16) -> NSImage {
     .with(symbolName: Icons.calendar, pointSize: pointSize).asTemplate
@@ -23,14 +34,10 @@ enum AppIconFactory {
   }
 
   static func createCustomIcon() -> NSImage? {
-    guard let dateFormat = AppPreferences.General.customDateFormat, !dateFormat.isEmpty else {
+    guard let text = customDateText() else {
       return .with(symbolName: Icons.exclamationmarkTriangle, pointSize: 15)
     }
 
-    let formatter = DateFormatter()
-    formatter.dateFormat = JSEvaluator.resolve(input: dateFormat)
-
-    let text = formatter.string(from: Date.now)
     let image: NSImage = .with(text: text, font: .menuBarMonospacedDigitFont)
     return image.asTemplate
   }

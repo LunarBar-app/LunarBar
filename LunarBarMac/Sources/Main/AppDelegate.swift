@@ -153,6 +153,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       statusItem.button?.image = AppIconFactory.createCustomIcon()
     }
 
+    let accessibilityLabel = AppPreferences.General.menuBarIcon == .custom ? customDateText() : "LunarBar"
+    statusItem.button?.setAccessibilityLabel(accessibilityLabel)
+
     // The popover position will be slightly moved without this trick
     if needsLayout {
       presentedPopover?.close()
