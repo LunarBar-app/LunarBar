@@ -2327,6 +2327,23 @@
         }
       }
     },
+    "Please enter standard [date format patterns](https://unicode.org/reports/tr35/tr35-dates.html#Date_Format_Patterns) here. Refer to the [wiki](https://github.com/LunarBar-app/LunarBar/wiki) for more instructions and examples." : {
+      "comment" : "[Alert] Explanation for custom date format",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请输入标准的[日期格式模式](https://unicode.org/reports/tr35/tr35-dates.html#Date_Format_Patterns)，参考[文档](https://github.com/LunarBar-app/LunarBar/wiki)以获取更多说明和示例。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請輸入標準的[日期格式模式](https://unicode.org/reports/tr35/tr35-dates.html#Date_Format_Patterns)，參考[文件](https://github.com/LunarBar-app/LunarBar/wiki)以獲取更多說明和示例。"
+          }
+        }
+      }
+    },
     "Previous Month" : {
       "comment" : "[Button] Move to the previous month",
       "localizations" : {
