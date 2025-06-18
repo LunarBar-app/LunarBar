@@ -31,7 +31,7 @@ enum AppDesign {
   }
 
   static var contentMargin: Double {
-    modernStyle ? (5 * AppPreferences.General.contentScale.rawValue) : 0
+    modernStyle ? (4 * AppPreferences.General.contentScale.rawValue) : 0
   }
 
   static var cellCornerRadius: Double {
@@ -45,16 +45,22 @@ extension NSViewController {
   func applyMaterial(_ material: NSVisualEffectView.Material) {
     self.material = material
 
-  #if BUILD_WITH_SDK_26_OR_LATER
-    guard #available(macOS 26.0, *), AppDesign.modernStyle else {
+    // [macOS 26] Change this to 26.0
+    guard #available(macOS 16.0, *), AppDesign.modernStyle else {
       return
     }
 
     let tintColor: NSColor = material == .windowBackground ? .windowBackgroundColor : .clear
-    visualEffectView?.enumerateDescendants { (glassView: NSGlassEffectView) in
-      glassView.tintColor = tintColor
+    visualEffectView?.enumerateDescendants { (effectView: NSView) in
+    #if BUILD_WITH_SDK_26_OR_LATER
+      (effectView as? NSGlassEffectView)?.tintColor = tintColor
+    #else
+      let setter = sel_getUid("setTintColor:")
+      if effectView.responds(to: setter) {
+        effectView.perform(setter, with: tintColor)
+      }
+    #endif
     }
-  #endif
   }
 }
 
