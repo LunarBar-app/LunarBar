@@ -68,6 +68,7 @@ enum Localized {
 
     // Alert
     static let alertMessageSetDateFormat = String(localized: "Set Date Format", comment: "[Alert] Configure the custom date format")
+    static let alertExplanationSetDateFormat = String(localized: "Please enter standard [date format patterns](https://unicode.org/reports/tr35/tr35-dates.html#Date_Format_Patterns) here. Refer to the [wiki](https://github.com/LunarBar-app/LunarBar/wiki) for more instructions and examples.", comment: "[Alert] Explanation for custom date format")
     static let alertMessageRelaunchRequired = String(localized: "Relaunch LunarBar to apply the change.", comment: "[Alert] Message about relaunch after changing the interface")
     static let alertButtonTitleApplyChanges = String(localized: "Apply Changes", comment: "[Alert] Apply the custom date format")
 

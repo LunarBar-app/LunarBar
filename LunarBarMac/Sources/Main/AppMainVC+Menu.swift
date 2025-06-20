@@ -193,20 +193,35 @@ private extension AppMainVC {
         inputField.cell?.lineBreakMode = .byTruncatingTail
         inputField.stringValue = AppPreferences.General.customDateFormat ?? ""
 
+        let textView = NSTextView.markdownView(
+          with: Localized.UI.alertExplanationSetDateFormat,
+          contentWidth: inputField.frame.width
+        )
+
+        textView.frame = CGRect(
+          origin: CGPoint(x: 0, y: inputField.frame.height + 15), // Spacing between two fields
+          size: textView.frame.size
+        )
+
         let alert = NSAlert()
         alert.messageText = Localized.UI.alertMessageSetDateFormat
-        alert.accessoryView = inputField
         alert.addButton(withTitle: Localized.UI.alertButtonTitleApplyChanges)
-        alert.addButton(withTitle: Localized.General.learnMore)
         alert.addButton(withTitle: Localized.General.cancel)
 
-        switch alert.runModal() {
-        case .alertFirstButtonReturn: // Apply Changes
+        let wrapper = NSView(frame: {
+          var rect = textView.frame
+          rect.size.height += textView.frame.minY // Text view height and the spacing
+          return rect
+        }())
+
+        wrapper.addSubview(textView)
+        wrapper.addSubview(inputField)
+        alert.accessoryView = wrapper
+        alert.layout()
+
+        if alert.runModal() == .alertFirstButtonReturn { // Apply Changes
           AppPreferences.General.customDateFormat = inputField.stringValue
           AppPreferences.General.menuBarIcon = .custom
-        case .alertSecondButtonReturn: // Learn More
-          NSWorkspace.shared.safelyOpenURL(string: "https://github.com/LunarBar-app/LunarBar/wiki")
-        default: break // Cancel
         }
       }
 
