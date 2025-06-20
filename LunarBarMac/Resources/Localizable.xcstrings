@@ -1571,23 +1571,6 @@
         }
       }
     },
-    "Icon" : {
-      "comment" : "[Menu] Section title for icons",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "图标"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "圖像"
-          }
-        }
-      }
-    },
     "Jingzhe" : {
       "comment" : "The 3rd solar term, always in Chinese",
       "localizations" : {
@@ -1899,6 +1882,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "芒種"
+          }
+        }
+      }
+    },
+    "Menu Bar Icon" : {
+      "comment" : "[Menu] Section title for icons",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "菜单栏图标"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選單列圖像"
           }
         }
       }

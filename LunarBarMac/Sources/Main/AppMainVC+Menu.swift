@@ -108,7 +108,18 @@ private extension AppMainVC {
 
       NSLayoutConstraint.activate([
         picker.centerXAnchor.constraint(equalTo: wrapper.centerXAnchor),
-        picker.centerYAnchor.constraint(equalTo: wrapper.centerYAnchor),
+        picker.centerYAnchor.constraint(equalTo: wrapper.centerYAnchor, constant: {
+          guard AppDesign.modernStyle else {
+            return 0
+          }
+
+        #if BUILD_WITH_SDK_26_OR_LATER
+          return 0
+        #else
+          // [macOS 26] Interim workaround for layout misalignment
+          return 2.5
+        #endif
+        }()),
       ])
 
       // Inside a submenu to avoid keyboard navigation conflicts
@@ -152,7 +163,19 @@ private extension AppMainVC {
   #endif
 
     // Icon styles
-    menu.addItem(withTitle: Localized.UI.menuTitleMenuBarIcon).isEnabled = false
+    menu.addItem({
+      let item = NSMenuItem(title: Localized.UI.menuTitleMenuBarIcon)
+      item.isEnabled = false
+
+      // [macOS 26] Change this to 26.0
+      if #available(macOS 16.0, *) {
+        // To improve the text alignment
+        item.image = .with(symbolName: Icons.menubarRectangle, pointSize: Constants.menuIconSize)
+      }
+
+      return item
+    }())
+
     menu.addItem({
       let item = NSMenuItem(title: Localized.UI.menuTitleCurrentDate)
       item.setOn(AppPreferences.General.menuBarIcon == .date)
