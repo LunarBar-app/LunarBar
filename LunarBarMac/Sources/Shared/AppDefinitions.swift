@@ -34,7 +34,7 @@ enum Localized {
     static let menuTitleEnterMonth = String(localized: "Enter Month", comment: "[Menu] Enter a month using date picker")
     static let menuTitleAppearance = String(localized: "Appearance", comment: "[Menu] Change dark mode preference")
     static let menuTitleClassicInterface = String(localized: "Classic Interface", comment: "[Menu] Whether to use classic interface in macOS Tahoe")
-    static let menuTitleMenuBarIcon = String(localized: "Icon", comment: "[Menu] Section title for icons")
+    static let menuTitleMenuBarIcon = String(localized: "Menu Bar Icon", comment: "[Menu] Section title for icons")
     static let menuTitleCurrentDate = String(localized: "Current Date", comment: "[Menu] Use the current date as the menu bar icon")
     static let menuTitleCalendarIcon = String(localized: "Calendar Icon", comment: "[Menu] Use a calendar icon as the menu bar icon")
     static let menuTitleCustomFormat = String(localized: "Custom Format", comment: "[Menu] Use a formatted date as the menu bar icon")
@@ -192,6 +192,7 @@ enum Icons {
   static let chevronForward = "chevron.forward"
   static let circle = "circle"
   static let exclamationmarkTriangle = "exclamationmark.triangle"
+  static let menubarRectangle = "menubar.rectangle"
   static let mustacheFill = "mustache.fill"
   static let wandAndSparkles = {
     if #available(macOS 15.0, *) {
