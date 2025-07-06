@@ -24,7 +24,7 @@ public extension NSView {
 
   /// Returns the image representation.
   var snapshotImage: NSImage? {
-    guard let bitmap = bitmapImageRepForCachingDisplay(in: bounds) else {
+    guard let bitmap = NSBitmapImageRep(size: bounds.size) ?? bitmapImageRepForCachingDisplay(in: bounds) else {
       return nil
     }
 
