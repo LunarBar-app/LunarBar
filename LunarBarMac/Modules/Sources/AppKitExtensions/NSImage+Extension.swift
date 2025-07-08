@@ -32,12 +32,25 @@ public extension NSImage {
   static func with(text: String, font: NSFont) -> NSImage {
     let attributes: [NSAttributedString.Key: Any] = [.font: font]
     let string = NSAttributedString(string: text, attributes: attributes)
+    let size = string.size()
 
-    let image = NSImage(size: string.size())
-    image.lockFocus()
+    guard let bitmap = NSBitmapImageRep(size: size) else {
+      // Fallback, not rendering scale aware
+      return NSImage(size: size, flipped: false) { _ in
+        string.draw(at: .zero)
+        return true
+      }
+    }
+
+    let context = NSGraphicsContext(bitmapImageRep: bitmap)
+    NSGraphicsContext.saveGraphicsState()
+    NSGraphicsContext.current = context
 
     string.draw(at: .zero)
-    image.unlockFocus()
+    NSGraphicsContext.restoreGraphicsState()
+
+    let image = NSImage(size: size)
+    image.addRepresentation(bitmap)
     return image
   }
 
