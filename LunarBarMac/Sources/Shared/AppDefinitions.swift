@@ -199,7 +199,7 @@ enum Icons {
       return "wand.and.sparkles"
     }
 
-    return "wand.and.rays"
+    return "wand.and.stars"
   }()
 }
 
