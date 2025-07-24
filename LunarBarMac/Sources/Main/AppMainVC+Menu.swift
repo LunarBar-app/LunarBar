@@ -176,22 +176,38 @@ private extension AppMainVC {
       return item
     }())
 
-    menu.addItem({
-      let item = NSMenuItem(title: Localized.UI.menuTitleCurrentDate)
-      item.setOn(AppPreferences.General.menuBarIcon == .date)
+    let dateIconItem: (
+      DateIconStyle,
+      String,
+      Bool,
+      @autoclosure @escaping () -> Void
+    ) -> NSMenuItem = { style, title, isOn, action in
+      let item = NSMenuItem(title: title)
+      item.setOn(isOn)
+      item.addAction(action)
 
-      if let image = AppIconFactory.createDateIcon() {
+      if let image = AppIconFactory.createDateIcon(style: style) {
         item.image = image.resized(with: CGSize(width: 16.8, height: 12)) // 1.4:1
       } else {
         Logger.assertFail("Failed to create the icon")
       }
 
-      item.addAction {
-        AppPreferences.General.menuBarIcon = .date
-      }
-
       return item
-    }())
+    }
+
+    menu.addItem(dateIconItem(
+      .filled,
+      Localized.UI.menuTitleFilledDate,
+      AppPreferences.General.menuBarIcon == .date,
+      AppPreferences.General.menuBarIcon = .date,
+    ))
+
+    menu.addItem(dateIconItem(
+      .outlined,
+      Localized.UI.menuTitleOutlinedDate,
+      AppPreferences.General.menuBarIcon == .outlinedDate,
+      AppPreferences.General.menuBarIcon = .outlinedDate,
+    ))
 
     menu.addItem({
       let item = NSMenuItem(title: Localized.UI.menuTitleCalendarIcon)

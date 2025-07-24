@@ -215,7 +215,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "日曆圖像"
+            "value" : "日曆圖示"
           }
         }
       }
@@ -415,23 +415,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "縮放顯示"
-          }
-        }
-      }
-    },
-    "Current Date" : {
-      "comment" : "[Menu] Use the current date as the menu bar icon",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "当前日期"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "當前日期"
           }
         }
       }
@@ -1451,6 +1434,23 @@
         }
       }
     },
+    "Filled Date" : {
+      "comment" : "[Menu] Use the current date as the menu bar icon, filled style",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "实心日期图标"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "實心日期圖示"
+          }
+        }
+      }
+    },
     "Ghost Festival" : {
       "comment" : "Chinese traditional festival",
       "localizations" : {
@@ -1898,7 +1898,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "選單列圖像"
+            "value" : "選單列圖示"
           }
         }
       }
@@ -2289,6 +2289,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "開啟目錄"
+          }
+        }
+      }
+    },
+    "Outlined Date" : {
+      "comment" : "[Menu] Use the current date as the menu bar icon, outlined style",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "描边日期图标"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "描邊日期圖示"
           }
         }
       }
