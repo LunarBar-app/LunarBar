@@ -76,9 +76,10 @@ enum AppPreferences {
 // MARK: - Types
 
 enum MenuBarIcon: Codable {
-  case date
+  case date // "filledDate"
   case calendar
   case custom
+  case outlinedDate
 }
 
 enum Appearance: Codable {

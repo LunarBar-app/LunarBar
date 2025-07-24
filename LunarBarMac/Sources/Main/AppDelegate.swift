@@ -148,7 +148,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     case .calendar:
       statusItem.button?.image = AppIconFactory.createCalendarIcon()
     case .date:
-      statusItem.button?.image = AppIconFactory.createDateIcon()
+      statusItem.button?.image = AppIconFactory.createDateIcon(style: .filled)
+    case .outlinedDate:
+      statusItem.button?.image = AppIconFactory.createDateIcon(style: .outlined)
     case .custom:
       statusItem.button?.image = AppIconFactory.createCustomIcon()
     }

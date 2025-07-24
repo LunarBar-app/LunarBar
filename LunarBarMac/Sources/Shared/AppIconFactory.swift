@@ -24,13 +24,19 @@ func customDateText() -> String? {
 }
 
 @MainActor
+enum DateIconStyle {
+  case filled
+  case outlined
+}
+
+@MainActor
 enum AppIconFactory {
   static func createCalendarIcon(pointSize: Double = 16) -> NSImage {
     .with(symbolName: Icons.calendar, pointSize: pointSize).asTemplate
   }
 
-  static func createDateIcon() -> NSImage? {
-    DateIconView().snapshotImage?.asTemplate
+  static func createDateIcon(style: DateIconStyle) -> NSImage? {
+    DateIconView(style: style).snapshotImage?.asTemplate
   }
 
   static func createCustomIcon() -> NSImage? {
@@ -50,16 +56,56 @@ private class DateIconView: NSView {
     static let iconSize = CGSize(width: 21, height: 15)
     static let fontSize: Double = 12
     static let cornerRadius: Double = 2.5
+    static let borderWidth: Double = 2.0
   }
 
-  init() {
+  private var currentDay: Int {
+    Calendar.solar.component(.day, from: .now)
+  }
+
+  private let style: DateIconStyle
+
+  init(style: DateIconStyle) {
+    self.style = style
     super.init(frame: CGRect(origin: .zero, size: Constants.iconSize))
 
+    wantsLayer = true
+    layer?.cornerCurve = .continuous
+    layer?.cornerRadius = Constants.cornerRadius
+
+    if style == .filled {
+      renderFilledIcon()
+    }
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  override var isFlipped: Bool {
+    // [macOS 15] It seems flipping the coordinate system is no longer needed
+    if #available(macOS 15.0, *) {
+      return false
+    }
+
+    return true
+  }
+
+  override func draw(_ dirtyRect: CGRect) {
+    super.draw(dirtyRect)
+
+    if style == .outlined {
+      renderOutlinedIcon()
+    }
+  }
+
+  private func renderFilledIcon() {
     // Resolve the color because .black doesn't work well with NSMenuItem, even when the image is template
     let tintColor: NSColor = NSApp.effectiveAppearance.isDarkMode ? .white : .black
     layerBackgroundColor = tintColor
 
-    let currentDay = Calendar.solar.component(.day, from: .now)
+    let currentDay = self.currentDay
     let labelFont = NSFont.boldSystemFont(ofSize: Constants.fontSize)
 
     // The width can be calculated precisely with an attributed string
@@ -97,24 +143,30 @@ private class DateIconView: NSView {
 
     let shapeLayer = CAShapeLayer()
     shapeLayer.path = textPath.cgPath
-
     layer?.mask = shapeLayer
-    layer?.cornerCurve = .continuous
-    layer?.cornerRadius = Constants.cornerRadius
   }
 
-  @available(*, unavailable)
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+  private func renderOutlinedIcon() {
+    let radius = Constants.cornerRadius
+    let border = NSBezierPath(roundedRect: bounds, xRadius: radius, yRadius: radius)
+    border.lineWidth = Constants.borderWidth
+    border.stroke()
 
-  override var isFlipped: Bool {
-    // [macOS 15] It seems flipping the coordinate system is no longer needed
-    if #available(macOS 15.0, *) {
-      return false
-    }
+    let attributes: [NSAttributedString.Key: Any] = [
+      .font: NSFont.systemFont(ofSize: Constants.fontSize),
+      .foregroundColor: NSColor.black,
+    ]
 
-    return true
+    let label = String(currentDay)
+    let size = label.size(withAttributes: attributes)
+    let rect = CGRect(
+      x: bounds.midX - size.width * 0.5,
+      y: bounds.midY - size.height * 0.5,
+      width: size.width,
+      height: size.height
+    )
+
+    label.draw(in: rect, withAttributes: attributes)
   }
 }
 
