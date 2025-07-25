@@ -176,37 +176,18 @@ private extension AppMainVC {
       return item
     }())
 
-    let dateIconItem: (
-      DateIconStyle,
-      String,
-      Bool,
-      @autoclosure @escaping () -> Void
-    ) -> NSMenuItem = { style, title, isOn, action in
-      let item = NSMenuItem(title: title)
-      item.setOn(isOn)
-      item.addAction(action)
-
-      if let image = AppIconFactory.createDateIcon(style: style) {
-        item.image = image.resized(with: CGSize(width: 16.8, height: 12)) // 1.4:1
-      } else {
-        Logger.assertFail("Failed to create the icon")
-      }
-
-      return item
-    }
-
-    menu.addItem(dateIconItem(
-      .filled,
-      Localized.UI.menuTitleFilledDate,
-      AppPreferences.General.menuBarIcon == .filledDate,
-      AppPreferences.General.menuBarIcon = .filledDate,
+    menu.addItem(createDateIconItem(
+      style: .filled,
+      title: Localized.UI.menuTitleFilledDate,
+      isOn: AppPreferences.General.menuBarIcon == .filledDate,
+      action: AppPreferences.General.menuBarIcon = .filledDate,
     ))
 
-    menu.addItem(dateIconItem(
-      .outlined,
-      Localized.UI.menuTitleOutlinedDate,
-      AppPreferences.General.menuBarIcon == .outlinedDate,
-      AppPreferences.General.menuBarIcon = .outlinedDate,
+    menu.addItem(createDateIconItem(
+      style: .outlined,
+      title: Localized.UI.menuTitleOutlinedDate,
+      isOn: AppPreferences.General.menuBarIcon == .outlinedDate,
+      action: AppPreferences.General.menuBarIcon = .outlinedDate,
     ))
 
     menu.addItem({
@@ -507,6 +488,24 @@ private extension AppMainVC {
     return item
   }
 
+  func createDateIconItem(
+    style: DateIconStyle,
+    title: String,
+    isOn: Bool,
+    action: @autoclosure @escaping () -> Void
+  ) -> NSMenuItem {
+    let item = NSMenuItem(title: title)
+    item.setOn(isOn)
+    item.addAction(action)
+
+    if let image = AppIconFactory.createDateIcon(style: style) {
+      item.image = image.resized(with: CGSize(width: 16.8, height: 12)) // 1.4:1
+    } else {
+      Logger.assertFail("Failed to create the icon")
+    }
+
+    return item
+  }
   func reloadCalendar() {
     updateCalendar(targetDate: monthDate)
   }

@@ -31,14 +31,17 @@ enum DateIconStyle {
 
 @MainActor
 enum AppIconFactory {
-  static func createCalendarIcon(pointSize: Double = 16) -> NSImage {
-    .with(symbolName: Icons.calendar, pointSize: pointSize).asTemplate
+  private enum Constants {
+    static let defaultIconSize: Double = 16
   }
 
   static func createDateIcon(style: DateIconStyle) -> NSImage? {
     DateIconView(style: style).snapshotImage?.asTemplate
   }
 
+  static func createCalendarIcon(pointSize: Double = Constants.defaultIconSize) -> NSImage? {
+    createSystemSymbol(named: Icons.calendar, pointSize: pointSize)
+  }
   static func createCustomIcon() -> NSImage? {
     guard let text = customDateText() else {
       return .with(symbolName: Icons.exclamationmarkTriangle, pointSize: 15)
@@ -46,6 +49,14 @@ enum AppIconFactory {
 
     let image: NSImage = .with(text: text, font: .menuBarMonospacedDigitFont)
     return image.asTemplate
+  }
+
+  private static func createSystemSymbol(named symbolName: String?, pointSize: Double) -> NSImage? {
+    guard let symbolName else {
+      return nil
+    }
+
+    return .with(symbolName: symbolName, pointSize: pointSize).asTemplate
   }
 }
 
