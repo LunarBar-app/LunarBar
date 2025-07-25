@@ -145,12 +145,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   @MainActor
   func updateMenuBarIcon(needsLayout: Bool = false) {
     switch AppPreferences.General.menuBarIcon {
-    case .calendar:
-      statusItem.button?.image = AppIconFactory.createCalendarIcon()
     case .filledDate:
       statusItem.button?.image = AppIconFactory.createDateIcon(style: .filled)
     case .outlinedDate:
       statusItem.button?.image = AppIconFactory.createDateIcon(style: .outlined)
+    case .calendar:
+      statusItem.button?.image = AppIconFactory.createCalendarIcon()
     case .custom:
       statusItem.button?.image = AppIconFactory.createCustomIcon()
     }
