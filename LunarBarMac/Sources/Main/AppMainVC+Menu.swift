@@ -202,51 +202,26 @@ private extension AppMainVC {
       return item
     }())
 
-    menu.addItem({
-      let item = NSMenuItem(title: Localized.UI.menuTitleCustomFormat)
-      item.image = .with(symbolName: Icons.wandAndSparkles, pointSize: Constants.menuIconSize)
-      item.setOn(AppPreferences.General.menuBarIcon == .custom)
-
-      item.addAction {
-        let inputField = EditableTextField(frame: CGRect(x: 0, y: 0, width: 256, height: 22))
-        inputField.cell?.usesSingleLineMode = true
-        inputField.cell?.lineBreakMode = .byTruncatingTail
-        inputField.stringValue = AppPreferences.General.customDateFormat ?? ""
-
-        let textView = NSTextView.markdownView(
-          with: Localized.UI.alertExplanationSetDateFormat,
-          contentWidth: inputField.frame.width
-        )
-
-        textView.frame = CGRect(
-          origin: CGPoint(x: 0, y: inputField.frame.height + 15), // Spacing between two fields
-          size: textView.frame.size
-        )
-
+    menu.addItem(createCustomIconItem(
+      item: {
+        let item = NSMenuItem(title: Localized.UI.menuTitleCustomFormat)
+        item.image = .with(symbolName: Icons.wandAndSparkles, pointSize: Constants.menuIconSize)
+        item.setOn(AppPreferences.General.menuBarIcon == .custom)
+        return item
+      }(),
+      alert: {
         let alert = NSAlert()
         alert.messageText = Localized.UI.alertMessageSetDateFormat
         alert.addButton(withTitle: Localized.UI.alertButtonTitleApplyChanges)
         alert.addButton(withTitle: Localized.General.cancel)
-
-        let wrapper = NSView(frame: {
-          var rect = textView.frame
-          rect.size.height += textView.frame.minY // Text view height and the spacing
-          return rect
-        }())
-
-        wrapper.addSubview(textView)
-        wrapper.addSubview(inputField)
-        alert.accessoryView = wrapper
-        alert.layout()
-
-        if alert.runModal() == .alertFirstButtonReturn { // Apply Changes
-          AppPreferences.General.customDateFormat = inputField.stringValue
-          AppPreferences.General.menuBarIcon = .custom
-        }
-      }
-
-      return item
-    }())
+        return alert
+      }(),
+      explanation: Localized.UI.alertExplanationSetDateFormat,
+      initialValue: AppPreferences.General.customDateFormat,
+    ) {
+      AppPreferences.General.customDateFormat = $0
+      AppPreferences.General.menuBarIcon = .custom
+    })
 
     menu.addSeparator()
 
@@ -506,6 +481,49 @@ private extension AppMainVC {
 
     return item
   }
+
+  func createCustomIconItem(
+    item: NSMenuItem,
+    alert: NSAlert,
+    explanation: String,
+    initialValue: String?,
+    applyChanges: @escaping (String) -> Void
+  ) -> NSMenuItem {
+    let inputField = EditableTextField(frame: CGRect(x: 0, y: 0, width: 256, height: 22))
+    inputField.cell?.usesSingleLineMode = true
+    inputField.cell?.lineBreakMode = .byTruncatingTail
+    inputField.stringValue = initialValue ?? ""
+
+    let textView = NSTextView.markdownView(
+      with: explanation,
+      contentWidth: inputField.frame.width
+    )
+
+    textView.frame = CGRect(
+      origin: CGPoint(x: 0, y: inputField.frame.height + 15), // Spacing between two fields
+      size: textView.frame.size
+    )
+
+    let wrapper = NSView(frame: {
+      var rect = textView.frame
+      rect.size.height += textView.frame.minY // Text view height and the spacing
+      return rect
+    }())
+
+    wrapper.addSubview(textView)
+    wrapper.addSubview(inputField)
+    alert.accessoryView = wrapper
+    alert.layout()
+
+    item.addAction {
+      if alert.runModal() == .alertFirstButtonReturn { // Apply Changes
+        applyChanges(inputField.stringValue)
+      }
+    }
+
+    return item
+  }
+
   func reloadCalendar() {
     updateCalendar(targetDate: monthDate)
   }
