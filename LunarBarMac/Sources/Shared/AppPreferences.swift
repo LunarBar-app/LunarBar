@@ -26,7 +26,7 @@ enum AppPreferences {
       }
     }
 
-    @Storage(key: "general.menu-bar-icon", defaultValue: .date)
+    @Storage(key: "general.menu-bar-icon", defaultValue: .filledDate)
     static var menuBarIcon: MenuBarIcon {
       didSet {
         guard let delegate = NSApp.delegate as? AppDelegate else {
@@ -75,11 +75,11 @@ enum AppPreferences {
 
 // MARK: - Types
 
-enum MenuBarIcon: Codable {
-  case date // "filledDate"
+enum MenuBarIcon: String, Codable {
+  case filledDate = "date" // For backward capability
+  case outlinedDate
   case calendar
   case custom
-  case outlinedDate
 }
 
 enum Appearance: Codable {

@@ -198,8 +198,8 @@ private extension AppMainVC {
     menu.addItem(dateIconItem(
       .filled,
       Localized.UI.menuTitleFilledDate,
-      AppPreferences.General.menuBarIcon == .date,
-      AppPreferences.General.menuBarIcon = .date,
+      AppPreferences.General.menuBarIcon == .filledDate,
+      AppPreferences.General.menuBarIcon = .filledDate,
     ))
 
     menu.addItem(dateIconItem(

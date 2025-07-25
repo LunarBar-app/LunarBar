@@ -147,7 +147,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     switch AppPreferences.General.menuBarIcon {
     case .calendar:
       statusItem.button?.image = AppIconFactory.createCalendarIcon()
-    case .date:
+    case .filledDate:
       statusItem.button?.image = AppIconFactory.createDateIcon(style: .filled)
     case .outlinedDate:
       statusItem.button?.image = AppIconFactory.createDateIcon(style: .outlined)
