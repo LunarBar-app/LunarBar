@@ -13,18 +13,13 @@ enum AppDesign {
     Returns `true` to adopt the new design language in macOS Tahoe.
    */
   static var modernStyle: Bool {
-  #if BUILD_WITH_SDK_26_OR_LATER
-    guard #available(macOS 26.0, *) else {
+    guard isMacOSTahoe else {
       return false
     }
 
+  #if BUILD_WITH_SDK_26_OR_LATER
     return !AppPreferences.General.classicInterface
   #else
-    // macOS Tahoe version number is 16.0 if the SDK is old
-    guard #available(macOS 16.0, *) else {
-      return false
-    }
-
     // defaults write app.cyan.lunarbar com.apple.SwiftUI.IgnoreSolariumLinkedOnCheck -bool true
     return UserDefaults.standard.bool(forKey: "com.apple.SwiftUI.IgnoreSolariumLinkedOnCheck")
   #endif
@@ -36,6 +31,21 @@ enum AppDesign {
 
   static var cellCornerRadius: Double {
     modernStyle ? 7 : 4
+  }
+
+  static var menuIconSize: Double {
+    isMacOSTahoe ? 17 : 14
+  }
+
+  private static var isMacOSTahoe: Bool {
+    // [macOS 26] Change this to 26.0
+    //
+    // macOS Tahoe version number is 16.0 if the SDK is old
+    guard #available(macOS 16.0, *) else {
+      return false
+    }
+
+    return true
   }
 }
 

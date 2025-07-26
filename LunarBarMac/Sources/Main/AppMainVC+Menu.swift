@@ -43,7 +43,7 @@ extension AppMainVC {
 
 private extension AppMainVC {
   enum Constants {
-    static let menuIconSize: Double = 14
+    @MainActor static let menuIconSize: Double = AppDesign.menuIconSize
   }
 
   var menuItemGotoToday: NSMenuItem {
