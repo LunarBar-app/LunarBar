@@ -151,6 +151,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       statusItem.button?.image = AppIconFactory.createDateIcon(style: .outlined)
     case .calendar:
       statusItem.button?.image = AppIconFactory.createCalendarIcon()
+    case .systemSymbol:
+      statusItem.button?.image = AppIconFactory.createSystemIcon()
     case .custom:
       statusItem.button?.image = AppIconFactory.createCustomIcon()
     }

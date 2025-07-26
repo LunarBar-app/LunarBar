@@ -2344,6 +2344,23 @@
         }
       }
     },
+    "Please enter a [SF Symbol](https://developer.apple.com/sf-symbols/) name here. Refer to the [wiki](https://github.com/LunarBar-app/LunarBar/wiki) for more instructions and examples." : {
+      "comment" : "[Alert] Explanation for system symbol name",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请输入一个 [SF Symbol](https://developer.apple.com/sf-symbols/) 名称，参考[文档](https://github.com/LunarBar-app/LunarBar/wiki)以获取更多说明和示例。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請輸入一個 [SF Symbol](https://developer.apple.com/sf-symbols/) 名稱，參考[文件](https://github.com/LunarBar-app/LunarBar/wiki)以獲取更多說明和示例。"
+          }
+        }
+      }
+    },
     "Please enter standard [date format patterns](https://unicode.org/reports/tr35/tr35-dates.html#Date_Format_Patterns) here. Refer to the [wiki](https://github.com/LunarBar-app/LunarBar/wiki) for more instructions and examples." : {
       "comment" : "[Alert] Explanation for custom date format",
       "localizations" : {
@@ -2634,6 +2651,23 @@
         }
       }
     },
+    "Set Symbol Name" : {
+      "comment" : "[Alert] Configure the system symbol name",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置符号名称"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定符號名稱"
+          }
+        }
+      }
+    },
     "Show Actions" : {
       "comment" : "[Button] Show actions as a popup menu",
       "localizations" : {
@@ -2744,6 +2778,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "系統"
+          }
+        }
+      }
+    },
+    "System Symbol" : {
+      "comment" : "[Menu] Use a system symbol as the menu bar icon",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统符号"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系統符號"
           }
         }
       }

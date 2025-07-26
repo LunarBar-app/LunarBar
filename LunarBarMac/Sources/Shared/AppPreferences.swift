@@ -38,6 +38,9 @@ enum AppPreferences {
       }
     }
 
+    @Storage(key: "general.system-symbol-name", defaultValue: nil)
+    static var systemSymbolName: String?
+
     @Storage(key: "general.custom-date-format", defaultValue: nil)
     static var customDateFormat: String?
 
@@ -79,6 +82,7 @@ enum MenuBarIcon: String, Codable {
   case filledDate = "date" // For backward capability
   case outlinedDate
   case calendar
+  case systemSymbol
   case custom
 }
 

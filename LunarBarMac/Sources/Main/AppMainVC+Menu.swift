@@ -204,6 +204,32 @@ private extension AppMainVC {
 
     menu.addItem(createCustomIconItem(
       item: {
+        let item = NSMenuItem(title: Localized.UI.menuTitleSystemSymbol)
+        item.image = .with(symbolName: Icons.gear, pointSize: Constants.menuIconSize)
+        item.setOn(AppPreferences.General.menuBarIcon == .systemSymbol)
+        return item
+      }(),
+      alert: {
+        let alert = NSAlert()
+        alert.messageText = Localized.UI.alertMessageSetSymbolName
+        alert.addButton(withTitle: Localized.UI.alertButtonTitleApplyChanges)
+        alert.addButton(withTitle: Localized.General.cancel)
+        return alert
+      }(),
+      explanation: Localized.UI.alertExplanationSetSymbolName,
+      initialValue: AppPreferences.General.systemSymbolName,
+    ) { symbolName in
+      guard NSImage(systemSymbolName: symbolName, accessibilityDescription: nil) != nil else {
+        return false
+      }
+
+      AppPreferences.General.systemSymbolName = symbolName
+      AppPreferences.General.menuBarIcon = .systemSymbol
+      return true
+    })
+
+    menu.addItem(createCustomIconItem(
+      item: {
         let item = NSMenuItem(title: Localized.UI.menuTitleCustomFormat)
         item.image = .with(symbolName: Icons.wandAndSparkles, pointSize: Constants.menuIconSize)
         item.setOn(AppPreferences.General.menuBarIcon == .custom)
@@ -218,9 +244,14 @@ private extension AppMainVC {
       }(),
       explanation: Localized.UI.alertExplanationSetDateFormat,
       initialValue: AppPreferences.General.customDateFormat,
-    ) {
-      AppPreferences.General.customDateFormat = $0
+    ) { dateFormat in
+      guard !dateFormat.isEmpty else {
+        return false
+      }
+
+      AppPreferences.General.customDateFormat = dateFormat
       AppPreferences.General.menuBarIcon = .custom
+      return true
     })
 
     menu.addSeparator()
@@ -487,7 +518,7 @@ private extension AppMainVC {
     alert: NSAlert,
     explanation: String,
     initialValue: String?,
-    applyChanges: @escaping (String) -> Void
+    commitChange: @escaping (String) -> Bool
   ) -> NSMenuItem {
     let inputField = EditableTextField(frame: CGRect(x: 0, y: 0, width: 256, height: 22))
     inputField.cell?.usesSingleLineMode = true
@@ -515,12 +546,21 @@ private extension AppMainVC {
     alert.accessoryView = wrapper
     alert.layout()
 
-    item.addAction {
-      if alert.runModal() == .alertFirstButtonReturn { // Apply Changes
-        applyChanges(inputField.stringValue)
+    func showAlert() {
+      guard alert.runModal() == .alertFirstButtonReturn else {
+        return
       }
+
+      guard !commitChange(inputField.stringValue) else {
+        return
+      }
+
+      // Failed to commit the change
+      NSSound.beep()
+      showAlert()
     }
 
+    item.addAction(showAlert)
     return item
   }
 
