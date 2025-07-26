@@ -42,6 +42,11 @@ enum AppIconFactory {
   static func createCalendarIcon(pointSize: Double = Constants.defaultIconSize) -> NSImage? {
     createSystemSymbol(named: Icons.calendar, pointSize: pointSize)
   }
+
+  static func createSystemIcon(pointSize: Double = Constants.defaultIconSize) -> NSImage? {
+    createSystemSymbol(named: AppPreferences.General.systemSymbolName, pointSize: pointSize)
+  }
+
   static func createCustomIcon() -> NSImage? {
     guard let text = customDateText() else {
       return .with(symbolName: Icons.exclamationmarkTriangle, pointSize: 15)
