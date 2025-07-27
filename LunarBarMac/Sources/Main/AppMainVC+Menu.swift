@@ -547,6 +547,10 @@ private extension AppMainVC {
     alert.layout()
 
     func showAlert() {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+        inputField.window?.makeFirstResponder(inputField)
+      }
+
       guard alert.runModal() == .alertFirstButtonReturn else {
         return
       }
