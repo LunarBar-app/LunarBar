@@ -348,9 +348,10 @@ private extension AppMainVC {
       if let color = calendar.color {
         item.image = .with(
           cellColor: color,
-          borderColor: Colors.darkGray,
+          borderColor: color.darkerColor(),
+          borderWidth: view.hairlineWidth,
           size: CGSize(width: 12, height: 12),
-          cornerRadius: 2
+          cornerRadius: 3
         )
       }
 

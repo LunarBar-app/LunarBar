@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import AppKitExtensions
 import SwiftUI
 import EventKit
 import LunarBarKit
@@ -16,6 +17,7 @@ import LunarBarKit
 struct DateDetailsView: View {
   private let title: String
   private let events: [EKCalendarItem]
+  private let lineWidth: Double
 
   var body: some View {
     let scale = AppPreferences.General.contentScale.rawValue
@@ -31,9 +33,12 @@ struct DateDetailsView: View {
 
       ForEach(0..<min(events.count, Constants.maximumRows), id: \.self) { index in
         let event = events[index]
+        let color = event.calendar.color ?? Colors.controlAccent
+
         HStack {
           Circle()
-            .fill(Color(event.calendar.color))
+            .fill(Color(color))
+            .strokeBorder(Color(color.darkerColor()), lineWidth: lineWidth)
             .frame(width: Constants.dotSize * scale, height: Constants.dotSize * scale)
           Text(event.title)
             .font(font(weight: .regular, scale: scale))
@@ -68,13 +73,14 @@ struct DateDetailsView: View {
     .system(size: max(Constants.fontSize * scale, 11.0), weight: weight)
   }
 
-  static func createPopover(title: String, events: [EKCalendarItem]) -> NSPopover {
+  static func createPopover(title: String, events: [EKCalendarItem], lineWidth: Double) -> NSPopover {
     let popover = NSPopover()
     popover.behavior = .applicationDefined
     popover.animates = false
     popover.contentViewController = DateDetailsHostVC(rootView: Self(
       title: title,
-      events: events
+      events: events,
+      lineWidth: lineWidth
     ))
 
     return popover

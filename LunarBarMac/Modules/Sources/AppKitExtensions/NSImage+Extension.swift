@@ -55,7 +55,13 @@ public extension NSImage {
   }
 
   @MainActor
-  static func with(cellColor: NSColor, borderColor: NSColor? = nil, size: CGSize, cornerRadius: Double) -> NSImage? {
+  static func with(
+    cellColor: NSColor,
+    borderColor: NSColor? = nil,
+    borderWidth: Double,
+    size: CGSize,
+    cornerRadius: Double
+  ) -> NSImage? {
     let view = NSView(frame: CGRect(origin: .zero, size: size))
     view.layerBackgroundColor = cellColor
     view.layer?.cornerCurve = .continuous
@@ -63,7 +69,7 @@ public extension NSImage {
 
     if let borderColor {
       view.layer?.masksToBounds = true
-      view.layer?.borderWidth = 1.0 / (NSScreen.main?.backingScaleFactor ?? 1.0)
+      view.layer?.borderWidth = borderWidth
       view.layer?.borderColor = borderColor.cgColor
     }
 

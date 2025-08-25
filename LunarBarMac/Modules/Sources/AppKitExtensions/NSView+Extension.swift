@@ -7,6 +7,18 @@
 import AppKit
 
 public extension NSView {
+  var screenScale: Double {
+    if let currentScale = window?.screen?.backingScaleFactor {
+      return currentScale
+    }
+
+    return NSScreen.preferredScale
+  }
+
+  var hairlineWidth: Double {
+    1.0 / screenScale
+  }
+
   /// Like backgroundColor in UIKit.
   var layerBackgroundColor: NSColor? {
     get {

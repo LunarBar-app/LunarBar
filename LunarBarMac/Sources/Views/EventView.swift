@@ -61,6 +61,15 @@ private class DotView: NSView {
     fatalError("init(coder:) has not been implemented")
   }
 
+  override func layout() {
+    super.layout()
+
+    if let borderColor = layerBackgroundColor?.darkerColor() {
+      layer?.borderWidth = hairlineWidth
+      layer?.borderColor = borderColor.cgColor
+    }
+  }
+
   override var intrinsicContentSize: CGSize {
     CGSize(width: Constants.dotSize, height: Constants.dotSize)
   }
