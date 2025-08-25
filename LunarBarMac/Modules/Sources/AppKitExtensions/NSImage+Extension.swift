@@ -86,7 +86,7 @@ public extension NSImage {
       representation.draw(in: frame)
     }
 
-    return image
+    return isTemplate ? image.asTemplate : image
   }
 
   func setTintColor(_ tintColor: NSColor?) {
