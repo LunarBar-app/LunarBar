@@ -42,7 +42,7 @@ public final class ImageButton: CustomButton {
     highlightView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(highlightView)
 
-    let iconImage = NSImage.with(symbolName: symbolName, pointSize: Constants.iconSize, weight: .medium)
+    let iconImage = NSImage.with(symbolName: symbolName, pointSize: Constants.iconSize, weight: .semibold)
     iconImage.setTintColor(tintColor)
 
     let iconView = NSImageView(image: iconImage)
