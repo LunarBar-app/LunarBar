@@ -34,7 +34,7 @@ final class HeaderView: NSView {
 
   private lazy var nextButton: ImageButton = {
     let button = createButton(
-      symbolName: Icons.chevronForward,
+      symbolName: Icons.chevronCompactForward,
       accessibilityLabel: Localized.UI.buttonTitleNextMonth
     )
 
@@ -69,7 +69,7 @@ final class HeaderView: NSView {
 
   private lazy var previousButton: ImageButton = {
     let button = createButton(
-      symbolName: Icons.chevronBackward,
+      symbolName: Icons.chevronCompactBackward,
       accessibilityLabel: Localized.UI.buttonTitlePreviousMonth
     )
 
