@@ -26,7 +26,7 @@ enum AppDesign {
   }
 
   static var contentMargin: Double {
-    modernStyle ? (4 * AppPreferences.General.contentScale.rawValue) : 0
+    (modernStyle ? 4 : 2) * AppPreferences.General.contentScale.rawValue
   }
 
   static var cellCornerRadius: Double {
