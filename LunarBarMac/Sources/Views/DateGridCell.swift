@@ -385,6 +385,10 @@ private extension DateGridCell {
         preferredEdge: .maxY
       )
 
+      DispatchQueue.main.async {
+        popover.window?.fadeIn()
+      }
+
       self.detailsPopover = popover
     }
 

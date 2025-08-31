@@ -12,6 +12,13 @@ final class RuntimeTests: XCTestCase {
   func testExistenceOfImageTintColor() {
     testExistenceOfSelector(object: NSImage(), selector: "_setTintColor:")
   }
+
+  @MainActor
+  func testExistenceOfShouldHideAnchor() {
+    let popover = NSPopover()
+    popover.setValue(true, forKey: "shouldHideAnchor")
+    testExistenceOfSelector(object: popover, selector: "shouldHideAnchor")
+  }
 }
 
 private extension RuntimeTests {
