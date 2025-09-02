@@ -174,7 +174,7 @@ opt_in_rules:
   - operator_usage_whitespace
 
   # Rationale: Provides consistency in coding style
-  - operator_whitespace
+  - function_name_whitespace
 
   # Rationale: Prevents coder error
   - overridden_super_call
@@ -207,7 +207,7 @@ opt_in_rules:
   - redundant_objc_attribute
 
   # Rationale: Provides consistency in coding style and brevity
-  - redundant_optional_initialization
+  - implicit_optional_initialization
 
   # Rationale: Provides consistency in coding style and brevity
   - redundant_void_return
