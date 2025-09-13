@@ -192,32 +192,14 @@ enum Localized {
 enum Icons {
   static let bookmarkFill = "bookmark.fill"
   static let calendar = "calendar"
-  static let chevronCompactBackward = {
-    if #available(macOS 14.1, *) {
-      return "chevron.compact.backward"
-    }
-
-    return "chevron.backward"
-  }()
-  static let chevronCompactForward = {
-    if #available(macOS 14.1, *) {
-      return "chevron.compact.forward"
-    }
-
-    return "chevron.forward"
-  }()
+  static let chevronCompactBackward = "chevron.compact.backward"
+  static let chevronCompactForward = "chevron.compact.forward"
   static let circle = "circle"
   static let exclamationmarkTriangle = "exclamationmark.triangle"
   static let gear = "gear"
   static let menubarRectangle = "menubar.rectangle"
   static let mustacheFill = "mustache.fill"
-  static let wandAndSparkles = {
-    if #available(macOS 15.0, *) {
-      return "wand.and.sparkles"
-    }
-
-    return "wand.and.stars"
-  }()
+  static let wandAndSparkles = "wand.and.sparkles"
 }
 
 enum Colors {

@@ -71,6 +71,7 @@ private class DateIconView: NSView {
   private enum Constants {
     static let iconSize = CGSize(width: 21, height: 15)
     static let fontSize: Double = 12
+    static let textHeight: Double = 8.5
     static let cornerRadius: Double = 2.5
     static let borderWidth: Double = 2.0
   }
@@ -100,12 +101,7 @@ private class DateIconView: NSView {
   }
 
   override var isFlipped: Bool {
-    // [macOS 15] It seems flipping the coordinate system is no longer needed
-    if #available(macOS 15.0, *) {
-      return false
-    }
-
-    return true
+    false
   }
 
   override func draw(_ dirtyRect: CGRect) {
@@ -124,34 +120,17 @@ private class DateIconView: NSView {
     let currentDay = self.currentDay
     let labelFont = NSFont.boldSystemFont(ofSize: Constants.fontSize)
 
-    // The width can be calculated precisely with an attributed string
+    // Calculate the rendering width using an attributed string
     let textWidth = NSAttributedString(
       string: String(currentDay),
       attributes: [.font: labelFont]
     ).size().width
 
-    // The height may contain unpredictable spacing and it's normalized in the actual rendering result
-    //
-    // We don't have a good way to calculate the optimized height, here we pre-define all values.
-    let textHeight: Double = {
-      if #available(macOS 15.0, *) {
-        // [macOS 15] The issue is resolved in macOS Sequoia
-        return 8.5
-      }
-
-      let values = [9.5, 8.5, 9, 9, 8.5, 9, 9.5, 8.5, 9, 9.5]
-      if currentDay >= 10 {
-        return max(values[currentDay / 10], values[currentDay % 10])
-      } else {
-        return values[currentDay]
-      }
-    }()
-
     // Create the path from text and make sure it's optically aligned
     let textPath = NSBezierPath.from(text: String(currentDay), font: labelFont, isFlipped: isFlipped)
     let transform = AffineTransform(
       translationByX: (bounds.width - textWidth) * 0.5,
-      byY: (bounds.height - textHeight) * 0.5
+      byY: (bounds.height - Constants.textHeight) * 0.5
     )
 
     textPath.transform(using: transform)
