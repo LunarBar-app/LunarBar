@@ -167,8 +167,7 @@ private extension AppMainVC {
       let item = NSMenuItem(title: Localized.UI.menuTitleMenuBarIcon)
       item.isEnabled = false
 
-      // [macOS 26] Change this to 26.0
-      if #available(macOS 16.0, *) {
+      if #available(macOS 26.0, *) {
         // To improve the text alignment
         item.image = .with(symbolName: Icons.menubarRectangle, pointSize: Constants.menuIconSize)
       }
