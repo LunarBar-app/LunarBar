@@ -10,13 +10,13 @@ on:
 jobs:
   lunarbar-mac:
     name: LunarBarMac
-    runs-on: macos-15
+    runs-on: macos-26
     if: github.event.pull_request.draft == false
     env:
       DEVELOPER_DIR: /Applications/Xcode_26.0.app/Contents/Developer
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Build LunarBarMac
         run: |
           xcodebuild build -scheme LunarBarMac -destination 'platform=macOS' CODE_SIGN_IDENTITY="" CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
