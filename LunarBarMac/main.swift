@@ -7,9 +7,7 @@
 
 import AppKit
 
-#if BUILD_WITH_SDK_26_OR_LATER
-  Bundle.swizzleInfoDictionaryOnce
-#endif
+Bundle.swizzleInfoDictionaryOnce
 
 let app = NSApplication.shared
 let delegate = AppDelegate()

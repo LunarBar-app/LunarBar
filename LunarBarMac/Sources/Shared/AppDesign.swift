@@ -17,12 +17,7 @@ enum AppDesign {
       return false
     }
 
-  #if BUILD_WITH_SDK_26_OR_LATER
     return !AppPreferences.General.classicInterface
-  #else
-    // defaults write app.cyan.lunarbar com.apple.SwiftUI.IgnoreSolariumLinkedOnCheck -bool true
-    return UserDefaults.standard.bool(forKey: "com.apple.SwiftUI.IgnoreSolariumLinkedOnCheck")
-  #endif
   }
 
   static var contentMargin: Double {
@@ -57,15 +52,8 @@ extension NSViewController {
     }
 
     let tintColor: NSColor = material == .windowBackground ? .windowBackgroundColor : .clear
-    visualEffectView?.enumerateDescendants { (effectView: NSView) in
-    #if BUILD_WITH_SDK_26_OR_LATER
-      (effectView as? NSGlassEffectView)?.tintColor = tintColor
-    #else
-      let setter = sel_getUid("setTintColor:")
-      if effectView.responds(to: setter) {
-        effectView.perform(setter, with: tintColor)
-      }
-    #endif
+    visualEffectView?.enumerateDescendants { (glassView: NSGlassEffectView) in
+      glassView.tintColor = tintColor
     }
   }
 }
