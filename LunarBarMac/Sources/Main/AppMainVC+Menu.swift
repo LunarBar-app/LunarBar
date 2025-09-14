@@ -108,18 +108,7 @@ private extension AppMainVC {
 
       NSLayoutConstraint.activate([
         picker.centerXAnchor.constraint(equalTo: wrapper.centerXAnchor),
-        picker.centerYAnchor.constraint(equalTo: wrapper.centerYAnchor, constant: {
-          guard AppDesign.modernStyle else {
-            return 0
-          }
-
-        #if BUILD_WITH_SDK_26_OR_LATER
-          return 0
-        #else
-          // [macOS 26] Interim workaround for layout misalignment
-          return 2.5
-        #endif
-        }()),
+        picker.centerYAnchor.constraint(equalTo: wrapper.centerYAnchor),
       ])
 
       // Inside a submenu to avoid keyboard navigation conflicts
@@ -144,7 +133,7 @@ private extension AppMainVC {
   var menuItemAppearance: NSMenuItem {
     let menu = NSMenu()
 
-  #if BUILD_WITH_SDK_26_OR_LATER
+    // Option to use the "legacy" design
     if #available(macOS 26.0, *) {
       menu.addItem({
         let item = NSMenuItem(title: Localized.UI.menuTitleClassicInterface)
@@ -160,7 +149,6 @@ private extension AppMainVC {
 
       menu.addSeparator()
     }
-  #endif
 
     // Icon styles
     menu.addItem({
