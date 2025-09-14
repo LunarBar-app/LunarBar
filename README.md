@@ -2,7 +2,7 @@
 
 # LunarBar
 
-[![](https://img.shields.io/badge/Platform-macOS_14.0+-blue?color=007bff)](https://github.com/LunarBar-app/LunarBar/releases/latest) [![](https://github.com/LunarBar-app/LunarBar/actions/workflows/build-and-test.yml/badge.svg?branch=main)](https://github.com/LunarBar-app/LunarBar/actions/workflows/build-and-test.yml)
+[![](https://img.shields.io/badge/Platform-macOS_15.0+-blue?color=007bff)](https://github.com/LunarBar-app/LunarBar/releases/latest) [![](https://github.com/LunarBar-app/LunarBar/actions/workflows/build-and-test.yml/badge.svg?branch=main)](https://github.com/LunarBar-app/LunarBar/actions/workflows/build-and-test.yml)
 
 完全免费且开源的 Mac 状态栏极简日历，支持农历、公共假日、系统日历及提醒等功能。
 
@@ -22,6 +22,8 @@ LunarBar 会自动检查更新，你也可以在应用内手动检查更新，�
 如果你偏好使用 [Homebrew](https://brew.sh/) 安装，在终端运行 `brew install lunarbar` 即可。
 
 > 无需担心非 App Store 安装的可靠性，LunarBar 是沙盒应用，且经过签名和 [notarization](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution) 认证。
+>
+> 兼容旧操作系统的历史版本：[macos-13](https://github.com/LunarBar-app/LunarBar/releases/tag/macos-13)、[macos-14](https://github.com/LunarBar-app/LunarBar/releases/tag/macos-14)。
 
 ## 使用 LunarBar 的理由
 

@@ -38,10 +38,7 @@ enum AppDesign {
   }
 
   private static var isMacOSTahoe: Bool {
-    // [macOS 26] Change this to 26.0
-    //
-    // macOS Tahoe version number is 16.0 if the SDK is old
-    guard #available(macOS 16.0, *) else {
+    guard #available(macOS 26.0, *) else {
       return false
     }
 
@@ -55,8 +52,7 @@ extension NSViewController {
   func applyMaterial(_ material: NSVisualEffectView.Material) {
     self.material = material
 
-    // [macOS 26] Change this to 26.0
-    guard #available(macOS 16.0, *), AppDesign.modernStyle else {
+    guard #available(macOS 26.0, *), AppDesign.modernStyle else {
       return
     }
 
