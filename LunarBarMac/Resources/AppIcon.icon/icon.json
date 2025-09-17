@@ -1,0 +1,89 @@
+{
+  "fill" : "system-dark",
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "fill" : "none",
+          "glass" : false,
+          "image-name" : "Pits.png",
+          "name" : "Pits"
+        },
+        {
+          "fill" : "none",
+          "glass" : true,
+          "image-name" : "Moon.svg",
+          "name" : "Moon",
+          "opacity" : 1
+        }
+      ],
+      "name" : "Main",
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.6
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0.5
+      }
+    },
+    {
+      "blend-mode" : "screen",
+      "blur-material" : 0.5,
+      "layers" : [
+        {
+          "fill" : {
+            "solid" : "srgb:0.00000,0.53333,1.00000,1.00000"
+          },
+          "image-name" : "Wave 2.svg",
+          "name" : "Wave 2",
+          "opacity" : 1
+        }
+      ],
+      "lighting" : "individual",
+      "name" : "Foreground",
+      "opacity" : 0.5,
+      "shadow" : {
+        "kind" : "none",
+        "opacity" : 0.5
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    },
+    {
+      "layers" : [
+        {
+          "fill" : {
+            "linear-gradient" : [
+              "srgb:0.11765,0.43137,0.95686,1.00000",
+              "srgb:0.00000,0.56863,1.00000,1.00000"
+            ]
+          },
+          "glass" : true,
+          "image-name" : "Wave 1.svg",
+          "name" : "Wave 1"
+        }
+      ],
+      "name" : "Background",
+      "opacity" : 1,
+      "shadow" : {
+        "kind" : "none",
+        "opacity" : 0.5
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "squares" : [
+      "macOS"
+    ]
+  }
+}

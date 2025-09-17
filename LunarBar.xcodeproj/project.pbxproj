@@ -34,6 +34,7 @@
 		8782F4772B33F904008B1912 /* AppMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8782F4762B33F904008B1912 /* AppMainVC.swift */; };
 		8782F4832B342413008B1912 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8782F4822B342413008B1912 /* HeaderView.swift */; };
 		878B73AB2DEFE8EC00F0E331 /* DateRefreshTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878B73AA2DEFE8EB00F0E331 /* DateRefreshTimer.swift */; };
+		879311152E79680E007C418A /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 879311142E79680E007C418A /* AppIcon.icon */; };
 		879B2B8D2DFC3D9A009850B0 /* AppHacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B2B8C2DFC3D9A009850B0 /* AppHacks.swift */; };
 		87A28A5D2B344D50006655F2 /* DateGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A28A5C2B344D50006655F2 /* DateGridView.swift */; };
 		87D65EB12B41200100E41049 /* AppPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D65EB02B41200100E41049 /* AppPreferencesTests.swift */; };
@@ -86,6 +87,7 @@
 		8782F4762B33F904008B1912 /* AppMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMainVC.swift; sourceTree = "<group>"; };
 		8782F4822B342413008B1912 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		878B73AA2DEFE8EB00F0E331 /* DateRefreshTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRefreshTimer.swift; sourceTree = "<group>"; };
+		879311142E79680E007C418A /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		879B2B8C2DFC3D9A009850B0 /* AppHacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHacks.swift; sourceTree = "<group>"; };
 		87A28A5C2B344D50006655F2 /* DateGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateGridView.swift; sourceTree = "<group>"; };
 		87D65EB02B41200100E41049 /* AppPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreferencesTests.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 			children = (
 				8740E3032B37C8F9004A06C2 /* Holidays */,
 				874E99302B33D8C1002FC90A /* Assets.xcassets */,
+				879311142E79680E007C418A /* AppIcon.icon */,
 				8740E2DD2B35DC06004A06C2 /* InfoPlist.xcstrings */,
 				8740E2E12B35DCB7004A06C2 /* Localizable.xcstrings */,
 			);
@@ -362,6 +365,7 @@
 				8740E2E22B35DCB7004A06C2 /* Localizable.xcstrings in Resources */,
 				8740E2DE2B35DC06004A06C2 /* InfoPlist.xcstrings in Resources */,
 				8740E3042B37C8F9004A06C2 /* Holidays in Resources */,
+				879311152E79680E007C418A /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
