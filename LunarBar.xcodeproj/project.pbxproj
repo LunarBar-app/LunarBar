@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		87007C1F2CE7157F006E98DE /* RuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87007C1E2CE7157F006E98DE /* RuntimeTests.swift */; };
-		870A72072E7D9636001D1C39 /* NSBundle+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 870A72062E7D9636001D1C39 /* NSBundle+Swizzling.m */; };
 		871429192B3DAF4A003FA2CB /* AppLocalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871429182B3DAF4A003FA2CB /* AppLocalizer.swift */; };
 		8714291C2B3DBFDF003FA2CB /* AppMainVC+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8714291B2B3DBFDF003FA2CB /* AppMainVC+Menu.swift */; };
 		8732DDF32B3E896D004B72DE /* HolidayManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732DDF22B3E896D004B72DE /* HolidayManagerTests.swift */; };
@@ -36,6 +35,7 @@
 		8782F4832B342413008B1912 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8782F4822B342413008B1912 /* HeaderView.swift */; };
 		878B73AB2DEFE8EC00F0E331 /* DateRefreshTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878B73AA2DEFE8EB00F0E331 /* DateRefreshTimer.swift */; };
 		879311152E79680E007C418A /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 879311142E79680E007C418A /* AppIcon.icon */; };
+		879B2B8D2DFC3D9A009850B0 /* AppHacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B2B8C2DFC3D9A009850B0 /* AppHacks.swift */; };
 		87A28A5D2B344D50006655F2 /* DateGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A28A5C2B344D50006655F2 /* DateGridView.swift */; };
 		87D65EB12B41200100E41049 /* AppPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D65EB02B41200100E41049 /* AppPreferencesTests.swift */; };
 		87D65EB62B412A4700E41049 /* AppDefinitionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D65EB52B412A4700E41049 /* AppDefinitionsTests.swift */; };
@@ -57,9 +57,6 @@
 
 /* Begin PBXFileReference section */
 		87007C1E2CE7157F006E98DE /* RuntimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeTests.swift; sourceTree = "<group>"; };
-		870A72042E7D9636001D1C39 /* LunarBarMac-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LunarBarMac-Bridging-Header.h"; sourceTree = "<group>"; };
-		870A72052E7D9636001D1C39 /* NSBundle+Swizzling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSBundle+Swizzling.h"; sourceTree = "<group>"; };
-		870A72062E7D9636001D1C39 /* NSBundle+Swizzling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+Swizzling.m"; sourceTree = "<group>"; };
 		871429182B3DAF4A003FA2CB /* AppLocalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLocalizer.swift; sourceTree = "<group>"; };
 		8714291B2B3DBFDF003FA2CB /* AppMainVC+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppMainVC+Menu.swift"; sourceTree = "<group>"; };
 		8732DDF02B3E896D004B72DE /* LunarBarMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LunarBarMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +88,7 @@
 		8782F4822B342413008B1912 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		878B73AA2DEFE8EB00F0E331 /* DateRefreshTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRefreshTimer.swift; sourceTree = "<group>"; };
 		879311142E79680E007C418A /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
+		879B2B8C2DFC3D9A009850B0 /* AppHacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHacks.swift; sourceTree = "<group>"; };
 		87A28A5C2B344D50006655F2 /* DateGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateGridView.swift; sourceTree = "<group>"; };
 		87D65EB02B41200100E41049 /* AppPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreferencesTests.swift; sourceTree = "<group>"; };
 		87D65EB52B412A4700E41049 /* AppDefinitionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefinitionsTests.swift; sourceTree = "<group>"; };
@@ -144,16 +142,6 @@
 				8732DDF22B3E896D004B72DE /* HolidayManagerTests.swift */,
 			);
 			path = LunarBarMacTests;
-			sourceTree = "<group>";
-		};
-		8735BA172E7D94C100730813 /* ObjC */ = {
-			isa = PBXGroup;
-			children = (
-				870A72052E7D9636001D1C39 /* NSBundle+Swizzling.h */,
-				870A72062E7D9636001D1C39 /* NSBundle+Swizzling.m */,
-				870A72042E7D9636001D1C39 /* LunarBarMac-Bridging-Header.h */,
-			);
-			path = ObjC;
 			sourceTree = "<group>";
 		};
 		8740E2FD2B37C823004A06C2 /* Managers */ = {
@@ -231,7 +219,6 @@
 				8740E2FD2B37C823004A06C2 /* Managers */,
 				8782F4752B33F8EF008B1912 /* Views */,
 				875A81252B39558000C031C3 /* Updater */,
-				8735BA172E7D94C100730813 /* ObjC */,
 				874D77762BCF94900093662D /* Unchecked.swift */,
 			);
 			path = Sources;
@@ -257,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				874E992C2B33D8C0002FC90A /* AppDelegate.swift */,
+				879B2B8C2DFC3D9A009850B0 /* AppHacks.swift */,
 				8782F4762B33F904008B1912 /* AppMainVC.swift */,
 				8714291B2B3DBFDF003FA2CB /* AppMainVC+Menu.swift */,
 			);
@@ -337,7 +325,6 @@
 					};
 					874E99282B33D8C0002FC90A = {
 						CreatedOnToolsVersion = 15.1;
-						LastSwiftMigration = 2600;
 					};
 				};
 			};
@@ -410,6 +397,7 @@
 				875A81292B39558000C031C3 /* AppUpdater.swift in Sources */,
 				875A81282B39558000C031C3 /* AppVersion.swift in Sources */,
 				8782F46F2B33F627008B1912 /* AppDefinitions.swift in Sources */,
+				879B2B8D2DFC3D9A009850B0 /* AppHacks.swift in Sources */,
 				877353D92DFBC1BA00F502AB /* AppDesign.swift in Sources */,
 				8740E31B2B39210F004A06C2 /* AppPreferences.swift in Sources */,
 				87FF2E822CE89F6700CBC2E0 /* DateDetailsView.swift in Sources */,
@@ -420,7 +408,6 @@
 				878B73AB2DEFE8EC00F0E331 /* DateRefreshTimer.swift in Sources */,
 				873AD8F62B4C3DAB001C90B1 /* AppIconFactory.swift in Sources */,
 				8740E30F2B37FB36004A06C2 /* CalendarManager.swift in Sources */,
-				870A72072E7D9636001D1C39 /* NSBundle+Swizzling.m in Sources */,
 				8714291C2B3DBFDF003FA2CB /* AppMainVC+Menu.swift in Sources */,
 				8740E30B2B37F969004A06C2 /* EventView.swift in Sources */,
 				87FB0ECB2CEDBBE700667C4C /* ScalableView.swift in Sources */,
@@ -616,7 +603,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = LunarBarMac/Info.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -638,8 +624,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited)";
 				PRODUCT_NAME = LunarBar;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "LunarBarMac/Sources/ObjC/LunarBarMac-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -650,7 +634,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = LunarBarMac/Info.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -672,7 +655,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited)";
 				PRODUCT_NAME = LunarBar;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "LunarBarMac/Sources/ObjC/LunarBarMac-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
