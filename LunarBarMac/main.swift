@@ -7,7 +7,9 @@
 
 import AppKit
 
-Bundle.swizzleInfoDictionaryOnce
+if #available(macOS 26.0, *), AppPreferences.General.classicInterface {
+  Bundle.swizzleInfoDictionaryOnce()
+}
 
 let app = NSApplication.shared
 let delegate = AppDelegate()
