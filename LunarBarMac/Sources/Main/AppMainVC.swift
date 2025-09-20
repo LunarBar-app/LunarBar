@@ -127,8 +127,8 @@ private extension AppMainVC {
 
   @MainActor static var desiredContentSize: CGSize {
     CGSize(
-      width: 240 * AppPreferences.General.contentScale.rawValue + AppDesign.contentMargin,
-      height: 320 * AppPreferences.General.contentScale.rawValue + AppDesign.contentMargin
+      width: 240 * AppPreferences.General.contentScale.rawValue + AppDesign.contentMargin * 2,
+      height: 320 * AppPreferences.General.contentScale.rawValue + AppDesign.contentMargin * 2
     )
   }
 
