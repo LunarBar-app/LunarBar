@@ -126,9 +126,13 @@ private extension AppMainVC {
   }
 
   @MainActor static var desiredContentSize: CGSize {
-    CGSize(
-      width: 240 * AppPreferences.General.contentScale.rawValue + AppDesign.contentMargin * 2,
-      height: 320 * AppPreferences.General.contentScale.rawValue + AppDesign.contentMargin * 2
+    let cellInset = AppDesign.cellRectInset * 2
+    let contentMargin = AppDesign.contentMargin * 2
+    let contentScale = AppPreferences.General.contentScale.rawValue
+
+    return CGSize(
+      width: 240 * contentScale + cellInset * Double(Calendar.solar.numberOfDaysInWeek) + contentMargin,
+      height: 320 * contentScale + cellInset * Double(Calendar.solar.numberOfRowsInMonth) + contentMargin
     )
   }
 

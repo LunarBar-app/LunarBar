@@ -27,6 +27,7 @@ public final class ImageButton: CustomButton {
 
   public init(
     symbolName: String,
+    sizeDelta: Double,
     cornerRadius: Double,
     highlightColorProvider: @escaping (() -> NSColor),
     tintColor: NSColor? = nil,
@@ -42,7 +43,8 @@ public final class ImageButton: CustomButton {
     highlightView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(highlightView)
 
-    let iconImage = NSImage.with(symbolName: symbolName, pointSize: Constants.iconSize, weight: .semibold)
+    let iconSize = Constants.iconSize + sizeDelta
+    let iconImage = NSImage.with(symbolName: symbolName, pointSize: iconSize, weight: .semibold)
     iconImage.setTintColor(tintColor)
 
     let iconView = NSImageView(image: iconImage)
@@ -57,10 +59,8 @@ public final class ImageButton: CustomButton {
       iconView.bottomAnchor.constraint(equalTo: bottomAnchor),
     ])
 
-    setFrameSize(CGSize(
-      width: Constants.buttonSize,
-      height: Constants.buttonSize
-    ))
+    let buttonSize = Constants.buttonSize + sizeDelta
+    setFrameSize(CGSize(width: buttonSize, height: buttonSize))
 
     onMouseHover = { [weak self] isHovered in
       self?.highlightView.setAlphaValue(isHovered ? 1 : 0)
@@ -87,7 +87,7 @@ public final class ImageButton: CustomButton {
 private extension ImageButton {
   enum Constants {
     static let iconSize: Double = 14
-    static let buttonSize: Double = 26
+    static let buttonSize: Double = 27
     static let highlightViewInset: Double = 2
   }
 }

@@ -300,7 +300,7 @@ private extension DateGridCell {
     containerView.addSubview(solarLabel)
     NSLayoutConstraint.activate([
       solarLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-      solarLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
+      solarLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: AppDesign.cellRectInset),
     ])
 
     lunarLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -322,17 +322,17 @@ private extension DateGridCell {
     containerView.addSubview(focusRingView)
     NSLayoutConstraint.activate([
       highlightView.topAnchor.constraint(equalTo: containerView.topAnchor),
-      highlightView.bottomAnchor.constraint(equalTo: eventView.bottomAnchor),
+      highlightView.bottomAnchor.constraint(equalTo: eventView.bottomAnchor, constant: AppDesign.cellRectInset),
       highlightView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
 
       // Here we need to make sure the highlight view is wider than both labels
       highlightView.widthAnchor.constraint(
         greaterThanOrEqualTo: solarLabel.widthAnchor,
-        constant: Constants.focusRingBorderWidth
+        constant: Constants.focusRingBorderWidth + AppDesign.cellRectInset * 2
       ),
       highlightView.widthAnchor.constraint(
         greaterThanOrEqualTo: lunarLabel.widthAnchor,
-        constant: Constants.focusRingBorderWidth
+        constant: Constants.focusRingBorderWidth + AppDesign.cellRectInset * 2
       ),
 
       // The focus ring has the same frame as the highlight view

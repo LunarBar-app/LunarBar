@@ -24,6 +24,10 @@ enum AppDesign {
     (modernStyle ? 4 : 2) * AppPreferences.General.contentScale.rawValue
   }
 
+  static var cellRectInset: Double {
+    (modernStyle ? 1 : 0) * AppPreferences.General.contentScale.rawValue
+  }
+
   static var cellCornerRadius: Double {
     modernStyle ? 7 : 4
   }
