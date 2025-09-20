@@ -32,6 +32,7 @@ enum Localized {
     static let menuTitleGotoToday = String(localized: "Today", comment: "[Menu] Move to today")
     static let menuTitleGotoMonth = String(localized: "Go to Month", comment: "[Menu] Select year and month")
     static let menuTitleEnterMonth = String(localized: "Enter Month", comment: "[Menu] Enter a month using date picker")
+    static let menuTitleOpenDateTime = String(localized: "Date & Time...", comment: "[Menu] Open the system Date & Time settings pane")
     static let menuTitleAppearance = String(localized: "Appearance", comment: "[Menu] Change dark mode preference")
     static let menuTitleClassicInterface = String(localized: "Classic Interface", comment: "[Menu] Whether to use classic interface in macOS Tahoe")
     static let menuTitleMenuBarIcon = String(localized: "Menu Bar Icon", comment: "[Menu] Section title for icons")
