@@ -16,6 +16,7 @@ extension AppMainVC {
     let menu = NSMenu()
     menu.addItem(menuItemGotoToday)
     menu.addItem(menuItemDatePicker)
+    menu.addItem(menuItemOpenDateTime)
 
     menu.addSeparator()
 
@@ -131,6 +132,15 @@ private extension AppMainVC {
 
     let item = NSMenuItem(title: Localized.UI.menuTitleGotoMonth)
     item.submenu = menu
+    return item
+  }
+
+  var menuItemOpenDateTime: NSMenuItem {
+    let item = NSMenuItem(title: Localized.UI.menuTitleOpenDateTime)
+    item.addAction {
+      NSWorkspace.shared.safelyOpenURL(string: "x-apple.systempreferences:com.apple.preference.datetime")
+    }
+
     return item
   }
 

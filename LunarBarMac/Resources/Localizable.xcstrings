@@ -516,6 +516,23 @@
         }
       }
     },
+    "Date & Time..." : {
+      "comment" : "[Menu] Open the system Date & Time settings pane",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日期与时间…"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日期與時間…"
+          }
+        }
+      }
+    },
     "Date grid area" : {
       "comment" : "[AX] Indicate the current group is for date grids",
       "localizations" : {
