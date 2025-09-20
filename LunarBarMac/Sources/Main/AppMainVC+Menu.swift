@@ -86,6 +86,10 @@ private extension AppMainVC {
     // Full-fledged picker that supports any year
     menu.addItem({ [weak self] in
       let picker = NSDatePicker()
+      if #available(macOS 26.0, *) {
+        picker.prefersCompactControlSizeMetrics = true
+      }
+
       picker.isBezeled = false
       picker.isBordered = false
       picker.datePickerStyle = .textFieldAndStepper
