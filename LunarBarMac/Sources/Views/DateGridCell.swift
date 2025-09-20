@@ -385,8 +385,10 @@ private extension DateGridCell {
         preferredEdge: .maxY
       )
 
-      DispatchQueue.main.async {
-        popover.window?.fadeIn()
+      if !AppPreferences.Accessibility.reduceMotion {
+        DispatchQueue.main.async {
+          popover.window?.fadeIn()
+        }
       }
 
       self.detailsPopover = popover

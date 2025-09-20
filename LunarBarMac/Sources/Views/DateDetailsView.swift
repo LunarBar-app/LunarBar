@@ -65,6 +65,7 @@ struct DateDetailsView: View {
           .padding(.vertical, 2) // Tiny element, no need to scale
       }
     }
+    .frame(minWidth: events.isEmpty ? 0 : 200)
     .padding(AppDesign.contentMargin)
   }
 
@@ -161,7 +162,7 @@ private extension EKCalendarItem {
 }
 
 private enum Constants {
-  static let fontSize: Double = 12
+  @MainActor static let fontSize: Double = AppDesign.modernStyle ? 12.5 : 12.0
   static let dotSize: Double = 6
   static let rowHeight: Double = 28
   static let smallPadding: Double = 8
