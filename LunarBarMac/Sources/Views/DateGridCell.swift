@@ -386,9 +386,7 @@ private extension DateGridCell {
       )
 
       if !AppPreferences.Accessibility.reduceMotion {
-        DispatchQueue.main.async {
-          popover.window?.fadeIn()
-        }
+        popover.window?.fadeIn()
       }
 
       self.detailsPopover = popover
