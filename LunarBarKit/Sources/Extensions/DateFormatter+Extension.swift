@@ -7,6 +7,14 @@
 import Foundation
 
 public extension DateFormatter {
+  static var mediumDate: Self {
+    let formatter = Self()
+    formatter.dateStyle = .medium
+    formatter.timeStyle = .none
+
+    return formatter
+  }
+
   static var fullDate: Self {
     let formatter = Self()
     formatter.dateStyle = .full

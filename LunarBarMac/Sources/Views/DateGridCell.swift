@@ -350,6 +350,10 @@ private extension DateGridCell {
       holidayView.widthAnchor.constraint(equalToConstant: holidayView.frame.width),
       holidayView.heightAnchor.constraint(equalToConstant: holidayView.frame.height),
     ])
+
+    let longPressRecognizer = NSPressGestureRecognizer(target: self, action: #selector(onLongPress(_:)))
+    longPressRecognizer.minimumPressDuration = 0.5
+    view.addGestureRecognizer(longPressRecognizer)
   }
 
   func revealDateInCalendar() {
@@ -357,10 +361,22 @@ private extension DateGridCell {
       return Logger.assertFail("Missing cellDate to continue")
     }
 
-    // Clear states and open the Calendar app
-    view.window?.orderOut(nil)
     dismissDetails()
-    CalendarManager.default.revealDateInCalendar(cellDate)
+    (NSApp.delegate as? AppDelegate)?.openCalendar(targetDate: cellDate)
+  }
+
+  @objc func onLongPress(_ recognizer: NSPressGestureRecognizer) {
+    guard recognizer.state == .began, let cellDate else {
+      return
+    }
+
+    NSHapticFeedbackManager.defaultPerformer.perform(
+      .generic,
+      performanceTime: .now
+    )
+
+    dismissDetails()
+    (NSApp.delegate as? AppDelegate)?.countDaysBetween(targetDate: cellDate)
   }
 
   func onMouseHover(_ isHovered: Bool) {

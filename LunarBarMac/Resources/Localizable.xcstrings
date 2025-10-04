@@ -112,6 +112,53 @@
         }
       }
     },
+    "%@ and %@ are %d day apart." : {
+      "comment" : "Template string used to show the distance between two dates",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$@ and %2$@ are %3$d day apart."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$@ and %2$@ are %3$d days apart."
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$@和%2$@相隔 %3$d 天。"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$@和%2$@相隔 %3$d 天。"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "About LunarBar" : {
       "comment" : "[Menu] Open the standard about panel",
       "localizations" : {
