@@ -400,10 +400,21 @@ private extension DateGridCell {
   @discardableResult
   func dismissDetails() -> Bool {
     let wasOpen = detailsPopover?.isShown == true
-    detailsPopover?.close()
-    detailsPopover = nil
-
     detailsTask?.cancel()
+
+    let closeDetails: @Sendable () -> Void = {
+      Task { @MainActor in
+        self.detailsPopover?.close()
+        self.detailsPopover = nil
+      }
+    }
+
+    if !AppPreferences.Accessibility.reduceMotion, let window = detailsPopover?.window {
+      window.fadeOut(completion: closeDetails)
+    } else {
+      closeDetails()
+    }
+
     return wasOpen
   }
 }
