@@ -20,6 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   private weak var presentedPopover: NSPopover?
   private var dateRefreshTimer: DateRefreshTimer?
   private var popoverClosedTime: TimeInterval = 0
+  private var countingDate: Date?
 
   func applicationDidFinishLaunching(_ notification: Notification) {
     // We rely on tooltips to display information, change the initial delay to 1s to be faster
@@ -208,6 +209,44 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // Clear the tooltip to prevent overlap
     sender.toolTip = nil
   }
+
+  @MainActor
+  func openCalendar(targetDate: Date) {
+    guard presentedPopover?.isShown == true else {
+      return
+    }
+
+    // Clear states and open the Calendar app
+    presentedPopover?.close()
+    CalendarManager.default.revealDateInCalendar(targetDate)
+  }
+
+  @MainActor
+  func countDaysBetween(targetDate: Date) {
+    guard let startDate = countingDate, targetDate != startDate else {
+      countingDate = targetDate
+      return
+    }
+
+    guard let daysBetween = Calendar.solar.daysBetween(from: startDate, to: targetDate) else {
+      countingDate = nil
+      return
+    }
+
+    countingDate = nil
+    presentedPopover?.close()
+
+    let alert = NSAlert()
+    alert.messageText = String(
+      format: Localized.Calendar.daysBetweenTemplate,
+      DateFormatter.mediumDate.string(from: min(startDate, targetDate)),
+      DateFormatter.mediumDate.string(from: max(startDate, targetDate)),
+      abs(daysBetween)
+    )
+
+    alert.addButton(withTitle: Localized.General.okay)
+    alert.runModal()
+  }
 }
 
 // MARK: - NSPopoverDelegate
@@ -215,6 +254,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate: NSPopoverDelegate {
   func popoverWillClose(_ notification: Notification) {
     popoverClosedTime = Date.timeIntervalSinceReferenceDate
+    countingDate = nil
   }
 }
 

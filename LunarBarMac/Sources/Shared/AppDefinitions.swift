@@ -93,6 +93,7 @@ enum Localized {
     static let workdayLabel = String(localized: "Workday", comment: "Label for workdays")
     static let holidayLabel = String(localized: "Holiday", comment: "Label for holidays")
     static let allDayLabel = String(localized: "all-day", comment: "Label for an all-day event")
+    static let daysBetweenTemplate = String(localized: "%@ and %@ are %d day apart.", comment: "Template string used to show the distance between two dates")
 
     /// https://en.wikipedia.org/wiki/Solar_term
     static let solarTerms = [
