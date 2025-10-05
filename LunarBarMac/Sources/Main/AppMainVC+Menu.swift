@@ -276,7 +276,7 @@ private extension AppMainVC {
     ].forEach { (title: String, scale: ContentScale) in
       menu.addItem(withTitle: title) { [weak self] in
         AppPreferences.General.contentScale = scale
-        self?.popover?.close()
+        self?.closePopover()
 
         if let delegate = NSApp.delegate as? AppDelegate {
           delegate.openPanel()
@@ -381,7 +381,8 @@ private extension AppMainVC {
     }.isEnabled = AppPreferences.Calendar.hiddenCalendars != identifiers
 
     menu.addSeparator()
-    menu.addItem(withTitle: Localized.UI.menuTitlePrivacySettings) {
+    menu.addItem(withTitle: Localized.UI.menuTitlePrivacySettings) { [weak self] in
+      self?.closePopover()
       NSWorkspace.shared.safelyOpenURL(string: "x-apple.systempreferences:com.apple.preference.security")
     }
 
@@ -417,11 +418,13 @@ private extension AppMainVC {
 
     menu.addSeparator()
 
-    menu.addItem(withTitle: Localized.UI.menuTitleOpenDirectory) {
+    menu.addItem(withTitle: Localized.UI.menuTitleOpenDirectory) { [weak self] in
+      self?.closePopover()
       HolidayManager.default.openUserDefinedDirectory()
     }
 
-    menu.addItem(withTitle: Localized.UI.menuTitleCustomizationTips) {
+    menu.addItem(withTitle: Localized.UI.menuTitleCustomizationTips) { [weak self] in
+      self?.closePopover()
       NSWorkspace.shared.safelyOpenURL(string: "https://github.com/LunarBar-app/Holidays")
     }
 
@@ -454,7 +457,8 @@ private extension AppMainVC {
 
   var menuItemOpenDateTime: NSMenuItem {
     let item = NSMenuItem(title: Localized.UI.menuTitleOpenDateTime)
-    item.addAction {
+    item.addAction { [weak self] in
+      self?.closePopover()
       NSWorkspace.shared.safelyOpenURL(string: "x-apple.systempreferences:com.apple.preference.datetime")
     }
 
@@ -463,7 +467,8 @@ private extension AppMainVC {
 
   var menuItemAboutLunarBar: NSMenuItem {
     let item = NSMenuItem(title: Localized.UI.menuTitleAboutLunarBar)
-    item.addAction {
+    item.addAction { [weak self] in
+      self?.closePopover()
       NSApp.orderFrontStandardAboutPanel()
     }
 
@@ -472,7 +477,8 @@ private extension AppMainVC {
 
   var menuItemGitHub: NSMenuItem {
     let item = NSMenuItem(title: Localized.UI.menuTitleGitHub)
-    item.addAction {
+    item.addAction { [weak self] in
+      self?.closePopover()
       NSWorkspace.shared.safelyOpenURL(string: "https://github.com/LunarBar-app/LunarBar")
     }
 
@@ -481,8 +487,9 @@ private extension AppMainVC {
 
   var menuItemCheckForUpdates: NSMenuItem {
     let item = NSMenuItem(title: Localized.UI.menuTitleCheckForUpdates)
-    item.addAction {
+    item.addAction { [weak self] in
       Task {
+        self?.closePopover()
         await AppUpdater.checkForUpdates(explicitly: true)
       }
     }
@@ -576,5 +583,9 @@ private extension AppMainVC {
 
   func reloadCalendar() {
     updateCalendar(targetDate: monthDate)
+  }
+
+  func closePopover() {
+    popover?.close()
   }
 }
