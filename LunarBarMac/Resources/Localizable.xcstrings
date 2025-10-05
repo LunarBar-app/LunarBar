@@ -2340,23 +2340,6 @@
         }
       }
     },
-    "OK" : {
-      "comment" : "Title for the \"OK\" button",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "好的"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "好的"
-          }
-        }
-      }
-    },
     "Open Directory" : {
       "comment" : "[Menu] Open the directory of user-defined holidays",
       "localizations" : {

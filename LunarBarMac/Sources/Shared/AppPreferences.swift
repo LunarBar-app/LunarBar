@@ -21,7 +21,6 @@ enum AppPreferences {
       didSet {
         let alert = NSAlert()
         alert.messageText = Localized.UI.alertMessageRelaunchRequired
-        alert.addButton(withTitle: Localized.General.okay)
         alert.runModal()
       }
     }

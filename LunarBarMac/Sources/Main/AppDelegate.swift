@@ -244,7 +244,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       abs(daysBetween)
     )
 
-    alert.addButton(withTitle: Localized.General.okay)
     alert.runModal()
   }
 }
