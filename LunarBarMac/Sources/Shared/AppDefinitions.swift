@@ -16,6 +16,7 @@ import LunarBarKit
  */
 enum Localized {
   enum General {
+    static let locale = String(localized: "en_US_POSIX", comment: "Stable locale identifier used to localize formatters or UI components")
     static let okay = String(localized: "OK", comment: "Title for the \"OK\" button")
     static let cancel = String(localized: "Cancel", comment: "Title for the \"Cancel\" button")
     static let learnMore = String(localized: "Learn More", comment: "Title for the \"Learn More\" button")
