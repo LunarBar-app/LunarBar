@@ -94,6 +94,7 @@ private extension AppMainVC {
         picker.prefersCompactControlSizeMetrics = true
       }
 
+      picker.locale = Locale(identifier: Localized.General.locale)
       picker.isBezeled = false
       picker.isBordered = false
       picker.datePickerStyle = .textFieldAndStepper

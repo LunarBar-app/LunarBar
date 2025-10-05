@@ -1430,6 +1430,23 @@
         }
       }
     },
+    "en_US_POSIX" : {
+      "comment" : "Stable locale identifier used to localize formatters or UI components",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "zh-Hans"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "zh-Hant"
+          }
+        }
+      }
+    },
     "Enter Month" : {
       "comment" : "[Menu] Enter a month using date picker",
       "localizations" : {
