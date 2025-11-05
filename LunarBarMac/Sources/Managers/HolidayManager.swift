@@ -41,7 +41,7 @@ final class HolidayManager {
   var defaultsEnabled = AppPreferences.Calendar.defaultHolidays
 
   var userDefinedFiles: [String] {
-    guard let files = try? FileManager.default.contentsOfDirectory(atPath: userDefinedDirectory.path()) else {
+    guard let files = try? FileManager.default.contentsOfDirectory(atPath: userDefinedDirectory.path(percentEncoded: false)) else {
       return []
     }
 
@@ -144,7 +144,7 @@ private extension HolidayManager {
   }
 
   func ensureDirectory(_ directory: URL) {
-    guard !FileManager.default.fileExists(atPath: directory.path()) else {
+    guard !FileManager.default.fileExists(atPath: directory.path(percentEncoded: false)) else {
       return
     }
 
@@ -156,7 +156,7 @@ private extension HolidayManager {
   }
 
   func contentsOf(directory: URL) -> [FileType]? {
-    guard let files = try? FileManager.default.contentsOfDirectory(atPath: directory.path()) else {
+    guard let files = try? FileManager.default.contentsOfDirectory(atPath: directory.path(percentEncoded: false)) else {
       Logger.log(.error, "Failed to get contents from directory: \(directory)")
       return nil
     }
