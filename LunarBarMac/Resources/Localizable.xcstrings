@@ -301,7 +301,7 @@
         }
       }
     },
-    "Check for Updates..." : {
+    "Check for Updates…" : {
       "comment" : "[Menu] Check for new versions",
       "localizations" : {
         "zh-Hans" : {
@@ -563,7 +563,7 @@
         }
       }
     },
-    "Date & Time..." : {
+    "Date & Time…" : {
       "comment" : "[Menu] Open the system Date & Time settings pane",
       "localizations" : {
         "zh-Hans" : {
@@ -1498,7 +1498,7 @@
         }
       }
     },
-    "Fetch Updates..." : {
+    "Fetch Updates…" : {
       "comment" : "[Menu] Fetch public holiday updates",
       "localizations" : {
         "zh-Hans" : {

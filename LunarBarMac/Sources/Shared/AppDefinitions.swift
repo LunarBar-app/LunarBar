@@ -58,15 +58,15 @@ enum Localized {
     static let menuTitlePrivacySettings = String(localized: "Privacy Settings", comment: "[Menu] Open privacy settings")
     static let menuTitlePublicHolidays = String(localized: "Public Holidays", comment: "[Menu] Public holidays")
     static let menuTitleDefaultHolidays = String(localized: "Default (Mainland China)", comment: "[Menu] Default public holidays (Mainland China)")
-    static let menuTitleFetchUpdates = String(localized: "Fetch Updates...", comment: "[Menu] Fetch public holiday updates")
+    static let menuTitleFetchUpdates = String(localized: "Fetch Updates…", comment: "[Menu] Fetch public holiday updates")
     static let menuTitleOpenDirectory = String(localized: "Open Directory", comment: "[Menu] Open the directory of user-defined holidays")
     static let menuTitleCustomizationTips = String(localized: "Customization Tips", comment: "[Menu] View tips of customizing public holidays")
     static let menuTitleReloadCustomizations = String(localized: "Reload Customizations", comment: "[Menu] Reload customized public holidays")
     static let menuTitleLaunchAtLogin = String(localized: "Launch at Login", comment: "[Menu] Automatically start the app at login")
-    static let menuTitleOpenDateTime = String(localized: "Date & Time...", comment: "[Menu] Open the system Date & Time settings pane")
+    static let menuTitleOpenDateTime = String(localized: "Date & Time…", comment: "[Menu] Open the system Date & Time settings pane")
     static let menuTitleAboutLunarBar = String(localized: "About LunarBar", comment: "[Menu] Open the standard about panel")
     static let menuTitleGitHub = String(localized: "GitHub", comment: "[Menu] Open the LunarBar repository on GitHub")
-    static let menuTitleCheckForUpdates = String(localized: "Check for Updates...", comment: "[Menu] Check for new versions")
+    static let menuTitleCheckForUpdates = String(localized: "Check for Updates…", comment: "[Menu] Check for new versions")
     static let menuTitleQuitLunarBar = String(localized: "Quit LunarBar", comment: "[Menu] Quit the app")
 
     // Alert
