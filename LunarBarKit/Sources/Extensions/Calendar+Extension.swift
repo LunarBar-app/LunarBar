@@ -18,7 +18,9 @@ public extension Calendar {
       return current
     }
 
-    return Self(identifier: .gregorian)
+    var gregorian = Calendar(identifier: .gregorian)
+    gregorian.firstWeekday = current.firstWeekday
+    return gregorian
   }
 
   /// Returns a lunar calendar, basically the Chinese calendar.
