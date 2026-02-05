@@ -116,7 +116,7 @@ private extension AppUpdater {
 
 private extension Localized {
   enum Updater {
-    static let upToDateTitle = String(localized: "You're up-to-date!", comment: "Title for the up-to-date info")
+    static let upToDateTitle = String(localized: "You’re up-to-date!", comment: "Title for the up-to-date info")
     static let upToDateMessageFormat = String(localized: "LunarBar %@ is currently the latest version.", comment: "Message for the up-to-date info")
     static let newVersionAvailableTitle = String(localized: "LunarBar %@ is available!", comment: "Title for new version available")
     static let updateFailedTitle = String(localized: "Failed to get the update.", comment: "Title for failed to get the update")

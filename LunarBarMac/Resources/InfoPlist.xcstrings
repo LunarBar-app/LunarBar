@@ -55,7 +55,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Grant LunarBar permission to reveal the selected date in the Calendar app.\n\nWhile LunarBar can still open the native Calendar app without this permission, the selected date won't be located correctly.\n\nYou can change permissions in the system privacy settings, this dialog will not reappear."
+            "value" : "Grant LunarBar permission to reveal the selected date in the Calendar app.\n\nWhile LunarBar can still open the native Calendar app without this permission, the selected date won’t be located correctly.\n\nYou can change permissions in the system privacy settings, this dialog will not reappear."
           }
         },
         "zh-Hans" : {
@@ -78,7 +78,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Grant LunarBar permission to display Calendar events.\n\nWhile LunarBar can still function without this permission, features related to the native Calendar app won't be available.\n\nYou can change permissions in the system privacy settings, this dialog will not reappear."
+            "value" : "Grant LunarBar permission to display Calendar events.\n\nWhile LunarBar can still function without this permission, features related to the native Calendar app won’t be available.\n\nYou can change permissions in the system privacy settings, this dialog will not reappear."
           }
         },
         "zh-Hans" : {
@@ -101,7 +101,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Grant LunarBar permission to display Calendar events.\n\nWhile LunarBar can still function without this permission, features related to the native Calendar app won't be available.\n\nYou can change permissions in the system privacy settings, this dialog will not reappear."
+            "value" : "Grant LunarBar permission to display Calendar events.\n\nWhile LunarBar can still function without this permission, features related to the native Calendar app won’t be available.\n\nYou can change permissions in the system privacy settings, this dialog will not reappear."
           }
         },
         "zh-Hans" : {
