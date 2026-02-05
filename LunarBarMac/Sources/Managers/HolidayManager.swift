@@ -142,7 +142,7 @@ private extension HolidayManager {
   }
 
   var cachesDirectory: URL {
-    URL.cachesDirectory.appending(path: Constants.directoryName, directoryHint: .isDirectory)
+    URL.applicationSupportDirectory.appending(path: Constants.directoryName, directoryHint: .isDirectory)
   }
 
   var userDefinedDirectory: URL {
