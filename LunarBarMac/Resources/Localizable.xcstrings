@@ -2283,7 +2283,7 @@
         }
       }
     },
-    "New Year's Eve" : {
+    "New Year’s Eve" : {
       "comment" : "Chinese traditional festival",
       "localizations" : {
         "en" : {
@@ -3075,7 +3075,7 @@
         }
       }
     },
-    "You're up-to-date!" : {
+    "You’re up-to-date!" : {
       "comment" : "Title for the up-to-date info",
       "localizations" : {
         "zh-Hans" : {

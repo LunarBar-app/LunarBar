@@ -85,7 +85,7 @@ enum Localized {
   }
 
   enum Calendar {
-    static let chineseNewYearsEve = String(localized: "New Year's Eve", comment: "Chinese traditional festival")
+    static let chineseNewYearsEve = String(localized: "New Year’s Eve", comment: "Chinese traditional festival")
     static let chineseLeapMonth = String(localized: "Leap Month", comment: "Prefix for a Chinese leap month")
     static let daysAgoFormat = String(localized: " (%lld day ago)", comment: "Label format for dates in the past, e.g., (10 days ago)")
     static let daysLaterFormat = String(localized: " (%lld day later)", comment: "Label format for dates in the future, e.g., (10 days later)")
