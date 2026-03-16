@@ -193,8 +193,7 @@ private enum JSEvaluator {
 
    Variables: lunarDay, lunarMonth, lunarDate, solarTerm, lunarFestival, holiday, lunarLabel.
    */
-  static func setVariables(on context: JSContext) {
-    let date = Date.now
+  static func setVariables(on context: JSContext, date: Date = .now) {
     let lunarComponents = Calendar.lunar.dateComponents([.month, .day], from: date)
     let solarComponents = Calendar.solar.dateComponents([.year, .month, .day], from: date)
 
