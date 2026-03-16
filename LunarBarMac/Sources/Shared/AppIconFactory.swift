@@ -7,6 +7,7 @@
 
 import AppKit
 @preconcurrency import JavaScriptCore
+import LunarBarKit
 
 extension Notification.Name {
   static let menuBarIconDidChange = Notification.Name("MenuBarIconDidChange")
@@ -181,9 +182,48 @@ private enum JSEvaluator {
       NotificationCenter.default.post(name: .menuBarIconDidChange, object: nil)
     }
 
+    let lunarDay: @convention(block) () -> String = {
+      let date = Date.now
+      let day = Calendar.lunar.component(.day, from: date)
+      return AppLocalizer.chineseDay(of: day - 1)
+    }
+
+    let lunarMonth: @convention(block) () -> String = {
+      let date = Date.now
+      let month = Calendar.lunar.component(.month, from: date)
+      let isLeap = Calendar.lunar.isLeapMonth(from: date)
+      return AppLocalizer.chineseMonth(of: month - 1, isLeap: isLeap)
+    }
+
+    let lunarDate: @convention(block) () -> String = {
+      let date = Date.now
+      let components = Calendar.lunar.dateComponents([.month, .day], from: date)
+      let month = components.month ?? 1
+      let day = components.day ?? 1
+      let isLeap = Calendar.lunar.isLeapMonth(from: date)
+      return AppLocalizer.chineseMonth(of: month - 1, isLeap: isLeap) + AppLocalizer.chineseDay(of: day - 1)
+    }
+
+    let solarTerm: @convention(block) () -> String = {
+      let date = Date.now
+      let solarComponents = Calendar.solar.dateComponents([.year, .month, .day], from: date)
+      let year = solarComponents.year ?? 0
+      let monthDay = solarComponents.fourDigitsMonthDay
+
+      if let index = LunarCalendar.default.info(of: year)?.solarTerms[monthDay] {
+        return AppLocalizer.solarTerm(of: index)
+      }
+
+      return ""
+    }
+
     let context = JSContext()
     context?.setObject(setTimeout, forKeyedSubscript: "setTimeout" as NSString)
     context?.setObject(reload, forKeyedSubscript: "reload" as NSString)
+    context?.setObject(lunarDay, forKeyedSubscript: "lunarDay" as NSString)
+    context?.setObject(lunarMonth, forKeyedSubscript: "lunarMonth" as NSString)
+    context?.setObject(lunarDate, forKeyedSubscript: "lunarDate" as NSString)
+    context?.setObject(solarTerm, forKeyedSubscript: "solarTerm" as NSString)
     return context
   }()
 
