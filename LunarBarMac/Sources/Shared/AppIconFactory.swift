@@ -189,11 +189,11 @@ private enum JSEvaluator {
   }()
 
   /**
-   Set lunar calendar variables on the JS context based on the current date.
+   Compute a lunar calendar value for the given key and date.
 
-   Variables: lunarDay, lunarMonth, lunarDate, solarTerm, lunarFestival, holiday, lunarLabel.
+   Supported keys: day, month, date, solarTerm, festival, holiday, label.
    */
-  static func setVariables(on context: JSContext, date: Date = .now) {
+  static func lunarInfo(key: String, date: Date) -> String {
     let lunarComponents = Calendar.lunar.dateComponents([.month, .day], from: date)
     let solarComponents = Calendar.solar.dateComponents([.year, .month, .day], from: date)
 
@@ -205,40 +205,28 @@ private enum JSEvaluator {
     let lunarMonthDay = lunarComponents.fourDigitsMonthDay
     let year = solarComponents.year ?? 0
 
-    // lunarDay: Chinese day name (e.g., 初十)
-    let lunarDayValue = AppLocalizer.chineseDay(of: day - 1)
-    context.setObject(lunarDayValue, forKeyedSubscript: "lunarDay" as NSString)
-
-    // lunarMonth: Chinese month name (e.g., 正月), handles leap months
-    let lunarMonthValue = AppLocalizer.chineseMonth(of: month - 1, isLeap: isLeap)
-    context.setObject(lunarMonthValue, forKeyedSubscript: "lunarMonth" as NSString)
-
-    // lunarDate: Combined month + day (e.g., 正月初一)
-    let lunarDateValue = lunarMonthValue + lunarDayValue
-    context.setObject(lunarDateValue, forKeyedSubscript: "lunarDate" as NSString)
-
-    // solarTerm: Solar term name if today is one, otherwise empty string
-    let solarTermValue: String = {
+    switch key {
+    case "day":
+      return AppLocalizer.chineseDay(of: day - 1)
+    case "month":
+      return AppLocalizer.chineseMonth(of: month - 1, isLeap: isLeap)
+    case "date":
+      let monthValue = AppLocalizer.chineseMonth(of: month - 1, isLeap: isLeap)
+      let dayValue = AppLocalizer.chineseDay(of: day - 1)
+      return monthValue + dayValue
+    case "solarTerm":
       if let index = LunarCalendar.default.info(of: year)?.solarTerms[solarMonthDay] {
         return AppLocalizer.solarTerm(of: index)
       }
       return ""
-    }()
-    context.setObject(solarTermValue, forKeyedSubscript: "solarTerm" as NSString)
-
-    // lunarFestival: Lunar festival name if today is one, otherwise empty string
-    let lunarFestivalValue: String = {
+    case "festival":
       // Chinese New Year's Eve: the last day of the lunar year, dynamically determined
       if let lastDay = Calendar.lunar.lastDayOfYear(from: date),
          Calendar.lunar.isDate(date, inSameDayAs: lastDay) {
         return Localized.Calendar.chineseNewYearsEve
       }
       return AppLocalizer.lunarFestival(of: lunarMonthDay) ?? ""
-    }()
-    context.setObject(lunarFestivalValue, forKeyedSubscript: "lunarFestival" as NSString)
-
-    // holiday: "workday", "holiday", or empty string based on public holiday data
-    let holidayValue: String = {
+    case "holiday":
       switch HolidayManager.default.typeOf(year: year, monthDay: solarMonthDay) {
       case .workday:
         return Localized.Calendar.workdayLabel
@@ -247,36 +235,45 @@ private enum JSEvaluator {
       case .none:
         return ""
       }
-    }()
-    context.setObject(holidayValue, forKeyedSubscript: "holiday" as NSString)
+    case "label":
+      let festival = lunarInfo(key: "festival", date: date)
+      if !festival.isEmpty {
+        return festival
+      }
 
-    // lunarLabel: Smart composite matching the calendar grid priority chain
-    let lunarLabelValue: String = {
-      if !lunarFestivalValue.isEmpty {
-        return lunarFestivalValue
+      let solarTerm = lunarInfo(key: "solarTerm", date: date)
+      if !solarTerm.isEmpty {
+        return solarTerm
       }
-      if !solarTermValue.isEmpty {
-        return solarTermValue
-      }
+
       // Show month name on the 1st day of each lunar month
       if day == 1 {
-        return lunarMonthValue
+        return lunarInfo(key: "month", date: date)
       }
-      return lunarDayValue
-    }()
-    context.setObject(lunarLabelValue, forKeyedSubscript: "lunarLabel" as NSString)
+
+      return lunarInfo(key: "day", date: date)
+    default:
+      return ""
+    }
   }
 
   /**
    Replace all {{expr}} instances with the evaluated result.
+
+   Registers `LunarInfo(key)` as a JS function that returns lunar calendar data.
+   Supported keys: day, month, date, solarTerm, festival, holiday, label.
    */
   static func resolve(input: String) -> String {
     guard let context else {
       return input
     }
 
-    // Refresh variables to reflect the current date
-    setVariables(on: context)
+    // Register LunarInfo as a JS function, capturing the current date for consistency
+    let date = Date.now
+    let lunarInfoBlock: @convention(block) (String) -> String = { key in
+      lunarInfo(key: key, date: date)
+    }
+    context.setObject(lunarInfoBlock, forKeyedSubscript: "LunarInfo" as NSString)
 
     return input.replacing(pattern) {
       let expr = String($0.1)
