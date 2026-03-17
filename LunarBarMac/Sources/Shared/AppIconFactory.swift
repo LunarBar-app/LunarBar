@@ -236,22 +236,27 @@ private enum JSEvaluator {
         return ""
       }
     case "label":
-      let festival = lunarInfo(key: "festival", date: date)
-      if !festival.isEmpty {
+      // Reuse already-computed components instead of recursive calls
+      // Chinese New Year's Eve check
+      if let lastDay = Calendar.lunar.lastDayOfYear(from: date),
+         Calendar.lunar.isDate(date, inSameDayAs: lastDay) {
+        return Localized.Calendar.chineseNewYearsEve
+      }
+
+      if let festival = AppLocalizer.lunarFestival(of: lunarMonthDay), !festival.isEmpty {
         return festival
       }
 
-      let solarTerm = lunarInfo(key: "solarTerm", date: date)
-      if !solarTerm.isEmpty {
-        return solarTerm
+      if let termIndex = LunarCalendar.default.info(of: year)?.solarTerms[solarMonthDay] {
+        return AppLocalizer.solarTerm(of: termIndex)
       }
 
       // Show month name on the 1st day of each lunar month
       if day == 1 {
-        return lunarInfo(key: "month", date: date)
+        return AppLocalizer.chineseMonth(of: month - 1, isLeap: isLeap)
       }
 
-      return lunarInfo(key: "day", date: date)
+      return AppLocalizer.chineseDay(of: day - 1)
     default:
       return ""
     }
