@@ -171,7 +171,7 @@ private enum JSEvaluator {
   // E.g., {{ 1 + 1 }}
   static let pattern = /\{\{(.*?)\}\}/
 
-  static let context: JSContext? = {
+  static let context: JSContext = {
     let setTimeout: @convention(block) (JSValue, Int) -> Void = { callback, delay in
       DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(delay)) {
         callback.call(withArguments: [])
@@ -182,9 +182,14 @@ private enum JSEvaluator {
       NotificationCenter.default.post(name: .menuBarIconDidChange, object: nil)
     }
 
-    let context = JSContext()
-    context?.setObject(setTimeout, forKeyedSubscript: "setTimeout" as NSString)
-    context?.setObject(reload, forKeyedSubscript: "reload" as NSString)
+    let lunarInfoBlock: @convention(block) (String) -> String? = { key in
+      lunarInfo(key: key, date: .now)
+    }
+
+    let context = JSContext()!
+    context.setObject(setTimeout, forKeyedSubscript: "setTimeout" as NSString)
+    context.setObject(reload, forKeyedSubscript: "reload" as NSString)
+    context.setObject(lunarInfoBlock, forKeyedSubscript: "LunarInfo" as NSString)
     return context
   }()
 
@@ -193,7 +198,7 @@ private enum JSEvaluator {
 
    Supported keys: day, month, date, solarTerm, festival, holiday, label.
    */
-  static func lunarInfo(key: String, date: Date) -> String {
+  static func lunarInfo(key: String, date: Date) -> String? {
     let lunarComponents = Calendar.lunar.dateComponents([.month, .day], from: date)
     let solarComponents = Calendar.solar.dateComponents([.year, .month, .day], from: date)
 
@@ -218,14 +223,14 @@ private enum JSEvaluator {
       if let index = LunarCalendar.default.info(of: year)?.solarTerms[solarMonthDay] {
         return AppLocalizer.solarTerm(of: index)
       }
-      return ""
+      return nil
     case "festival":
       // Chinese New Year's Eve: the last day of the lunar year, dynamically determined
       if let lastDay = Calendar.lunar.lastDayOfYear(from: date),
          Calendar.lunar.isDate(date, inSameDayAs: lastDay) {
         return Localized.Calendar.chineseNewYearsEve
       }
-      return AppLocalizer.lunarFestival(of: lunarMonthDay) ?? ""
+      return AppLocalizer.lunarFestival(of: lunarMonthDay)
     case "holiday":
       switch HolidayManager.default.typeOf(year: year, monthDay: solarMonthDay) {
       case .workday:
@@ -233,7 +238,7 @@ private enum JSEvaluator {
       case .holiday:
         return Localized.Calendar.holidayLabel
       case .none:
-        return ""
+        return nil
       }
     case "label":
       // Reuse already-computed components instead of recursive calls
@@ -243,7 +248,7 @@ private enum JSEvaluator {
         return Localized.Calendar.chineseNewYearsEve
       }
 
-      if let festival = AppLocalizer.lunarFestival(of: lunarMonthDay), !festival.isEmpty {
+      if let festival = AppLocalizer.lunarFestival(of: lunarMonthDay) {
         return festival
       }
 
@@ -258,29 +263,18 @@ private enum JSEvaluator {
 
       return AppLocalizer.chineseDay(of: day - 1)
     default:
-      return ""
+      return nil
     }
   }
 
   /**
    Replace all {{expr}} instances with the evaluated result.
 
-   Registers `LunarInfo(key)` as a JS function that returns lunar calendar data.
+   `LunarInfo(key)` is available as a JS function that returns lunar calendar data.
    Supported keys: day, month, date, solarTerm, festival, holiday, label.
    */
   static func resolve(input: String) -> String {
-    guard let context else {
-      return input
-    }
-
-    // Register LunarInfo as a JS function, capturing the current date for consistency
-    let date = Date.now
-    let lunarInfoBlock: @convention(block) (String) -> String = { key in
-      lunarInfo(key: key, date: date)
-    }
-    context.setObject(lunarInfoBlock, forKeyedSubscript: "LunarInfo" as NSString)
-
-    return input.replacing(pattern) {
+    input.replacing(pattern) {
       let expr = String($0.1)
       let result = context.evaluateScript(expr).toString()
       return result ?? expr
