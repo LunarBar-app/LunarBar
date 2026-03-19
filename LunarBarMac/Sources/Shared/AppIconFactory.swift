@@ -171,7 +171,7 @@ private enum JSEvaluator {
   // E.g., {{ 1 + 1 }}
   static let pattern = /\{\{(.*?)\}\}/
 
-  static let context: JSContext = {
+  static let context: JSContext? = {
     let setTimeout: @convention(block) (JSValue, Int) -> Void = { callback, delay in
       DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(delay)) {
         callback.call(withArguments: [])
@@ -186,10 +186,10 @@ private enum JSEvaluator {
       lunarInfo(key: key, date: .now)
     }
 
-    let context = JSContext()!
-    context.setObject(setTimeout, forKeyedSubscript: "setTimeout" as NSString)
-    context.setObject(reload, forKeyedSubscript: "reload" as NSString)
-    context.setObject(lunarInfoBlock, forKeyedSubscript: "LunarInfo" as NSString)
+    let context = JSContext()
+    context?.setObject(setTimeout, forKeyedSubscript: "setTimeout" as NSString)
+    context?.setObject(reload, forKeyedSubscript: "reload" as NSString)
+    context?.setObject(lunarInfoBlock, forKeyedSubscript: "LunarInfo" as NSString)
     return context
   }()
 
@@ -276,7 +276,7 @@ private enum JSEvaluator {
   static func resolve(input: String) -> String {
     input.replacing(pattern) {
       let expr = String($0.1)
-      let result = context.evaluateScript(expr).toString()
+      let result = context?.evaluateScript(expr).toString()
       return result ?? expr
     }
   }
