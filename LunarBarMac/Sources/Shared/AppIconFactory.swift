@@ -256,8 +256,11 @@ private enum JSEvaluator {
   static func resolve(input: String) -> String {
     input.replacing(pattern) {
       let expr = String($0.1)
-      let result = context?.evaluateScript(expr).toString()
-      return result ?? expr
+      guard let value = context?.evaluateScript(expr),
+            !value.isNull, !value.isUndefined else {
+        return ""
+      }
+      return value.toString() ?? expr
     }
   }
 }
