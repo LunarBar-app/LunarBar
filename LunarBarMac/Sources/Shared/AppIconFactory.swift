@@ -189,7 +189,7 @@ private enum JSEvaluator {
     let context = JSContext()
     context?.setObject(setTimeout, forKeyedSubscript: "setTimeout" as NSString)
     context?.setObject(reload, forKeyedSubscript: "reload" as NSString)
-    context?.setObject(lunarInfoBlock, forKeyedSubscript: "LunarInfo" as NSString)
+    context?.setObject(lunarInfoBlock, forKeyedSubscript: "lunarInfo" as NSString)
     return context
   }()
 
@@ -241,27 +241,7 @@ private enum JSEvaluator {
         return nil
       }
     case "label":
-      // Reuse already-computed components instead of recursive calls
-      // Chinese New Year's Eve check
-      if let lastDay = Calendar.lunar.lastDayOfYear(from: date),
-         Calendar.lunar.isDate(date, inSameDayAs: lastDay) {
-        return Localized.Calendar.chineseNewYearsEve
-      }
-
-      if let festival = AppLocalizer.lunarFestival(of: lunarMonthDay) {
-        return festival
-      }
-
-      if let termIndex = LunarCalendar.default.info(of: year)?.solarTerms[solarMonthDay] {
-        return AppLocalizer.solarTerm(of: termIndex)
-      }
-
-      // Show month name on the 1st day of each lunar month
-      if day == 1 {
-        return AppLocalizer.chineseMonth(of: month - 1, isLeap: isLeap)
-      }
-
-      return AppLocalizer.chineseDay(of: day - 1)
+      return AppLocalizer.lunarDayLabel(for: date)
     default:
       return nil
     }
@@ -270,7 +250,7 @@ private enum JSEvaluator {
   /**
    Replace all {{expr}} instances with the evaluated result.
 
-   `LunarInfo(key)` is available as a JS function that returns lunar calendar data.
+   `lunarInfo(key)` is available as a JS function that returns lunar calendar data.
    Supported keys: day, month, date, solarTerm, festival, holiday, label.
    */
   static func resolve(input: String) -> String {
