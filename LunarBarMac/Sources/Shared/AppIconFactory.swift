@@ -186,17 +186,22 @@ private enum JSEvaluator {
       lunarInfo(key: key, date: .now)
     }
 
+    let holidayInfoFn: @convention(block) () -> String? = {
+      holidayInfo(date: .now)
+    }
+
     let context = JSContext()
     context?.setObject(setTimeoutFn, forKeyedSubscript: "setTimeout" as NSString)
     context?.setObject(reloadFn, forKeyedSubscript: "reload" as NSString)
     context?.setObject(lunarInfoFn, forKeyedSubscript: "lunarInfo" as NSString)
+    context?.setObject(holidayInfoFn, forKeyedSubscript: "holidayInfo" as NSString)
     return context
   }()
 
   /**
    Compute a lunar calendar value for the given key and date.
 
-   Supported keys: day, month, solarTerm, festival, holiday, label.
+   Supported keys: day, month, solarTerm, festival, label.
    */
   static func lunarInfo(key: String, date: Date) -> String? {
     let lunarComponents = Calendar.lunar.dateComponents([.month, .day], from: date)
@@ -229,18 +234,27 @@ private enum JSEvaluator {
       }
 
       return AppLocalizer.lunarFestival(of: lunarMonthDay)
-    case "holiday":
-      switch HolidayManager.default.typeOf(year: year, monthDay: solarMonthDay) {
-      case .workday:
-        return Localized.Calendar.workdayLabel
-      case .holiday:
-        return Localized.Calendar.holidayLabel
-      case .none:
-        return nil
-      }
     case "label":
       return AppLocalizer.lunarDayLabel(for: date)
     default:
+      return nil
+    }
+  }
+
+  /**
+   Returns the holiday status for the given date, or nil if not a special day.
+   */
+  static func holidayInfo(date: Date) -> String? {
+    let solarComponents = Calendar.solar.dateComponents([.year, .month, .day], from: date)
+    let year = solarComponents.year ?? 0
+    let solarMonthDay = solarComponents.fourDigitsMonthDay
+
+    switch HolidayManager.default.typeOf(year: year, monthDay: solarMonthDay) {
+    case .workday:
+      return Localized.Calendar.workdayLabel
+    case .holiday:
+      return Localized.Calendar.holidayLabel
+    case .none:
       return nil
     }
   }

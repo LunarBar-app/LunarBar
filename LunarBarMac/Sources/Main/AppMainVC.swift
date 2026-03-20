@@ -75,8 +75,11 @@ extension AppMainVC {
     Logger.log(.info, "Updating calendar to target date: \(targetDate)")
     monthDate = targetDate
 
+    let solarYear = Calendar.solar.year(from: targetDate)
+    let lunarInfo = LunarCalendar.default.info(of: solarYear)
+
     headerView.updateCalendar(date: targetDate)
-    dateGridView.updateCalendar(date: targetDate)
+    dateGridView.updateCalendar(date: targetDate, lunarInfo: lunarInfo)
   }
 
   func updateCalendar(moveBy offset: Int, unit: Calendar.Component) {

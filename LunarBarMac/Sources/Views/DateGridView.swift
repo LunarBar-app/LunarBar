@@ -14,6 +14,7 @@ import LunarBarKit
  */
 final class DateGridView: NSView {
   private var monthDate: Date?
+  private var lunarInfo: LunarInfo?
   private var dataSource: NSCollectionViewDiffableDataSource<Section, Model>?
 
   private let collectionView: NSCollectionView = {
@@ -36,7 +37,8 @@ final class DateGridView: NSView {
         cell.updateViews(
           cellDate: object.date,
           cellEvents: object.events,
-          monthDate: self?.monthDate
+          monthDate: self?.monthDate,
+          lunarInfo: self?.lunarInfo
         )
       } else {
         Logger.assertFail("Invalid cell type is found: \(cell)")
@@ -87,7 +89,7 @@ extension DateGridView: NSCollectionViewDelegate {
 // MARK: - Updating
 
 extension DateGridView {
-  func updateCalendar(date monthDate: Date) {
+  func updateCalendar(date monthDate: Date, lunarInfo: LunarInfo?) {
     guard let allDates = Calendar.solar.allDatesFillingMonth(from: monthDate) else {
       return Logger.assertFail("Failed to generate the calendar")
     }
@@ -97,6 +99,7 @@ extension DateGridView {
     }
 
     self.monthDate = monthDate
+    self.lunarInfo = lunarInfo
     self.reloadData(
       allDates: allDates,
       events: CalendarManager.default.caches(from: startDate, to: endDate)

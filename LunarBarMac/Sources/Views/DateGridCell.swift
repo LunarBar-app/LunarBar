@@ -120,17 +120,20 @@ extension DateGridCell {
   func updateViews(
     cellDate: Date,
     cellEvents: [EKCalendarItem],
-    monthDate: Date?
+    monthDate: Date?,
+    lunarInfo: LunarInfo?
   ) {
     self.cellDate = cellDate
     self.cellEvents = cellEvents
 
     let currentDate = Date.now
     let solarComponents = Calendar.solar.dateComponents([.year, .month, .day], from: cellDate)
-    let lunarComponents = Calendar.lunar.dateComponents([.month, .day], from: cellDate)
+    let lunarComponents = Calendar.lunar.dateComponents([.year, .month, .day], from: cellDate)
+    let lastDayOfLunarYear = Calendar.lunar.lastDayOfYear(from: cellDate)
     let isLeapLunarMonth = Calendar.lunar.isLeapMonth(from: cellDate)
 
     let solarMonthDay = solarComponents.fourDigitsMonthDay
+    let lunarMonthDay = lunarComponents.fourDigitsMonthDay
 
     let holidayType = HolidayManager.default.typeOf(
       year: solarComponents.year ?? 0, // It's too broken to have year as nil
@@ -145,14 +148,31 @@ extension DateGridCell {
     }
 
     // Lunar day label
-    let dayLabel = AppLocalizer.lunarDayLabel(for: cellDate)
-    if let day = lunarComponents.day, let month = lunarComponents.month, day == 1,
-       dayLabel == AppLocalizer.chineseMonth(of: month - 1, isLeap: isLeapLunarMonth) {
-      // The Chinese character "月" will shift the layout slightly to the left,
-      // add a "thin space" to make it optically centered.
-      lunarLabel.stringValue = "\u{2009}" + dayLabel
+    if let day = lunarComponents.day {
+      if day == 1, let month = lunarComponents.month {
+        // The Chinese character "月" will shift the layout slightly to the left,
+        // add a "thin space" to make it optically centered.
+        lunarLabel.stringValue = "\u{2009}" + AppLocalizer.chineseMonth(of: month - 1, isLeap: isLeapLunarMonth)
+      } else {
+        lunarLabel.stringValue = AppLocalizer.chineseDay(of: day - 1)
+      }
     } else {
-      lunarLabel.stringValue = dayLabel
+      Logger.assertFail("Failed to get lunar day from date: \(cellDate)")
+    }
+
+    // Prefer solar term over normal lunar day
+    if let solarTerm = lunarInfo?.solarTerms[solarMonthDay] {
+      lunarLabel.stringValue = AppLocalizer.solarTerm(of: solarTerm)
+    }
+
+    // Prefer lunar holiday over solar term
+    if let lunarHoliday = AppLocalizer.lunarFestival(of: lunarMonthDay) {
+      lunarLabel.stringValue = lunarHoliday
+    }
+
+    // Chinese New Year's Eve, the last day of the lunar year, not necessarily a certain date
+    if let lastDayOfLunarYear, Calendar.lunar.isDate(cellDate, inSameDayAs: lastDayOfLunarYear) {
+      lunarLabel.stringValue = Localized.Calendar.chineseNewYearsEve
     }
 
     // Show the focus ring only for today
