@@ -121,12 +121,12 @@ public extension Calendar {
     dateComponents([.day], from: startOfDay(for: startDate), to: startOfDay(for: endDate)).day
   }
 
-  func lastDayOfYear(from date: Date) -> Date? {
-    guard let newYear = self.date(from: DateComponents(year: year(from: date) + 1, month: 1, day: 1)) else {
-      return nil
+  func isLastDayOfYear(from date: Date) -> Bool {
+    guard let lastDay = lastDayOfYear(from: date) else {
+      return false
     }
 
-    return self.date(byAdding: .day, value: -1, to: newYear)
+    return isDate(date, inSameDayAs: lastDay)
   }
 
   func isDate(_ date1: Date, inSameMonthAs date2: Date) -> Bool {
@@ -172,5 +172,13 @@ private extension Calendar {
     let weekday = component(.weekday, from: startOfMonth)
     let extraDays = (numberOfDaysInWeek - firstWeekday + weekday) % numberOfDaysInWeek
     return self.date(byAdding: .day, value: -extraDays, to: startOfMonth)
+  }
+
+  func lastDayOfYear(from date: Date) -> Date? {
+    guard let newYear = self.date(from: DateComponents(year: year(from: date) + 1, month: 1, day: 1)) else {
+      return nil
+    }
+
+    return self.date(byAdding: .day, value: -1, to: newYear)
   }
 }

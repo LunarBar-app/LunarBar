@@ -129,7 +129,7 @@ extension DateGridCell {
     let currentDate = Date.now
     let solarComponents = Calendar.solar.dateComponents([.year, .month, .day], from: cellDate)
     let lunarComponents = Calendar.lunar.dateComponents([.year, .month, .day], from: cellDate)
-    let lastDayOfLunarYear = Calendar.lunar.lastDayOfYear(from: cellDate)
+    let isLastDayOfYear = Calendar.lunar.isLastDayOfYear(from: cellDate)
     let isLeapLunarMonth = Calendar.lunar.isLeapMonth(from: cellDate)
 
     let solarMonthDay = solarComponents.fourDigitsMonthDay
@@ -171,7 +171,7 @@ extension DateGridCell {
     }
 
     // Chinese New Year's Eve, the last day of the lunar year, not necessarily a certain date
-    if let lastDayOfLunarYear, Calendar.lunar.isDate(cellDate, inSameDayAs: lastDayOfLunarYear) {
+    if isLastDayOfYear {
       lunarLabel.stringValue = Localized.Calendar.chineseNewYearsEve
     }
 
