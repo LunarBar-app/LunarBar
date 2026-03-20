@@ -90,7 +90,7 @@ public extension NSImage {
   }
 
   func setTintColor(_ tintColor: NSColor?) {
-    guard let tintColor, responds(to: sel_getUid("_setTintColor:")) else {
+    guard responds(to: sel_getUid("_setTintColor:")) else {
       return assertionFailure("Missing _setTintColor(_:) to change the tint color")
     }
 
