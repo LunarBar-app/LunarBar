@@ -183,11 +183,11 @@ private enum JSEvaluator {
     }
 
     let lunarInfo: @convention(block) (String, JSValue) -> String? = { key, date in
-      Self.lunarInfo(key: key, date: date.toDate() ?? .now)
+      Self.lunarInfo(key: key, date: date.safelyToDate(fallback: .now))
     }
 
     let holidayInfo: @convention(block) (JSValue) -> String? = { date in
-      Self.holidayInfo(date: date.toDate() ?? .now)
+      Self.holidayInfo(date: date.safelyToDate(fallback: .now))
     }
 
     let context = JSContext()
@@ -277,5 +277,15 @@ private extension JSEvaluator {
     case .none:
       return nil
     }
+  }
+}
+
+private extension JSValue {
+  func safelyToDate(fallback: Date = .now) -> Date {
+    guard isDate && !isNull && !isUndefined else {
+      return fallback
+    }
+
+    return toDate() ?? fallback
   }
 }
