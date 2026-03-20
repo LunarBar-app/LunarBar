@@ -98,13 +98,17 @@ final class CalendarTests: XCTestCase {
     XCTAssertEqual(Calendar.solar.component(.day, from: endOfMonth), 29)
   }
 
-  func testLastDayOfYear() {
+  func testIsLastDayOfYear() {
     var components = DateComponents()
     components.year = 2024
     components.month = 12
     components.day = 31
 
-    let date = Calendar.solar.date(from: components) ?? .now
+    guard let date = Calendar.solar.date(from: components) else {
+      XCTFail("Failed to create date from components")
+      return
+    }
+
     XCTAssertTrue(Calendar.solar.isLastDayOfYear(from: date))
   }
 }
