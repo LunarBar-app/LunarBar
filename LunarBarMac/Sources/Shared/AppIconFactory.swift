@@ -182,12 +182,12 @@ private enum JSEvaluator {
       NotificationCenter.default.post(name: .menuBarIconDidChange, object: nil)
     }
 
-    let lunarInfoFn: @convention(block) (String) -> String? = { key in
-      lunarInfo(key: key, date: .now)
+    let lunarInfoFn: @convention(block) (String, JSValue) -> String? = { key, dateValue in
+      lunarInfo(key: key, date: dateValue.toDate() ?? .now)
     }
 
-    let holidayInfoFn: @convention(block) () -> String? = {
-      holidayInfo(date: .now)
+    let holidayInfoFn: @convention(block) (JSValue) -> String? = { dateValue in
+      holidayInfo(date: dateValue.toDate() ?? .now)
     }
 
     let context = JSContext()
