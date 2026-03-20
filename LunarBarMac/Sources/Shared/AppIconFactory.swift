@@ -201,7 +201,7 @@ private enum JSEvaluator {
   /**
    Compute a lunar calendar value for the given key and date.
 
-   Supported keys: day, month, solarTerm, festival, label.
+   Supported keys: day, month, solarTerm, festival.
    */
   static func lunarInfo(key: String, date: Date) -> String? {
     let lunarComponents = Calendar.lunar.dateComponents([.month, .day], from: date)
@@ -234,8 +234,6 @@ private enum JSEvaluator {
       }
 
       return AppLocalizer.lunarFestival(of: lunarMonthDay)
-    case "label":
-      return AppLocalizer.lunarDayLabel(for: date)
     default:
       return nil
     }
