@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import LunarBarKit
 @preconcurrency import JavaScriptCore
 
 extension Notification.Name {
@@ -181,9 +182,19 @@ private enum JSEvaluator {
       NotificationCenter.default.post(name: .menuBarIconDidChange, object: nil)
     }
 
+    let lunarInfo: @convention(block) (String, JSValue) -> String? = { key, date in
+      Self.lunarInfo(key: key, date: date.safelyToDate(fallback: .now))
+    }
+
+    let holidayInfo: @convention(block) (JSValue) -> String? = { date in
+      Self.holidayInfo(date: date.safelyToDate(fallback: .now))
+    }
+
     let context = JSContext()
     context?.setObject(setTimeout, forKeyedSubscript: "setTimeout" as NSString)
     context?.setObject(reload, forKeyedSubscript: "reload" as NSString)
+    context?.setObject(lunarInfo, forKeyedSubscript: "lunarInfo" as NSString)
+    context?.setObject(holidayInfo, forKeyedSubscript: "holidayInfo" as NSString)
     return context
   }()
 
@@ -196,5 +207,85 @@ private enum JSEvaluator {
       let result = context?.evaluateScript(expr).toString()
       return result ?? expr
     }
+  }
+}
+
+// MARK: - Helpers
+
+@MainActor
+private extension JSEvaluator {
+  /**
+   Compute a lunar calendar value for the given key and date.
+
+   Supported keys: day, month, solarTerm, festival.
+   */
+  static func lunarInfo(key: String, date: Date) -> String? {
+    let lunarCalendar = Calendar.lunar
+    let lunarComponents = lunarCalendar.dateComponents([.month, .day], from: date)
+
+    switch key {
+    case "day":
+      if let day = lunarComponents.day {
+        return AppLocalizer.chineseDay(of: day - 1)
+      }
+
+      return nil
+    case "month":
+      if let month = lunarComponents.month {
+        return AppLocalizer.chineseMonth(of: month - 1, isLeap: lunarCalendar.isLeapMonth(from: date))
+      }
+
+      return nil
+    case "solarTerm":
+      let solarCalendar = Calendar.solar
+      let solarComponents = solarCalendar.dateComponents([.year, .month, .day], from: date)
+      let solarYear = solarComponents.year ?? 0
+
+      if let index = LunarCalendar.default.info(of: solarYear)?.solarTerms[solarComponents.fourDigitsMonthDay] {
+        return AppLocalizer.solarTerm(of: index)
+      }
+
+      return nil
+    case "festival":
+      if lunarCalendar.isLastDayOfYear(from: date) {
+        return Localized.Calendar.chineseNewYearsEve
+      }
+
+      return AppLocalizer.lunarFestival(of: lunarComponents.fourDigitsMonthDay)
+    default:
+      return nil
+    }
+  }
+
+  /**
+   Returns the holiday status for the given date, or nil if not a special day.
+   */
+  static func holidayInfo(date: Date) -> String? {
+    let components = Calendar.solar.dateComponents([.year, .month, .day], from: date)
+    let monthDay = components.fourDigitsMonthDay
+
+    let holidayType = HolidayManager.default.typeOf(
+      year: components.year ?? 0,
+      monthDay: monthDay
+    )
+
+    switch holidayType {
+    case .workday:
+      return Localized.Calendar.workdayLabel
+    case .holiday:
+      return Localized.Calendar.holidayLabel
+    case .none:
+      return nil
+    }
+  }
+}
+
+private extension JSValue {
+  func safelyToDate(fallback: Date = .now) -> Date {
+    guard isDate && !isNull && !isUndefined else {
+      return fallback
+    }
+
+    return toDate() ?? fallback
   }
 }
