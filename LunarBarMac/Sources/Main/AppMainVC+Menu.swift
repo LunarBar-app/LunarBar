@@ -533,7 +533,6 @@ private extension AppMainVC {
     initialValue: String?,
     commitChange: @escaping (String) -> Bool
   ) -> NSMenuItem {
-    // Defer text field, markdown view, and layout until the user clicks
     item.addAction {
       let inputField = EditableTextField(frame: CGRect(x: 0, y: 0, width: 256, height: 22))
       inputField.cell?.usesSingleLineMode = true
@@ -561,6 +560,7 @@ private extension AppMainVC {
       alert.accessoryView = wrapper
       alert.layout()
 
+      @MainActor
       func showAlert() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
           inputField.window?.makeFirstResponder(inputField)
