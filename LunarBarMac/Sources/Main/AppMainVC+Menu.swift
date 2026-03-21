@@ -533,51 +533,55 @@ private extension AppMainVC {
     initialValue: String?,
     commitChange: @escaping (String) -> Bool
   ) -> NSMenuItem {
-    let inputField = EditableTextField(frame: CGRect(x: 0, y: 0, width: 256, height: 22))
-    inputField.cell?.usesSingleLineMode = true
-    inputField.cell?.lineBreakMode = .byTruncatingTail
-    inputField.stringValue = initialValue ?? ""
+    item.addAction {
+      let inputField = EditableTextField(frame: CGRect(x: 0, y: 0, width: 256, height: 22))
+      inputField.cell?.usesSingleLineMode = true
+      inputField.cell?.lineBreakMode = .byTruncatingTail
+      inputField.stringValue = initialValue ?? ""
 
-    let textView = NSTextView.markdownView(
-      with: explanation,
-      contentWidth: inputField.frame.width
-    )
+      let textView = NSTextView.markdownView(
+        with: explanation,
+        contentWidth: inputField.frame.width
+      )
 
-    textView.frame = CGRect(
-      origin: CGPoint(x: 0, y: inputField.frame.height + 15), // Spacing between two fields
-      size: textView.frame.size
-    )
+      textView.frame = CGRect(
+        origin: CGPoint(x: 0, y: inputField.frame.height + 15), // Spacing between two fields
+        size: textView.frame.size
+      )
 
-    let wrapper = NSView(frame: {
-      var rect = textView.frame
-      rect.size.height += textView.frame.minY // Text view height and the spacing
-      return rect
-    }())
+      let wrapper = NSView(frame: {
+        var rect = textView.frame
+        rect.size.height += textView.frame.minY // Text view height and the spacing
+        return rect
+      }())
 
-    wrapper.addSubview(textView)
-    wrapper.addSubview(inputField)
-    alert.accessoryView = wrapper
-    alert.layout()
+      wrapper.addSubview(textView)
+      wrapper.addSubview(inputField)
+      alert.accessoryView = wrapper
+      alert.layout()
 
-    func showAlert() {
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-        inputField.window?.makeFirstResponder(inputField)
+      @MainActor
+      func showAlert() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+          inputField.window?.makeFirstResponder(inputField)
+        }
+
+        guard alert.runModal() == .alertFirstButtonReturn else {
+          return
+        }
+
+        guard !commitChange(inputField.stringValue) else {
+          return
+        }
+
+        // Failed to commit the change
+        NSSound.beep()
+        showAlert()
       }
 
-      guard alert.runModal() == .alertFirstButtonReturn else {
-        return
-      }
-
-      guard !commitChange(inputField.stringValue) else {
-        return
-      }
-
-      // Failed to commit the change
-      NSSound.beep()
       showAlert()
     }
 
-    item.addAction(showAlert)
     return item
   }
 
