@@ -205,13 +205,13 @@ private extension AppMainVC {
         item.setOn(AppPreferences.General.menuBarIcon == .systemSymbol)
         return item
       }(),
-      createAlert: {
+      alert: {
         let alert = NSAlert()
         alert.messageText = Localized.UI.alertMessageSetSymbolName
         alert.addButton(withTitle: Localized.UI.alertButtonTitleApplyChanges)
         alert.addButton(withTitle: Localized.General.cancel)
         return alert
-      },
+      }(),
       explanation: Localized.UI.alertExplanationSetSymbolName,
       initialValue: AppPreferences.General.systemSymbolName,
     ) { symbolName in
@@ -231,13 +231,13 @@ private extension AppMainVC {
         item.setOn(AppPreferences.General.menuBarIcon == .custom)
         return item
       }(),
-      createAlert: {
+      alert: {
         let alert = NSAlert()
         alert.messageText = Localized.UI.alertMessageSetDateFormat
         alert.addButton(withTitle: Localized.UI.alertButtonTitleApplyChanges)
         alert.addButton(withTitle: Localized.General.cancel)
         return alert
-      },
+      }(),
       explanation: Localized.UI.alertExplanationSetDateFormat,
       initialValue: AppPreferences.General.customDateFormat,
     ) { dateFormat in
@@ -528,19 +528,17 @@ private extension AppMainVC {
 
   func createCustomIconItem(
     item: NSMenuItem,
-    createAlert: @escaping () -> NSAlert,
+    alert: NSAlert,
     explanation: String,
-    initialValue: @escaping @autoclosure () -> String?,
+    initialValue: String?,
     commitChange: @escaping (String) -> Bool
   ) -> NSMenuItem {
-    // Defer alert, markdown, and accessory view creation until the user clicks
+    // Defer text field, markdown view, and layout until the user clicks
     item.addAction {
-      let alert = createAlert()
-
       let inputField = EditableTextField(frame: CGRect(x: 0, y: 0, width: 256, height: 22))
       inputField.cell?.usesSingleLineMode = true
       inputField.cell?.lineBreakMode = .byTruncatingTail
-      inputField.stringValue = initialValue() ?? ""
+      inputField.stringValue = initialValue ?? ""
 
       let textView = NSTextView.markdownView(
         with: explanation,
