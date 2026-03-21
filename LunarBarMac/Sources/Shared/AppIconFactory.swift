@@ -36,21 +36,8 @@ enum AppIconFactory {
     static let defaultIconSize: Double = 16
   }
 
-  // Cache date icons keyed by style; invalidated when the day changes
-  private static var dateIconCache = [DateIconStyle: (day: Int, image: NSImage)]()
-
   static func createDateIcon(style: DateIconStyle) -> NSImage? {
-    let today = Calendar.solar.component(.day, from: .now)
-    if let cached = dateIconCache[style], cached.day == today {
-      return cached.image
-    }
-
-    guard let image = DateIconView(style: style).snapshotImage?.asTemplate else {
-      return nil
-    }
-
-    dateIconCache[style] = (today, image)
-    return image
+    DateIconView(style: style).snapshotImage?.asTemplate
   }
 
   static func createCalendarIcon(pointSize: Double = Constants.defaultIconSize) -> NSImage? {
