@@ -205,13 +205,13 @@ private extension AppMainVC {
         item.setOn(AppPreferences.General.menuBarIcon == .systemSymbol)
         return item
       }(),
-      alert: {
+      createAlert: {
         let alert = NSAlert()
         alert.messageText = Localized.UI.alertMessageSetSymbolName
         alert.addButton(withTitle: Localized.UI.alertButtonTitleApplyChanges)
         alert.addButton(withTitle: Localized.General.cancel)
         return alert
-      }(),
+      },
       explanation: Localized.UI.alertExplanationSetSymbolName,
       initialValue: AppPreferences.General.systemSymbolName,
     ) { symbolName in
@@ -231,13 +231,13 @@ private extension AppMainVC {
         item.setOn(AppPreferences.General.menuBarIcon == .custom)
         return item
       }(),
-      alert: {
+      createAlert: {
         let alert = NSAlert()
         alert.messageText = Localized.UI.alertMessageSetDateFormat
         alert.addButton(withTitle: Localized.UI.alertButtonTitleApplyChanges)
         alert.addButton(withTitle: Localized.General.cancel)
         return alert
-      }(),
+      },
       explanation: Localized.UI.alertExplanationSetDateFormat,
       initialValue: AppPreferences.General.customDateFormat,
     ) { dateFormat in
@@ -528,56 +528,62 @@ private extension AppMainVC {
 
   func createCustomIconItem(
     item: NSMenuItem,
-    alert: NSAlert,
+    createAlert: @escaping () -> NSAlert,
     explanation: String,
-    initialValue: String?,
+    initialValue: @escaping @autoclosure () -> String?,
     commitChange: @escaping (String) -> Bool
   ) -> NSMenuItem {
-    let inputField = EditableTextField(frame: CGRect(x: 0, y: 0, width: 256, height: 22))
-    inputField.cell?.usesSingleLineMode = true
-    inputField.cell?.lineBreakMode = .byTruncatingTail
-    inputField.stringValue = initialValue ?? ""
+    // Defer alert, markdown, and accessory view creation until the user clicks
+    item.addAction {
+      let alert = createAlert()
 
-    let textView = NSTextView.markdownView(
-      with: explanation,
-      contentWidth: inputField.frame.width
-    )
+      let inputField = EditableTextField(frame: CGRect(x: 0, y: 0, width: 256, height: 22))
+      inputField.cell?.usesSingleLineMode = true
+      inputField.cell?.lineBreakMode = .byTruncatingTail
+      inputField.stringValue = initialValue() ?? ""
 
-    textView.frame = CGRect(
-      origin: CGPoint(x: 0, y: inputField.frame.height + 15), // Spacing between two fields
-      size: textView.frame.size
-    )
+      let textView = NSTextView.markdownView(
+        with: explanation,
+        contentWidth: inputField.frame.width
+      )
 
-    let wrapper = NSView(frame: {
-      var rect = textView.frame
-      rect.size.height += textView.frame.minY // Text view height and the spacing
-      return rect
-    }())
+      textView.frame = CGRect(
+        origin: CGPoint(x: 0, y: inputField.frame.height + 15), // Spacing between two fields
+        size: textView.frame.size
+      )
 
-    wrapper.addSubview(textView)
-    wrapper.addSubview(inputField)
-    alert.accessoryView = wrapper
-    alert.layout()
+      let wrapper = NSView(frame: {
+        var rect = textView.frame
+        rect.size.height += textView.frame.minY // Text view height and the spacing
+        return rect
+      }())
 
-    func showAlert() {
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-        inputField.window?.makeFirstResponder(inputField)
+      wrapper.addSubview(textView)
+      wrapper.addSubview(inputField)
+      alert.accessoryView = wrapper
+      alert.layout()
+
+      func showAlert() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+          inputField.window?.makeFirstResponder(inputField)
+        }
+
+        guard alert.runModal() == .alertFirstButtonReturn else {
+          return
+        }
+
+        guard !commitChange(inputField.stringValue) else {
+          return
+        }
+
+        // Failed to commit the change
+        NSSound.beep()
+        showAlert()
       }
 
-      guard alert.runModal() == .alertFirstButtonReturn else {
-        return
-      }
-
-      guard !commitChange(inputField.stringValue) else {
-        return
-      }
-
-      // Failed to commit the change
-      NSSound.beep()
       showAlert()
     }
 
-    item.addAction(showAlert)
     return item
   }
 
