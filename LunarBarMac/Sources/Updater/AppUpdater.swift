@@ -19,6 +19,10 @@ enum AppUpdater {
   }
 
   static func checkForUpdates(explicitly: Bool) async {
+    guard explicitly || !UserDefaults.standard.bool(forKey: "general.disable-updates") else {
+      return Logger.log(.info, "App updates are disabled by the user")
+    }
+
     guard let url = URL(string: Constants.endpoint) else {
       return Logger.assertFail("Failed to create the URL: \(Constants.endpoint)")
     }
