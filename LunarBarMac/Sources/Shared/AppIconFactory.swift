@@ -279,13 +279,3 @@ private extension JSEvaluator {
     }
   }
 }
-
-private extension JSValue {
-  func safelyToDate(fallback: Date = .now) -> Date {
-    guard isDate && !isNull && !isUndefined else {
-      return fallback
-    }
-
-    return toDate() ?? fallback
-  }
-}
