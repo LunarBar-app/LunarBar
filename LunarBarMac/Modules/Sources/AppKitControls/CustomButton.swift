@@ -14,8 +14,10 @@ import AppKit
 public class CustomButton: NSButton {
   public var hitTestInsets: CGPoint = .zero
   public var onMouseHover: ((_ isHovered: Bool) -> Void)?
+  public var onDoubleClick: (() -> Void)?
 
   private var trackingArea: NSTrackingArea?
+  private var singleClickWorkItem: DispatchWorkItem?
 
   override public var isHighlighted: Bool {
     didSet {
@@ -38,7 +40,7 @@ public class CustomButton: NSButton {
   override public func updateTrackingAreas() {
     super.updateTrackingAreas()
 
-    if let trackingArea {
+    if let trackingArea = trackingArea {
       removeTrackingArea(trackingArea)
     }
 
@@ -56,16 +58,47 @@ public class CustomButton: NSButton {
   }
 
   override public func mouseDown(with event: NSEvent) {
+    if event.clickCount > 1 {
+      cancelPendingSingleClick()
+    }
+
     isHighlighted = true
   }
 
   override public func mouseUp(with event: NSEvent) {
     isHighlighted = false
 
-    if isMouseWithinBounds(event: event) {
-      _ = sendAction(action, to: target)
-    } else {
+    guard isMouseWithinBounds(event: event) else {
+      cancelPendingSingleClick()
       onMouseHover?(false)
+      return
+    }
+
+    guard let onDoubleClick = onDoubleClick else {
+      _ = sendAction(action, to: target)
+      return
+    }
+
+    cancelPendingSingleClick()
+
+    if event.clickCount > 1 {
+      onDoubleClick()
+    } else {
+      guard let action = action else {
+        return
+      }
+
+      let workItem = DispatchWorkItem { [weak self] in
+        guard let self = self else {
+          return
+        }
+
+        _ = self.sendAction(action, to: self.target)
+        self.singleClickWorkItem = nil
+      }
+
+      singleClickWorkItem = workItem
+      DispatchQueue.main.asyncAfter(deadline: .now() + NSEvent.doubleClickInterval, execute: workItem)
     }
   }
 
@@ -91,6 +124,11 @@ public class CustomButton: NSButton {
 // MARK: - Private
 
 private extension CustomButton {
+  func cancelPendingSingleClick() {
+    singleClickWorkItem?.cancel()
+    singleClickWorkItem = nil
+  }
+
   var hitTestRect: CGRect {
     frame.insetBy(dx: hitTestInsets.x, dy: hitTestInsets.y)
   }

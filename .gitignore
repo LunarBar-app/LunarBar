@@ -4,3 +4,7 @@
 ## User settings
 xcuserdata/
 Local.xcconfig
+.ace-tool/
+
+## Local build outputs
+/build/

@@ -29,7 +29,7 @@ final class DateGridCell: NSCollectionViewItem {
     let button = CustomButton()
     button.setAccessibilityElement(true)
     button.setAccessibilityRole(.button)
-    button.setAccessibilityHelp(Localized.UI.accessibilityClickToRevealDate)
+    button.setAccessibilityHelp(Localized.UI.accessibilityDoubleClickToRevealDate)
 
     return button
   }()
@@ -285,7 +285,7 @@ private extension DateGridCell {
 
   func setUp() {
     view.addSubview(containerView)
-    containerView.addAction { [weak self] in
+    containerView.onDoubleClick = { [weak self] in
       self?.revealDateInCalendar()
     }
 

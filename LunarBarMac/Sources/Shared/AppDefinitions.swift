@@ -81,7 +81,7 @@ enum Localized {
     static let accessibilityWeekdayArea = String(localized: "Weekday symbol area", comment: "[AX] Indicate the current group is for weekday symbols")
     static let accessibilityDateGridArea = String(localized: "Date grid area", comment: "[AX] Indicate the current group is for date grids")
     static let accessibilityEnterToSelectDates = String(localized: "Enter to select dates", comment: "[AX] Tell the user to enter the current collection to select dates")
-    static let accessibilityClickToRevealDate = String(localized: "Click to reveal the date in Calendar", comment: "[AX] Tell the user to click the grid to reveal the selected date in the Calendar app")
+    static let accessibilityDoubleClickToRevealDate = String(localized: "Double-click to reveal the date in Calendar", comment: "[AX] Tell the user to double-click the grid to reveal the selected date in the Calendar app")
   }
 
   enum Calendar {
