@@ -5,14 +5,14 @@
 	<key>LSUIElement</key>
 	<true/>
 	<key>NSAppleEventsUsageDescription</key>
-	<string>Grant LunarBar permission to reveal the selected date in the Calendar app.</string>
+	<string>LunarBar uses Apple Events to reveal the selected date in the Calendar app.</string>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Grant LunarBar permission to display Calendar events.</string>
+	<string>LunarBar uses your calendars to show events alongside each date.</string>
 	<key>NSCalendarsFullAccessUsageDescription</key>
-	<string>Grant LunarBar permission to display Calendar events.</string>
+	<string>LunarBar uses your calendars to show events alongside each date.</string>
 	<key>NSRemindersUsageDescription</key>
-	<string>Grant LunarBar permission to display items in the Reminders app.</string>
+	<string>LunarBar uses your reminders to show them alongside each date.</string>
 	<key>NSRemindersFullAccessUsageDescription</key>
-	<string>Grant LunarBar permission to display items in the Reminders app.</string>
+	<string>LunarBar uses your reminders to show them alongside each date.</string>
 </dict>
 </plist>

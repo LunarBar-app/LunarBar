@@ -55,19 +55,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Grant LunarBar permission to reveal the selected date in the Calendar app.\n\nWhile LunarBar can still open the native Calendar app without this permission, the selected date won’t be located correctly.\n\nYou can change permissions in the system privacy settings, this dialog will not reappear."
+            "value" : "LunarBar uses Apple Events to reveal the selected date in the Calendar app.\n\nWithout this permission, LunarBar can still open the Calendar app, but it won’t be able to jump to the selected date.\n\nYou can change this anytime in System Settings, this dialog won’t appear again."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "授予 LunarBar 权限以在日历应用中显示所选日期。\n\nLunarBar 可以在没有此权限的情况下打开原生日历应用，但所选日期将无法正确定位。\n\n您可以在系统隐私设置中更改授权，此弹窗将不再出现。"
+            "value" : "LunarBar 使用 Apple 事件在日历应用中定位所选日期。\n\n没有此权限时，LunarBar 仍可打开日历应用，但无法跳转到所选日期。\n\n您可以随时在系统设置中更改，此弹窗将不再出现。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "授予 LunarBar 許可權以在日曆應用中顯示所選日期。\n\nLunarBar 可以在沒有此許可權的情況下開啟原生日曆應用，但所選日期將無法正確定位。\n\n您可以在系統隱私設定中更改授權，此彈窗將不再出現。"
+            "value" : "LunarBar 使用 Apple 事件在日曆應用中定位所選日期。\n\n沒有此許可權時，LunarBar 仍可開啟日曆應用，但無法跳轉到所選日期。\n\n您可以隨時在系統設定中更改，此彈窗將不再出現。"
           }
         }
       }
@@ -78,19 +78,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Grant LunarBar permission to display Calendar events.\n\nWhile LunarBar can still function without this permission, features related to the native Calendar app won’t be available.\n\nYou can change permissions in the system privacy settings, this dialog will not reappear."
+            "value" : "LunarBar uses your calendars to show events alongside each date.\n\nWithout this permission, LunarBar still works, but features that rely on the Calendar app won’t be available.\n\nYou can change this anytime in System Settings, this dialog won’t appear again."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "授予 LunarBar 权限以显示日历事件。\n\nLunarBar 可以在没有此权限的情况下运行，但与原生日历应用相关的功能将不可用。\n\n您可以在系统隐私设置中更改授权，此弹窗将不再出现。"
+            "value" : "LunarBar 使用您的日历，在每个日期旁显示事件。\n\n没有此权限时，LunarBar 仍可正常使用，但依赖日历应用的功能将不可用。\n\n您可以随时在系统设置中更改，此弹窗将不再出现。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "授予 LunarBar 許可權以顯示日曆事件。\n\nLunarBar 可以在沒有此許可權的情況下執行，但與原生日曆應用相關的功能將不可用。\n\n您可以在系統隱私設定中更改授權，此彈窗將不再出現。"
+            "value" : "LunarBar 使用您的日曆，在每個日期旁顯示事件。\n\n沒有此許可權時，LunarBar 仍可正常使用，但依賴日曆應用的功能將不可用。\n\n您可以隨時在系統設定中更改，此彈窗將不再出現。"
           }
         }
       }
@@ -101,19 +101,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Grant LunarBar permission to display Calendar events.\n\nWhile LunarBar can still function without this permission, features related to the native Calendar app won’t be available.\n\nYou can change permissions in the system privacy settings, this dialog will not reappear."
+            "value" : "LunarBar uses your calendars to show events alongside each date.\n\nWithout this permission, LunarBar still works, but features that rely on the Calendar app won’t be available.\n\nYou can change this anytime in System Settings, this dialog won’t appear again."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "授予 LunarBar 权限以显示日历事件。\n\nLunarBar 可以在没有此权限的情况下运行，但与原生日历应用相关的功能将不可用。\n\n您可以在系统隐私设置中更改授权，此弹窗将不再出现。"
+            "value" : "LunarBar 使用您的日历，在每个日期旁显示事件。\n\n没有此权限时，LunarBar 仍可正常使用，但依赖日历应用的功能将不可用。\n\n您可以随时在系统设置中更改，此弹窗将不再出现。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "授予 LunarBar 許可權以顯示日曆事件。\n\nLunarBar 可以在沒有此許可權的情況下執行，但與原生日曆應用相關的功能將不可用。\n\n您可以在系統隱私設定中更改授權，此彈窗將不再出現。"
+            "value" : "LunarBar 使用您的日曆，在每個日期旁顯示事件。\n\n沒有此許可權時，LunarBar 仍可正常使用，但依賴日曆應用的功能將不可用。\n\n您可以隨時在系統設定中更改，此彈窗將不再出現。"
           }
         }
       }
@@ -148,19 +148,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Grant LunarBar permission to display items in the Reminders app.\n\nThis is optional, you can change permissions in the system privacy settings, this dialog will not reappear."
+            "value" : "LunarBar uses your reminders to show them alongside each date.\n\nThis is optional. You can change it anytime in System Settings, this dialog won’t appear again."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "授予 LunarBar 权限以显示提醒事项。\n\n此为可选功能，您可以在系统隐私设置中更改授权，此弹窗将不再出现。"
+            "value" : "LunarBar 使用您的提醒事项，在每个日期旁显示它们。\n\n此为可选功能，您可以随时在系统设置中更改，此弹窗将不再出现。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "授予 LunarBar 許可權以顯示提醒事項。\n\n此為可選功能，您可以在系統隱私設定中更改授權，此彈窗將不再出現。"
+            "value" : "LunarBar 使用您的提醒事項，在每個日期旁顯示它們。\n\n此為可選功能，您可以隨時在系統設定中更改，此彈窗將不再出現。"
           }
         }
       }
@@ -171,19 +171,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Grant LunarBar permission to display items in the Reminders app.\n\nThis is optional, you can change permissions in the system privacy settings, this dialog will not reappear."
+            "value" : "LunarBar uses your reminders to show them alongside each date.\n\nThis is optional. You can change it anytime in System Settings, this dialog won’t appear again."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "授予 LunarBar 权限以显示提醒事项。\n\n此为可选功能，您可以在系统隐私设置中更改授权，此弹窗将不再出现。"
+            "value" : "LunarBar 使用您的提醒事项，在每个日期旁显示它们。\n\n此为可选功能，您可以随时在系统设置中更改，此弹窗将不再出现。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "授予 LunarBar 許可權以顯示提醒事項。\n\n此為可選功能，您可以在系統隱私設定中更改授權，此彈窗將不再出現。"
+            "value" : "LunarBar 使用您的提醒事項，在每個日期旁顯示它們。\n\n此為可選功能，您可以隨時在系統設定中更改，此彈窗將不再出現。"
           }
         }
       }
