@@ -13,11 +13,11 @@ enum AppDesign {
     Returns `true` to adopt the new design language in macOS Tahoe.
    */
   static var modernStyle: Bool {
-    guard isMacOSTahoe else {
+    guard #available(macOS 26.0, *) else {
       return false
     }
 
-    return !AppPreferences.General.classicInterface
+    return true
   }
 
   static var contentMargin: Double {
@@ -33,15 +33,7 @@ enum AppDesign {
   }
 
   static var menuIconSize: Double {
-    isMacOSTahoe ? 17 : 14
-  }
-
-  private static var isMacOSTahoe: Bool {
-    guard #available(macOS 26.0, *) else {
-      return false
-    }
-
-    return true
+    modernStyle ? 17 : 14
   }
 }
 

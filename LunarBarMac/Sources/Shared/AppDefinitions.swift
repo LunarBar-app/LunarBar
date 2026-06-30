@@ -33,7 +33,6 @@ enum Localized {
     static let menuTitleGotoMonth = String(localized: "Go to Month", comment: "[Menu] Select year and month")
     static let menuTitleEnterMonth = String(localized: "Enter Month", comment: "[Menu] Enter a month using date picker")
     static let menuTitleAppearance = String(localized: "Appearance", comment: "[Menu] Change dark mode preference")
-    static let menuTitleClassicInterface = String(localized: "Classic Interface", comment: "[Menu] Whether to use classic interface in macOS Tahoe")
     static let menuTitleMenuBarIcon = String(localized: "Menu Bar Icon", comment: "[Menu] Section title for icons")
     static let menuTitleFilledDate = String(localized: "Filled Date", comment: "[Menu] Use the current date as the menu bar icon, filled style")
     static let menuTitleOutlinedDate = String(localized: "Outlined Date", comment: "[Menu] Use the current date as the menu bar icon, outlined style")
@@ -74,7 +73,6 @@ enum Localized {
     static let alertExplanationSetDateFormat = String(localized: "Please enter standard [date format patterns](https://unicode.org/reports/tr35/tr35-dates.html#Date_Format_Patterns) here. Refer to the [wiki](https://github.com/LunarBar-app/LunarBar/wiki) for more instructions and examples.", comment: "[Alert] Explanation for custom date format")
     static let alertMessageSetSymbolName = String(localized: "Set Symbol Name", comment: "[Alert] Configure the system symbol name")
     static let alertExplanationSetSymbolName = String(localized: "Please enter a [SF Symbol](https://developer.apple.com/sf-symbols/) name here. Refer to the [wiki](https://github.com/LunarBar-app/LunarBar/wiki) for more instructions and examples.", comment: "[Alert] Explanation for system symbol name")
-    static let alertMessageRelaunchRequired = String(localized: "Relaunch LunarBar to apply the change.", comment: "[Alert] Message about relaunch after changing the interface")
     static let alertButtonTitleApplyChanges = String(localized: "Apply Changes", comment: "[Alert] Apply the custom date format")
 
     // Accessibility
@@ -200,7 +198,6 @@ enum Icons {
   static let exclamationmarkTriangle = "exclamationmark.triangle"
   static let gear = "gear"
   static let menubarRectangle = "menubar.rectangle"
-  static let mustacheFill = "mustache.fill"
   static let wandAndSparkles = "wand.and.sparkles"
 }
 
