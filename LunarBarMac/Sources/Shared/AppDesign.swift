@@ -73,7 +73,7 @@ extension NSColor {
   static var highlightedBackground: NSColor {
     let alpha: Double = AppPreferences.Accessibility.reduceTransparency ? 0.10 : 0.06
     return NSColor(name: nil) {
-      ($0.isDarkMode ? NSColor.white : NSColor.black).withAlphaComponent(alpha)
+      ($0.isDarkMode ? Self.white : Self.black).withAlphaComponent(alpha)
     }
   }
 }
