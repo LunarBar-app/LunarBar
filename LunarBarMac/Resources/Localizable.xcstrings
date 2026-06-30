@@ -381,23 +381,6 @@
         }
       }
     },
-    "Classic Interface" : {
-      "comment" : "[Menu] Whether to use classic interface in macOS Tahoe",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "经典界面"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "經典介面"
-          }
-        }
-      }
-    },
     "Click to reveal the date in Calendar" : {
       "comment" : "[AX] Tell the user to click the grid to reveal the selected date in the Calendar app",
       "localizations" : {
@@ -2609,23 +2592,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "減少透明度"
-          }
-        }
-      }
-    },
-    "Relaunch LunarBar to apply the change." : {
-      "comment" : "[Alert] Message about relaunch after changing the interface",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "重启 LunarBar 以应用更改。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "重啟 LunarBar 以套用變更。"
           }
         }
       }

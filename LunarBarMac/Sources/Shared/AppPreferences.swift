@@ -16,15 +16,6 @@ enum AppPreferences {
     @Storage(key: "general.initial-launch", defaultValue: true)
     static var initialLaunch: Bool
 
-    @Storage(key: "general.classic-interface", defaultValue: false)
-    static var classicInterface: Bool {
-      didSet {
-        let alert = NSAlert()
-        alert.messageText = Localized.UI.alertMessageRelaunchRequired
-        alert.runModal()
-      }
-    }
-
     @Storage(key: "general.menu-bar-icon", defaultValue: .filledDate)
     static var menuBarIcon: MenuBarIcon {
       didSet {

@@ -7,8 +7,6 @@
 
 import AppKit
 
-Bundle.swizzleInfoDictionaryOnce
-
 let app = NSApplication.shared
 let delegate = AppDelegate()
 

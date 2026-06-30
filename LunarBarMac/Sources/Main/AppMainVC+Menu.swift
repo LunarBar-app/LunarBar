@@ -142,23 +142,6 @@ private extension AppMainVC {
   var menuItemAppearance: NSMenuItem {
     let menu = NSMenu()
 
-    // Option to use the "legacy" design
-    if #available(macOS 26.0, *) {
-      menu.addItem({
-        let item = NSMenuItem(title: Localized.UI.menuTitleClassicInterface)
-        item.image = .with(symbolName: Icons.mustacheFill, pointSize: Constants.menuIconSize)
-        item.setOn(AppPreferences.General.classicInterface)
-
-        item.addAction {
-          AppPreferences.General.classicInterface.toggle()
-        }
-
-        return item
-      }())
-
-      menu.addSeparator()
-    }
-
     // Icon styles
     menu.addItem({
       let item = NSMenuItem(title: Localized.UI.menuTitleMenuBarIcon)
