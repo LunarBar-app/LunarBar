@@ -150,6 +150,7 @@ private extension AppMainVC {
       if #available(macOS 26.0, *) {
         // To improve the text alignment
         item.image = .with(symbolName: Icons.menubarRectangle, pointSize: Constants.menuIconSize)
+        item.ensureImageVisibility()
       }
 
       return item
@@ -172,6 +173,7 @@ private extension AppMainVC {
     menu.addItem({
       let item = NSMenuItem(title: Localized.UI.menuTitleCalendarIcon)
       item.image = AppIconFactory.createCalendarIcon(pointSize: Constants.menuIconSize)
+      item.ensureImageVisibility()
       item.setOn(AppPreferences.General.menuBarIcon == .calendar)
 
       item.addAction {
@@ -185,6 +187,7 @@ private extension AppMainVC {
       item: {
         let item = NSMenuItem(title: Localized.UI.menuTitleSystemSymbol)
         item.image = .with(symbolName: Icons.gear, pointSize: Constants.menuIconSize)
+        item.ensureImageVisibility()
         item.setOn(AppPreferences.General.menuBarIcon == .systemSymbol)
         return item
       }(),
@@ -211,6 +214,7 @@ private extension AppMainVC {
       item: {
         let item = NSMenuItem(title: Localized.UI.menuTitleCustomFormat)
         item.image = .with(symbolName: Icons.wandAndSparkles, pointSize: Constants.menuIconSize)
+        item.ensureImageVisibility()
         item.setOn(AppPreferences.General.menuBarIcon == .custom)
         return item
       }(),
