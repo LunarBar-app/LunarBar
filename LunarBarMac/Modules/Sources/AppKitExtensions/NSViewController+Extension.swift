@@ -22,7 +22,9 @@ public extension NSViewController {
       return nil
     }
 
-    guard let effectView = rootView.firstDescendant(where: { $0 is NSVisualEffectView }) else {
+    guard let effectView = (rootView.firstDescendant {
+      $0 is NSVisualEffectView || $0.className == "NSPopoverFrame"
+    }) else {
       assertionFailure("Failed to get effectView from: \(self)")
       return nil
     }
