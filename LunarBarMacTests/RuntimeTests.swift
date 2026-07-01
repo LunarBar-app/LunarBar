@@ -19,6 +19,40 @@ final class RuntimeTests: XCTestCase {
     popover.setValue(true, forKey: "shouldHideAnchor")
     testExistenceOfSelector(object: popover, selector: "shouldHideAnchor")
   }
+
+  @MainActor
+  func testExistenceOfVisualEffectView() {
+    class ContentViewController: NSViewController {
+      override func loadView() {
+        view = NSView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+      }
+    }
+
+    let window = NSWindow()
+    window.makeKeyAndOrderFront(nil)
+
+    guard let contentView = window.contentView else {
+      XCTAssert(false, "Missing contentView in NSWindow")
+      return
+    }
+
+    let popover = NSPopover()
+    popover.contentViewController = ContentViewController(nibName: nil, bundle: nil)
+    popover.show(
+      relativeTo: CGRect(x: 0, y: 0, width: 1, height: 1),
+      of: contentView,
+      preferredEdge: .maxX
+    )
+
+    let expectation = XCTestExpectation()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+      expectation.fulfill()
+    }
+
+    wait(for: [expectation])
+    let effectView = popover.contentViewController?.visualEffectView
+    XCTAssertEqual(effectView?.className, "NSPopoverFrame")
+  }
 }
 
 private extension RuntimeTests {
