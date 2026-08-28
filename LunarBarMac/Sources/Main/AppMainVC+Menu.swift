@@ -545,6 +545,7 @@ private extension AppMainVC {
       wrapper.addSubview(textView)
       wrapper.addSubview(inputField)
       alert.accessoryView = wrapper
+      alert.window.initialFirstResponder = inputField
       alert.layout()
 
       @MainActor
