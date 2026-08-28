@@ -336,6 +336,8 @@ private extension AppMainVC {
           size: CGSize(width: 12, height: 12),
           cornerRadius: 3
         )
+
+        item.ensureImageVisibility()
       }
 
       if remindersIndex == index {
@@ -506,6 +508,7 @@ private extension AppMainVC {
 
     if let image = AppIconFactory.createDateIcon(style: style) {
       item.image = image.resized(with: CGSize(width: 16.8, height: 12)) // 1.4:1
+      item.ensureImageVisibility()
     } else {
       Logger.assertFail("Failed to create the icon")
     }
