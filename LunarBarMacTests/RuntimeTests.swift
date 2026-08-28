@@ -14,13 +14,6 @@ final class RuntimeTests: XCTestCase {
   }
 
   @MainActor
-  func testExistenceOfShouldHideAnchor() {
-    let popover = NSPopover()
-    popover.setValue(true, forKey: "shouldHideAnchor")
-    testExistenceOfSelector(object: popover, selector: "shouldHideAnchor")
-  }
-
-  @MainActor
   func testExistenceOfVisualEffectView() {
     class ContentViewController: NSViewController {
       override func loadView() {
