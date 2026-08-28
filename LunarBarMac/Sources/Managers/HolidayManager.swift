@@ -134,7 +134,7 @@ private extension HolidayManager {
   enum Constants {
     static let directoryName = "Holidays"
     static let fileExtension = "json"
-    static let endpoint = "https://github.com/LunarBar-app/Holidays/raw/main/mainland-china.json"
+    static let endpoint = "https://raw.githubusercontent.com/LunarBar-app/Holidays/main/mainland-china.json"
   }
 
   var defaultDirectory: URL? {
