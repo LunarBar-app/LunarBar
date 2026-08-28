@@ -11,7 +11,7 @@ public extension NSTextView {
     with markdown: String,
     contentWidth: Double,
     contentPadding: Double = 0,
-    fontSize: Double = 11
+    fontSize: Double = 12
   ) -> NSTextView {
     let textView = NSTextView()
     textView.font = .systemFont(ofSize: fontSize)
