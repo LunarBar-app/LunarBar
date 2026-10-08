@@ -96,7 +96,6 @@ final class DateGridCell: NSCollectionViewItem {
 
 extension DateGridCell {
   override func loadView() {
-    // Required prior to macOS Sonoma
     view = NSView(frame: .zero)
   }
 

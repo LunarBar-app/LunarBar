@@ -201,7 +201,7 @@ private extension HeaderView {
   func createButton(symbolName: String, accessibilityLabel: String) -> ImageButton {
     ImageButton(
       symbolName: symbolName,
-      sizeDelta: AppDesign.modernStyle ? 1 : 0,
+      sizeDelta: 1,
       cornerRadius: AppDesign.cellCornerRadius,
       highlightColorProvider: { .highlightedBackground },
       tintColor: Colors.primaryLabel,

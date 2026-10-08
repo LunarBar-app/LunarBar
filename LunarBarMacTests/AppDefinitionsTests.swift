@@ -9,6 +9,15 @@ import XCTest
 @testable import LunarBar
 
 final class AppDefinitionsTests: XCTestCase {
+  @MainActor
+  func testDesignMetrics() {
+    let scale = AppPreferences.General.contentScale.rawValue
+    XCTAssertEqual(AppDesign.contentMargin, 4 * scale)
+    XCTAssertEqual(AppDesign.cellRectInset, scale)
+    XCTAssertEqual(AppDesign.cellCornerRadius, 7)
+    XCTAssertEqual(AppDesign.menuIconSize, 17)
+  }
+
   func testSolarTerms() {
     XCTAssertEqual(
       Localized.Calendar.solarTerms,

@@ -106,19 +106,23 @@ extension DateGridView {
     )
 
     Task {
-      let items = try await CalendarManager.default.items(from: startDate, to: endDate)
-      reloadData(allDates: allDates, events: items, diffable: false)
+      do {
+        let items = try await CalendarManager.default.items(from: startDate, to: endDate)
+        reloadData(allDates: allDates, events: items, diffable: false)
 
-      // Months that can be easily navigated
-      let preloadDates = [
-        Calendar.solar.date(byAdding: .day, value: -1, to: startDate),
-        Calendar.solar.date(byAdding: .day, value: 1, to: endDate),
-        Calendar.solar.date(byAdding: .year, value: -1, to: monthDate),
-        Calendar.solar.date(byAdding: .year, value: 1, to: monthDate),
-      ].compactMap { $0 }
+        // Months that can be easily navigated
+        let preloadDates = [
+          Calendar.solar.date(byAdding: .day, value: -1, to: startDate),
+          Calendar.solar.date(byAdding: .day, value: 1, to: endDate),
+          Calendar.solar.date(byAdding: .year, value: -1, to: monthDate),
+          Calendar.solar.date(byAdding: .year, value: 1, to: monthDate),
+        ].compactMap { $0 }
 
-      for preloadDate in preloadDates {
-        await CalendarManager.default.preload(date: preloadDate)
+        for preloadDate in preloadDates {
+          await CalendarManager.default.preload(date: preloadDate)
+        }
+      } catch {
+        Logger.log(.error, error.localizedDescription)
       }
     }
   }

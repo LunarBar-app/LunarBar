@@ -42,7 +42,6 @@ final class AppMainVC: NSViewController {
 
 extension AppMainVC {
   override func loadView() {
-    // Required prior to macOS Sonoma
     view = NSView(frame: CGRect(origin: .zero, size: Self.desiredContentSize))
     view.addScalableView(scalableView, scale: AppPreferences.General.contentScale.rawValue)
   }

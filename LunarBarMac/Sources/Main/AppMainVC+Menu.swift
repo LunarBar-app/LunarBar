@@ -90,9 +90,7 @@ private extension AppMainVC {
     // Full-fledged picker that supports any year
     menu.addItem({ [weak self] in
       let picker = NSDatePicker()
-      if #available(macOS 26.0, *) {
-        picker.prefersCompactControlSizeMetrics = true
-      }
+      picker.prefersCompactControlSizeMetrics = true
 
       picker.locale = Locale(identifier: Localized.General.locale)
       picker.isBezeled = false
@@ -147,11 +145,9 @@ private extension AppMainVC {
       let item = NSMenuItem(title: Localized.UI.menuTitleMenuBarIcon)
       item.isEnabled = false
 
-      if #available(macOS 26.0, *) {
-        // To improve the text alignment
-        item.image = .with(symbolName: Icons.menubarRectangle, pointSize: Constants.menuIconSize)
-        item.ensureImageVisibility()
-      }
+      // To improve the text alignment
+      item.image = .with(symbolName: Icons.menubarRectangle, pointSize: Constants.menuIconSize)
+      item.ensureImageVisibility()
 
       return item
     }())
