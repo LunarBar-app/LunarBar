@@ -95,29 +95,6 @@
         }
       }
     },
-    "NSCalendarsUsageDescription" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "LunarBar uses your calendars to show events alongside each date.\n\nWithout this permission, LunarBar still works, but features that rely on the Calendar app won’t be available.\n\nYou can change this anytime in System Settings, this dialog won’t appear again."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "LunarBar 使用您的日历，在每个日期旁显示事件。\n\n没有此权限时，LunarBar 仍可正常使用，但依赖日历应用的功能将不可用。\n\n您可以随时在系统设置中更改，此弹窗将不再出现。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "LunarBar 使用您的日曆，在每個日期旁顯示事件。\n\n沒有此許可權時，LunarBar 仍可正常使用，但依賴日曆應用的功能將不可用。\n\n您可以隨時在系統設定中更改，此彈窗將不再出現。"
-          }
-        }
-      }
-    },
     "NSHumanReadableCopyright" : {
       "comment" : "Copyright (human-readable)",
       "extractionState" : "extracted_with_value",
@@ -143,29 +120,6 @@
       }
     },
     "NSRemindersFullAccessUsageDescription" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "LunarBar uses your reminders to show them alongside each date.\n\nThis is optional. You can change it anytime in System Settings, this dialog won’t appear again."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "LunarBar 使用您的提醒事项，在每个日期旁显示它们。\n\n此为可选功能，您可以随时在系统设置中更改，此弹窗将不再出现。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "LunarBar 使用您的提醒事項，在每個日期旁顯示它們。\n\n此為可選功能，您可以隨時在系統設定中更改，此彈窗將不再出現。"
-          }
-        }
-      }
-    },
-    "NSRemindersUsageDescription" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {

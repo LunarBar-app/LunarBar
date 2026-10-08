@@ -9,6 +9,19 @@ import XCTest
 @testable import LunarBar
 
 final class RuntimeTests: XCTestCase {
+  @MainActor
+  func testMenuImageVisibility() {
+    let item = NSMenuItem(title: "Calendar")
+    let image = NSImage()
+    item.image = image
+    item.ensureImageVisibility()
+
+    XCTAssertIdentical(item.image, image)
+    if #available(macOS 27.0, *) {
+      XCTAssertEqual(item.preferredImageVisibility, .visible)
+    }
+  }
+
   func testExistenceOfImageTintColor() {
     testExistenceOfSelector(object: NSImage(), selector: "_setTintColor:")
   }

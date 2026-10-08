@@ -6,12 +6,8 @@
 	<true/>
 	<key>NSAppleEventsUsageDescription</key>
 	<string>LunarBar uses Apple Events to reveal the selected date in the Calendar app.</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>LunarBar uses your calendars to show events alongside each date.</string>
 	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>LunarBar uses your calendars to show events alongside each date.</string>
-	<key>NSRemindersUsageDescription</key>
-	<string>LunarBar uses your reminders to show them alongside each date.</string>
 	<key>NSRemindersFullAccessUsageDescription</key>
 	<string>LunarBar uses your reminders to show them alongside each date.</string>
 </dict>

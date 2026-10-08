@@ -9,31 +9,20 @@ import AppKit
 
 @MainActor
 enum AppDesign {
-  /**
-    Returns `true` to adopt the new design language in macOS Tahoe.
-   */
-  static var modernStyle: Bool {
-    guard #available(macOS 26.0, *) else {
-      return false
-    }
-
-    return true
-  }
-
   static var contentMargin: Double {
-    (modernStyle ? 4 : 2) * AppPreferences.General.contentScale.rawValue
+    4 * AppPreferences.General.contentScale.rawValue
   }
 
   static var cellRectInset: Double {
-    (modernStyle ? 1 : 0) * AppPreferences.General.contentScale.rawValue
+    AppPreferences.General.contentScale.rawValue
   }
 
   static var cellCornerRadius: Double {
-    modernStyle ? 7 : 4
+    7
   }
 
   static var menuIconSize: Double {
-    modernStyle ? 17 : 14
+    17
   }
 }
 
@@ -42,10 +31,6 @@ enum AppDesign {
 extension NSViewController {
   func applyMaterial(_ material: NSVisualEffectView.Material) {
     self.material = material
-
-    guard #available(macOS 26.0, *), AppDesign.modernStyle else {
-      return
-    }
 
     let tintColor: NSColor = material == .windowBackground ? .windowBackgroundColor : .clear
     visualEffectView?.enumerateDescendants { (glassView: NSGlassEffectView) in
