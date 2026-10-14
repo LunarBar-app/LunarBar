@@ -140,6 +140,7 @@ extension DateGridCell {
     )
 
     // Solar day label
+    updateDateStyle()
     if let day = solarComponents.day {
       solarLabel.stringValue = String(day)
     } else {
@@ -238,6 +239,16 @@ extension DateGridCell {
     ].compactMap { $0 }.joined(separator: " "))
   }
 
+  func updateDateStyle() {
+    guard let cellDate else {
+      return
+    }
+
+    let dateStyle = AppPreferences.Calendar.dateStyle(for: cellDate)
+    solarLabel.textColor = dateStyle.textColor
+    solarLabel.font = dateStyle.font(ofSize: Constants.solarFontSize)
+  }
+
   func updateOpacity(monthDate: Date?) {
     let currentDate = Date.now
     let cellDate = cellDate ?? currentDate
@@ -246,20 +257,21 @@ extension DateGridCell {
     let isDateToday = Calendar.solar.isDate(cellDate, inSameDayAs: currentDate)
 
     if let monthDate, Calendar.solar.month(from: monthDate) == solarComponents.month {
-      if Calendar.solar.isDateInWeekend(cellDate) && !isDateToday {
-        solarLabel.alphaValue = AlphaLevels.secondary
-      } else {
-        solarLabel.alphaValue = AlphaLevels.primary
-      }
+      let isWeekend = Calendar.solar.isDateInWeekend(cellDate)
+      let defaultAlpha = isWeekend && !isDateToday ? AlphaLevels.secondary : AlphaLevels.primary
+      // Keep a chosen color at full strength; lunar labels retain their original emphasis.
+      solarLabel.alphaValue = AppPreferences.Calendar.dateStyle(for: cellDate).color == nil
+        ? defaultAlpha : AlphaLevels.primary
+      lunarLabel.alphaValue = defaultAlpha
 
       // Intentional, secondary alpha is used only for labels at weekends
       eventView.alphaValue = AlphaLevels.primary
     } else {
       solarLabel.alphaValue = AlphaLevels.tertiary
+      lunarLabel.alphaValue = AlphaLevels.tertiary
       eventView.alphaValue = AlphaLevels.tertiary
     }
 
-    lunarLabel.alphaValue = solarLabel.alphaValue
     holidayView.alphaValue = eventView.alphaValue
   }
 

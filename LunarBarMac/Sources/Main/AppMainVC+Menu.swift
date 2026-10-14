@@ -250,6 +250,12 @@ private extension AppMainVC {
 
     menu.addSeparator()
 
+    menu.addItem(withTitle: Localized.UI.menuTitleDateFonts) {
+      DateFontSettingsController.shared.show()
+    }
+
+    menu.addSeparator()
+
     // Content scale preferences
     menu.addItem(withTitle: Localized.UI.menuTitleContentScale).isEnabled = false
     [

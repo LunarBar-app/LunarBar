@@ -43,6 +43,7 @@ enum Localized {
     static let menuTitleSystem = String(localized: "System", comment: "[Menu] Follow the system appearance")
     static let menuTitleLight = String(localized: "Light", comment: "[Menu] Use the light appearance")
     static let menuTitleDark = String(localized: "Dark", comment: "[Menu] Use the dark appearance")
+    static let menuTitleDateFonts = String(localized: "Date Fonts…", comment: "[Menu] Customize calendar date number colors and boldness")
     static let menuTitleContentScale = String(localized: "Content Scale", comment: "[Menu] Section title for content scales")
     static let menuTitleScaleDefault = String(localized: "Default", comment: "[Menu] Content scale: default")
     static let menuTitleScaleCompact = String(localized: "Compact", comment: "[Menu] Content scale: compact")
@@ -80,6 +81,18 @@ enum Localized {
     static let accessibilityDateGridArea = String(localized: "Date grid area", comment: "[AX] Indicate the current group is for date grids")
     static let accessibilityEnterToSelectDates = String(localized: "Enter to select dates", comment: "[AX] Tell the user to enter the current collection to select dates")
     static let accessibilityClickToRevealDate = String(localized: "Click to reveal the date in Calendar", comment: "[AX] Tell the user to click the grid to reveal the selected date in the Calendar app")
+  }
+
+  enum DateFonts {
+    static let windowTitle = String(localized: "Date Fonts", comment: "[Settings] Window title for calendar date font preferences")
+    static let explanation = String(localized: "Changes apply to calendar date numbers immediately.", comment: "[Settings] Explanation of the date font preferences")
+    static let weekdays = String(localized: "Weekdays (Mon–Fri)", comment: "[Settings] Date font group for Monday through Friday")
+    static let weekends = String(localized: "Weekends (Sat–Sun)", comment: "[Settings] Date font group for Saturday and Sunday")
+    static let color = String(localized: "Color", comment: "[Settings] Label for the date font color picker")
+    static let bold = String(localized: "Bold", comment: "[Settings] Use a bold font for date numbers")
+    static let preview = String(localized: "Preview", comment: "[Settings] Accessible label for the date number font preview")
+    static let restoreDefaults = String(localized: "Restore Defaults", comment: "[Settings] Restore both date font groups to system color and default weight")
+    static let close = String(localized: "Close", comment: "[Settings] Close the date font preferences window")
   }
 
   enum Calendar {

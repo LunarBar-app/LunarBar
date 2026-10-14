@@ -89,6 +89,13 @@ extension DateGridView: NSCollectionViewDelegate {
 // MARK: - Updating
 
 extension DateGridView {
+  func updateDateStyles() {
+    visibleCells.forEach {
+      $0.updateDateStyle()
+      $0.updateOpacity(monthDate: monthDate)
+    }
+  }
+
   func updateCalendar(date monthDate: Date, lunarInfo: LunarInfo?) {
     guard let allDates = Calendar.solar.allDatesFillingMonth(from: monthDate) else {
       return Logger.assertFail("Failed to generate the calendar")

@@ -250,6 +250,29 @@
         }
       }
     },
+    "Bold" : {
+      "comment" : "[Settings] Use a bold font for date numbers",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bold"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加粗"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "粗體"
+          }
+        }
+      }
+    },
     "Calendar Icon" : {
       "comment" : "[Menu] Use a calendar icon as the menu bar icon",
       "localizations" : {
@@ -297,6 +320,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "取消"
+          }
+        }
+      }
+    },
+    "Changes apply to calendar date numbers immediately." : {
+      "comment" : "[Settings] Explanation of the date font preferences",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Changes apply to calendar date numbers immediately."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更改会立即应用于日历中的日期数字。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "變更會立即套用至日曆中的日期數字。"
           }
         }
       }
@@ -394,6 +440,52 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "點選來在日曆程式中顯示該日期"
+          }
+        }
+      }
+    },
+    "Close" : {
+      "comment" : "[Settings] Close the date font preferences window",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "關閉"
+          }
+        }
+      }
+    },
+    "Color" : {
+      "comment" : "[Settings] Label for the date font color picker",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Color"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "颜色"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "顏色"
           }
         }
       }
@@ -559,6 +651,52 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "日期與時間…"
+          }
+        }
+      }
+    },
+    "Date Fonts" : {
+      "comment" : "[Settings] Window title for calendar date font preferences",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date Fonts"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日期字体"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日期字體"
+          }
+        }
+      }
+    },
+    "Date Fonts…" : {
+      "comment" : "[Menu] Customize calendar date number colors and boldness",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date Fonts…"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日期字体…"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日期字體…"
           }
         }
       }
@@ -2425,6 +2563,29 @@
         }
       }
     },
+    "Preview" : {
+      "comment" : "[Settings] Accessible label for the date number font preview",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preview"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预览"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "預覽"
+          }
+        }
+      }
+    },
     "Previous Month" : {
       "comment" : "[Button] Move to the previous month",
       "localizations" : {
@@ -2626,6 +2787,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "稍後提醒我"
+          }
+        }
+      }
+    },
+    "Restore Defaults" : {
+      "comment" : "[Settings] Restore both date font groups to system color and default weight",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore Defaults"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "恢复默认"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "還原預設值"
           }
         }
       }
@@ -2859,6 +3043,52 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "星期符號區域"
+          }
+        }
+      }
+    },
+    "Weekdays (Mon–Fri)" : {
+      "comment" : "[Settings] Date font group for Monday through Friday",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekdays (Mon–Fri)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "周一至周五"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "週一至週五"
+          }
+        }
+      }
+    },
+    "Weekends (Sat–Sun)" : {
+      "comment" : "[Settings] Date font group for Saturday and Sunday",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekends (Sat–Sun)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "周末（周六、周日）"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "週末（週六、週日）"
           }
         }
       }

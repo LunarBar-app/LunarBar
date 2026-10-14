@@ -42,6 +42,17 @@ enum AppPreferences {
   }
 
   enum Calendar {
+    @Storage(key: "calendar.weekday-date-style", defaultValue: DateFontStyle())
+    static var weekdayDateStyle: DateFontStyle
+
+    @Storage(key: "calendar.weekend-date-style", defaultValue: DateFontStyle())
+    static var weekendDateStyle: DateFontStyle
+
+    @MainActor
+    static func dateStyle(for date: Date) -> DateFontStyle {
+      DateFontStyle.isWeekend(date, calendar: .solar) ? weekendDateStyle : weekdayDateStyle
+    }
+
     @Storage(key: "calendar.hidden-calendars", defaultValue: Set())
     static var hiddenCalendars: Set<String>
 
@@ -67,6 +78,10 @@ enum AppPreferences {
 }
 
 // MARK: - Types
+
+extension Notification.Name {
+  static let calendarDateStyleDidChange = Self("calendarDateStyleDidChange")
+}
 
 enum MenuBarIcon: String, Codable {
   case filledDate = "date" // For backward capability
@@ -98,6 +113,51 @@ enum ContentScale: Double, Codable {
   case `default` = 1.0
   case compact = 0.9
   case roomy = 1.1
+}
+
+/// Styles the solar date number; a missing color follows the current system appearance.
+struct DateFontStyle: Codable, Equatable {
+  var color: DateFontColor?
+  var isBold: Bool
+
+  init(color: DateFontColor? = nil, isBold: Bool = false) {
+    self.color = color
+    self.isBold = isBold
+  }
+
+  static func isWeekend(_ date: Date, calendar: Foundation.Calendar) -> Bool {
+    let weekday = calendar.component(.weekday, from: date)
+    return weekday == 1 || weekday == 7
+  }
+
+  @MainActor var textColor: NSColor {
+    color?.nsColor ?? .labelColor
+  }
+
+  @MainActor
+  func font(ofSize size: CGFloat) -> NSFont {
+    .systemFont(ofSize: size, weight: isBold ? .bold : .medium)
+  }
+}
+
+/// Store components rather than archiving an AppKit object in UserDefaults.
+struct DateFontColor: Codable, Equatable {
+  let red: Double
+  let green: Double
+  let blue: Double
+
+  init?(color: NSColor) {
+    guard let rgb = color.usingColorSpace(.sRGB) else {
+      return nil
+    }
+    red = min(1, max(0, Double(rgb.redComponent)))
+    green = min(1, max(0, Double(rgb.greenComponent)))
+    blue = min(1, max(0, Double(rgb.blueComponent)))
+  }
+
+  var nsColor: NSColor {
+    NSColor(srgbRed: red, green: green, blue: blue, alpha: 1)
+  }
 }
 
 @MainActor

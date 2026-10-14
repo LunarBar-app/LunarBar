@@ -50,6 +50,12 @@ extension AppMainVC {
     super.viewDidLoad()
     setUp()
     observeKeyEvents()
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(dateStyleDidChange),
+      name: .calendarDateStyleDidChange,
+      object: nil
+    )
   }
 
   override func viewWillAppear() {
@@ -118,6 +124,10 @@ extension AppMainVC: HeaderViewDelegate {
 // MARK: - Private
 
 private extension AppMainVC {
+  @objc func dateStyleDidChange() {
+    dateGridView.updateDateStyles()
+  }
+
   enum Constants {
     static let headerViewHeight: Double = 40
     static let weekdayViewHeight: Double = 17
