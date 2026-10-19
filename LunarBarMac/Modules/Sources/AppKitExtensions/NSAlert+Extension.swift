@@ -36,17 +36,15 @@ private extension NSAlert {
 
   private enum Constants {
     static let contentWidth: Double = 220
-    static let contentPadding: Double = 10
   }
 
   func updateAccessoryView(with markdown: String) {
     let textView = NSTextView.markdownView(
       with: markdown,
-      contentWidth: Constants.contentWidth,
-      contentPadding: Constants.contentPadding
+      contentWidth: Constants.contentWidth
     )
 
-    let wrapper = NSView(frame: textView.frame.insetBy(dx: -Constants.contentPadding, dy: 0))
+    let wrapper = NSView(frame: textView.frame)
     wrapper.addSubview(textView)
     accessoryView = wrapper
     layout()
