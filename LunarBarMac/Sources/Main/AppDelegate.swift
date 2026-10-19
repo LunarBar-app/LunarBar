@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import AppKitExtensions
 import LunarBarKit
 
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -20,6 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   private weak var presentedPopover: NSPopover?
   private var dateRefreshTimer: DateRefreshTimer?
   private var popoverClosedTime: TimeInterval = 0
+  private var statusIconPressTime: TimeInterval?
   private var countingDate: Date?
 
   func applicationDidFinishLaunching(_ notification: Notification) {
@@ -55,24 +57,36 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // We don't rely on the button's target-action,
     // because we want to keep the button highlighted when the popover is shown.
     NSEvent.addLocalMonitorForEvents(matching: .leftMouseDown) { [weak self] event in
+      self?.statusIconPressTime = nil
       if let self, self.shouldOpenPanel(for: event) {
         self.openPanel()
+        self.statusIconPressTime = event.timestamp
         return nil
       }
 
       return event
     }
 
+    NSEvent.addLocalMonitorForEvents(matching: .leftMouseUp) { [weak self] event in
+      self?.statusIconDidFinishPressing(at: event.timestamp)
+      return event
+    }
+
     // Observe clicks outside the app
     NSEvent.addGlobalMonitorForEvents(matching: .leftMouseDown) { [weak self] _ in
+      self?.statusIconPressTime = nil
       guard let popover = self?.presentedPopover else {
         return
       }
 
       // When the app is activated, clicking on other status items would not always close ours
-      if popover.isShown && popover.behavior != .applicationDefined {
+      if popover.isVisibleTransiently {
         popover.close()
       }
+    }
+
+    NSEvent.addGlobalMonitorForEvents(matching: .leftMouseUp) { [weak self] event in
+      self?.statusIconDidFinishPressing(at: event.timestamp)
     }
 
     Task {
@@ -190,6 +204,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   @MainActor
   func openPanel() {
+    statusIconPressTime = nil
     guard let sender = statusItem.button else {
       return Logger.assertFail("Missing source view to proceed")
     }
@@ -253,6 +268,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate: NSPopoverDelegate {
   func popoverWillClose(_ notification: Notification) {
     popoverClosedTime = Date.timeIntervalSinceReferenceDate
+    statusIconPressTime = nil
     countingDate = nil
   }
 }
@@ -324,5 +340,23 @@ private extension AppDelegate {
     }
 
     return true
+  }
+
+  func statusIconDidFinishPressing(at time: TimeInterval) {
+    // Ignore mouse-up events if the left mouse button is still held down
+    guard NSEvent.pressedMouseButtons & 1 == 0 else {
+      return
+    }
+
+    guard let pressTime = statusIconPressTime else {
+      return
+    }
+
+    statusIconPressTime = nil
+    guard time - pressTime >= 1.0, presentedPopover?.isVisibleTransiently == true else {
+      return
+    }
+
+    presentedPopover?.close()
   }
 }
