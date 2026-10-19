@@ -10,10 +10,10 @@ public extension NSTextView {
   static func markdownView(
     with markdown: String,
     contentWidth: Double,
-    contentPadding: Double = 0,
     fontSize: Double = 12
   ) -> NSTextView {
     let textView = NSTextView()
+    textView.textContainer?.lineFragmentPadding = 0
     textView.font = .systemFont(ofSize: fontSize)
     textView.drawsBackground = false
     textView.isEditable = false
@@ -31,7 +31,7 @@ public extension NSTextView {
     )
 
     let contentSize = CGSize(width: contentWidth, height: 0)
-    textView.frame = CGRect(origin: CGPoint(x: contentPadding, y: 0), size: contentSize)
+    textView.frame = CGRect(origin: .zero, size: contentSize)
     textView.sizeToFit()
     return textView
   }
