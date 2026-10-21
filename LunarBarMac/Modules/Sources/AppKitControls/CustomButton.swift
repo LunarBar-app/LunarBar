@@ -7,9 +7,9 @@
 import AppKit
 
 /**
- Like UIButton in UIKit, supports custom highlight states.
+ A button that dims while pressed and supports mouse-hover callbacks.
 
- It has a configurable `hitTestInsets` to make the hitTest rect larger.
+ AppKit handles activation for mouse, touch, keyboard, and accessibility input.
  */
 public class CustomButton: NSButton {
   public var hitTestInsets: CGPoint = .zero
@@ -28,6 +28,24 @@ public class CustomButton: NSButton {
     title = ""
     imagePosition = .imageOnly
     isBordered = false
+
+    addTarget(
+      self,
+      action: #selector(trackingInside),
+      for: [.trackingBegan, .trackingEntered]
+    )
+
+    addTarget(
+      self,
+      action: #selector(trackingOutside),
+      for: .trackingExited
+    )
+
+    addTarget(
+      self,
+      action: #selector(trackingEnded),
+      for: [.trackingEndedInside, .trackingEndedOutside, .trackingCancelled]
+    )
   }
 
   @available(*, unavailable)
@@ -45,7 +63,7 @@ public class CustomButton: NSButton {
     trackingArea = {
       let trackingArea = NSTrackingArea(
         // The rect is slightly smaller to prevent two adjacent views from being hovered simultaneously
-        rect: bounds.insetBy(dx: 0.5, dy: 0.5),
+        rect: hoverRect,
         options: [.activeAlways, .mouseEnteredAndExited],
         owner: self
       )
@@ -53,24 +71,6 @@ public class CustomButton: NSButton {
       addTrackingArea(trackingArea)
       return trackingArea
     }()
-  }
-
-  override public func mouseDown(with event: NSEvent) {
-    isHighlighted = true
-  }
-
-  override public func mouseUp(with event: NSEvent) {
-    isHighlighted = false
-
-    if isMouseWithinBounds(event: event) {
-      _ = sendAction(action, to: target)
-    } else {
-      onMouseHover?(false)
-    }
-  }
-
-  override public func mouseDragged(with event: NSEvent) {
-    isHighlighted = isMouseWithinBounds(event: event)
   }
 
   override public func mouseEntered(with event: NSEvent) {
@@ -83,6 +83,14 @@ public class CustomButton: NSButton {
     onMouseHover?(false)
   }
 
+  override public func sendAction(_ action: Selector?, to target: Any?) -> Bool {
+    // Clear the selected and pressed appearance before the action opens a menu or dialog
+    state = .off
+    isHighlighted = false
+
+    return super.sendAction(action, to: target)
+  }
+
   override public func hitTest(_ point: CGPoint) -> NSView? {
     hitTestRect.contains(point) ? self : super.hitTest(point)
   }
@@ -91,13 +99,33 @@ public class CustomButton: NSButton {
 // MARK: - Private
 
 private extension CustomButton {
+  var hoverRect: CGRect {
+    bounds.insetBy(dx: 0.5, dy: 0.5)
+  }
+
   var hitTestRect: CGRect {
     frame.insetBy(dx: hitTestInsets.x, dy: hitTestInsets.y)
   }
 
-  func isMouseWithinBounds(event: NSEvent) -> Bool {
-    let point = convert(event.locationInWindow, from: nil)
-    let bounds = CGRect(origin: hitTestInsets, size: hitTestRect.size)
-    return isMousePoint(point, in: bounds)
+  @objc func trackingInside() {
+    isHighlighted = true
+  }
+
+  @objc func trackingOutside() {
+    isHighlighted = false
+    onMouseHover?(false)
+  }
+
+  @objc func trackingEnded() {
+    isHighlighted = false
+
+    guard let window, window.isVisible, !isHiddenOrHasHiddenAncestor else {
+      onMouseHover?(false)
+      return
+    }
+
+    // Restore hover from the mouse position, not the touch or release location
+    let point = convert(window.mouseLocationOutsideOfEventStream, from: nil)
+    onMouseHover?(isMousePoint(point, in: hoverRect))
   }
 }
