@@ -61,7 +61,11 @@ final class HeaderView: NSView {
         return
       }
 
+      actionsButton.state = .on
       self.delegate?.headerView(self, showActionsMenu: actionsButton)
+
+      // NSMenu.popUp tracks synchronously; this is called after the menu is closed
+      actionsButton.state = .off
     }
 
     return button

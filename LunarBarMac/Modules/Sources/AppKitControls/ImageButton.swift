@@ -11,8 +11,31 @@ import AppKitExtensions
  Button with an image as its content.
 
  Its hitTest rect is larger than it looks, since generally image buttons are too small.
+ The background is visible while hovered, pressed, or in a non-off state.
  */
 public final class ImageButton: CustomButton {
+  override public var state: NSControl.StateValue {
+    didSet {
+      if state == .off {
+        // Tracking can consume mouse-exit events; refresh hover when deselected
+        if let window {
+          let point = convert(window.mouseLocationOutsideOfEventStream, from: nil)
+          isHovered = isMousePoint(point, in: bounds.insetBy(dx: 0.5, dy: 0.5))
+        } else {
+          isHovered = false
+        }
+      }
+
+      updateBackground()
+    }
+  }
+
+  override public var isHighlighted: Bool {
+    didSet {
+      updateBackground()
+    }
+  }
+
   private let highlightView: NSView = {
     let view = NSView()
     view.wantsLayer = true
@@ -24,6 +47,7 @@ public final class ImageButton: CustomButton {
 
   // The color should be lazily calculated
   private let highlightColorProvider: () -> NSColor
+  private var isHovered = false
 
   public init(
     symbolName: String,
@@ -63,7 +87,8 @@ public final class ImageButton: CustomButton {
     setFrameSize(CGSize(width: buttonSize, height: buttonSize))
 
     onMouseHover = { [weak self] isHovered in
-      self?.highlightView.setAlphaValue(isHovered ? 1 : 0)
+      self?.isHovered = isHovered
+      self?.updateBackground()
     }
   }
 
@@ -85,6 +110,10 @@ public final class ImageButton: CustomButton {
 // MARK: - Private
 
 private extension ImageButton {
+  func updateBackground() {
+    highlightView.setAlphaValue(isHovered || isHighlighted || state != .off ? 1 : 0)
+  }
+
   enum Constants {
     static let iconSize: Double = 14
     static let buttonSize: Double = 27
