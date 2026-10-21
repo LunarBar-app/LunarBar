@@ -113,6 +113,18 @@ extension DateGridCell {
   }
 }
 
+// MARK: - NSGestureRecognizerDelegate
+
+extension DateGridCell: NSGestureRecognizerDelegate {
+  func gestureRecognizer(
+    _ gestureRecognizer: NSGestureRecognizer,
+    shouldBeRequiredToFailBy otherGestureRecognizer: NSGestureRecognizer
+  ) -> Bool {
+    // A long press counts days instead of opening Calendar on release
+    otherGestureRecognizer.view === containerView
+  }
+}
+
 // MARK: - Updating
 
 extension DateGridCell {
@@ -352,6 +364,7 @@ private extension DateGridCell {
 
     let longPressRecognizer = NSPressGestureRecognizer(target: self, action: #selector(onLongPress(_:)))
     longPressRecognizer.minimumPressDuration = 0.5
+    longPressRecognizer.delegate = self
     view.addGestureRecognizer(longPressRecognizer)
   }
 
