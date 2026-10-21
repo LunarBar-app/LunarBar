@@ -157,6 +157,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     return false
   }
 
+  func applicationDidResignActive(_ notification: Notification) {
+    guard let presentedPopover, presentedPopover.isVisibleTransiently else {
+      return
+    }
+
+    Logger.log(.info, "Application deactivated; dismissing the calendar")
+    presentedPopover.close()
+  }
+
   @MainActor
   func updateMenuBarIcon(needsLayout: Bool = false) {
     switch AppPreferences.General.menuBarIcon {
@@ -270,6 +279,7 @@ extension AppDelegate: NSPopoverDelegate {
     popoverClosedTime = Date.timeIntervalSinceReferenceDate
     statusIconPressTime = nil
     countingDate = nil
+    cancelHighlight()
   }
 }
 
@@ -305,8 +315,7 @@ private extension AppDelegate {
     }
 
     // Cancel the highlight when the popover window is no longer the key window
-    statusItem.button?.highlight(false)
-    updateTooltip()
+    cancelHighlight()
   }
 
   // periphery:ignore:parameters notification
@@ -358,5 +367,10 @@ private extension AppDelegate {
     }
 
     presentedPopover?.close()
+  }
+
+  func cancelHighlight() {
+    statusItem.button?.highlight(false)
+    updateTooltip()
   }
 }
