@@ -63,6 +63,11 @@ final class DateGridView: NSView {
     collectionView.frame = bounds
   }
 
+  override func viewDidChangeEffectiveAppearance() {
+    super.viewDidChangeEffectiveAppearance()
+    updateAppearance()
+  }
+
   @discardableResult
   func cancelHighlight() -> Bool {
     var cancelled = false
@@ -89,6 +94,13 @@ extension DateGridView: NSCollectionViewDelegate {
 // MARK: - Updating
 
 extension DateGridView {
+  func updateAppearance() {
+    visibleCells.forEach {
+      $0.updateAppearance(monthDate: monthDate)
+      $0.view.needsLayout = true
+    }
+  }
+
   func updateCalendar(date monthDate: Date, lunarInfo: LunarInfo?) {
     guard let allDates = Calendar.solar.allDatesFillingMonth(from: monthDate) else {
       return Logger.assertFail("Failed to generate the calendar")
@@ -187,9 +199,7 @@ private extension DateGridView {
     dataSource?.apply(snapshot, animatingDifferences: animated)
 
     // Force update of certain properties that are not part of the diffable model
-    visibleCells.forEach {
-      $0.updateOpacity(monthDate: monthDate)
-    }
+    updateAppearance()
   }
 }
 

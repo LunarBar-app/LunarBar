@@ -66,8 +66,13 @@ private class DotView: NSView {
 
     if let borderColor = layerBackgroundColor?.darkerColor() {
       layer?.borderWidth = hairlineWidth
-      layer?.borderColor = borderColor.cgColor
+      layer?.borderColor = borderColor.resolvedColor(with: effectiveAppearance).cgColor
     }
+  }
+
+  override func viewDidChangeEffectiveAppearance() {
+    super.viewDidChangeEffectiveAppearance()
+    needsLayout = true
   }
 
   override var intrinsicContentSize: CGSize {

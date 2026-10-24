@@ -18,6 +18,7 @@ import LunarBarKit
 final class DateGridCell: NSCollectionViewItem {
   static let reuseIdentifier = NSUserInterfaceItemIdentifier("DateGridCell")
 
+  private var increaseContrast = AppDesign.increaseContrast
   private var cellDate: Date?
   private var cellEvents = [EKCalendarItem]()
   private var mainInfo = ""
@@ -107,9 +108,7 @@ extension DateGridCell {
   override func viewDidLayout() {
     super.viewDidLayout()
     containerView.frame = view.bounds
-
-    highlightView.layerBackgroundColor = .highlightedBackground
-    focusRingView.layer?.borderColor = Colors.controlAccent.cgColor
+    updateBorders()
   }
 }
 
@@ -248,16 +247,26 @@ extension DateGridCell {
       lunarLabel.stringValue,
       accessibleDetails,
     ].compactMap { $0 }.joined(separator: " "))
+
+    updateAppearance(monthDate: monthDate)
   }
 
-  func updateOpacity(monthDate: Date?) {
+  func updateAppearance(
+    monthDate: Date?,
+    increaseContrast: Bool = AppDesign.increaseContrast
+  ) {
+    self.increaseContrast = increaseContrast
     let currentDate = Date.now
     let cellDate = cellDate ?? currentDate
 
     let solarComponents = Calendar.solar.dateComponents([.month], from: cellDate)
     let isDateToday = Calendar.solar.isDate(cellDate, inSameDayAs: currentDate)
+    let isCurrentMonth = monthDate.map { Calendar.solar.month(from: $0) == solarComponents.month } ?? false
 
-    if let monthDate, Calendar.solar.month(from: monthDate) == solarComponents.month {
+    if increaseContrast {
+      solarLabel.alphaValue = AlphaLevels.primary
+      eventView.alphaValue = AlphaLevels.primary
+    } else if isCurrentMonth {
       if Calendar.solar.isDateInWeekend(cellDate) && !isDateToday {
         solarLabel.alphaValue = AlphaLevels.secondary
       } else {
@@ -273,6 +282,12 @@ extension DateGridCell {
 
     lunarLabel.alphaValue = solarLabel.alphaValue
     holidayView.alphaValue = eventView.alphaValue
+
+    let textColor: NSColor = increaseContrast && !isCurrentMonth && !isDateToday
+      ? .secondaryDateLabel : Colors.primaryLabel
+    solarLabel.textColor = textColor
+    lunarLabel.textColor = textColor
+    updateBorders()
   }
 
   @discardableResult
@@ -366,6 +381,14 @@ private extension DateGridCell {
     longPressRecognizer.minimumPressDuration = 0.5
     longPressRecognizer.delegate = self
     view.addGestureRecognizer(longPressRecognizer)
+  }
+
+  func updateBorders() {
+    let outlineColor = Colors.primaryLabel.resolvedColor(with: view.effectiveAppearance).cgColor
+    highlightView.layerBackgroundColor = .highlightedBackground
+    highlightView.layer?.borderWidth = increaseContrast ? 1 : 0
+    highlightView.layer?.borderColor = outlineColor
+    focusRingView.layer?.borderColor = Colors.controlAccent.resolvedColor(with: view.effectiveAppearance).cgColor
   }
 
   func revealDateInCalendar() {
