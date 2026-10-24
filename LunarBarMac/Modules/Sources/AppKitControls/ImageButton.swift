@@ -96,10 +96,18 @@ public final class ImageButton: CustomButton {
     super.layout()
 
     highlightView.layerBackgroundColor = highlightColorProvider()
+    highlightView.layer?.borderWidth = NSWorkspace.shared.accessibilityDisplayShouldIncreaseContrast ? 1 : 0
+    highlightView.layer?.borderColor = NSColor.labelColor.resolvedColor(with: effectiveAppearance).cgColor
+
     highlightView.frame = bounds.insetBy(
       dx: Constants.highlightViewInset,
       dy: Constants.highlightViewInset
     )
+  }
+
+  override public func viewDidChangeEffectiveAppearance() {
+    super.viewDidChangeEffectiveAppearance()
+    needsLayout = true
   }
 
   override public func accessibilityLabel() -> String? {

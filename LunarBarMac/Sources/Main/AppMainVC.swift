@@ -50,6 +50,13 @@ extension AppMainVC {
     super.viewDidLoad()
     setUp()
     observeKeyEvents()
+
+    NSWorkspace.shared.notificationCenter.addObserver(
+      self,
+      selector: #selector(accessibilityDisplayOptionsDidChange(_:)),
+      name: NSWorkspace.accessibilityDisplayOptionsDidChangeNotification,
+      object: nil
+    )
   }
 
   override func viewWillAppear() {
@@ -68,6 +75,7 @@ extension AppMainVC {
     // Override both since in some contexts we don't have a window
     NSApp.appearance = appearance.resolved()
     view.window?.appearance = NSApp.appearance
+    updateContrast()
   }
 
   func updateCalendar(targetDate: Date = .now) {
@@ -210,6 +218,18 @@ private extension AppMainVC {
       default:
         return event
       }
+    }
+  }
+
+  @objc func accessibilityDisplayOptionsDidChange(_ notification: Notification) {
+    updateContrast()
+  }
+
+  func updateContrast() {
+    weekdayView.updateAppearance()
+    dateGridView.updateAppearance()
+    view.enumerateDescendants { (view: NSView) in
+      view.needsLayout = true
     }
   }
 }

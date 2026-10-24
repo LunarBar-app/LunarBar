@@ -26,10 +26,8 @@ final class WeekdayView: NSStackView {
 
     let shortSymbols = Calendar.solar.orderedVeryShortWeekdaySymbols
     let fullSymbols = Calendar.solar.orderedWeekdaySymbols
-    let weekendIndices = Calendar.solar.weekendIndices
-
     Logger.assert(shortSymbols.count == fullSymbols.count, "Invalid weekday symbols")
-    Logger.assert(weekendIndices.count == 2, "Invalid weekend indices")
+    Logger.assert(Calendar.solar.weekendIndices.count == 2, "Invalid weekend indices")
 
     for index in 0..<shortSymbols.count {
       let label = TextLabel()
@@ -37,17 +35,25 @@ final class WeekdayView: NSStackView {
       label.textColor = Colors.primaryLabel
       label.font = .mediumSystemFont(ofSize: Constants.fontSize)
       label.stringValue = shortSymbols[index]
-
-      label.alphaValue = weekendIndices.contains(index) ? AlphaLevels.secondary : AlphaLevels.primary
       label.setAccessibilityLabel(fullSymbols[index])
 
       addArrangedSubview(label)
     }
+
+    updateAppearance()
   }
 
   @available(*, unavailable)
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  func updateAppearance(increaseContrast: Bool = AppDesign.increaseContrast) {
+    let weekendIndices = Calendar.solar.weekendIndices
+    for (index, label) in arrangedSubviews.enumerated() {
+      label.alphaValue = !increaseContrast && weekendIndices.contains(index)
+        ? AlphaLevels.secondary : AlphaLevels.primary
+    }
   }
 }
 

@@ -9,6 +9,10 @@ import AppKit
 
 @MainActor
 enum AppDesign {
+  static var increaseContrast: Bool {
+    NSWorkspace.shared.accessibilityDisplayShouldIncreaseContrast
+  }
+
   static var contentMargin: Double {
     4 * AppPreferences.General.contentScale.rawValue
   }
@@ -47,6 +51,12 @@ extension NSPopover {
 
 @MainActor
 extension NSColor {
+  static var secondaryDateLabel: NSColor {
+    NSColor(name: nil) {
+      NSColor(white: $0.isDarkMode ? 0.75 : 0.3, alpha: 1)
+    }
+  }
+
   static var highlightedBackground: NSColor {
     let alpha: Double = AppPreferences.Accessibility.reduceTransparency ? 0.10 : 0.06
     return NSColor(name: nil) {
