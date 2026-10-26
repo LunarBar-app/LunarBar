@@ -23,7 +23,7 @@ LunarBar 会自动检查更新，你也可以在应用内手动检查更新，�
 
 > 无需担心非 App Store 安装的可靠性，LunarBar 是沙盒应用，且经过签名和 [notarization](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution) 认证。
 >
-> 兼容旧操作系统的历史版本：[macos-13](https://github.com/LunarBar-app/LunarBar/releases/tag/macos-13)、[macos-14](https://github.com/LunarBar-app/LunarBar/releases/tag/macos-14)。
+> 兼容旧操作系统的历史版本：[macos-13](https://github.com/LunarBar-app/LunarBar/releases/tag/macos-13)、[macos-14](https://github.com/LunarBar-app/LunarBar/releases/tag/macos-14)、[macos-15](https://github.com/LunarBar-app/LunarBar/releases/tag/macos-15)。
 
 ## 使用 LunarBar 的理由
 
