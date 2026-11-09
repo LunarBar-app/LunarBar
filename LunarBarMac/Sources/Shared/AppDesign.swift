@@ -30,14 +30,45 @@ enum AppDesign {
   }
 }
 
+final class PopoverContentView: NSView {
+  var onAppearanceChange: (() -> Void)?
+
+  override func viewDidChangeEffectiveAppearance() {
+    super.viewDidChangeEffectiveAppearance()
+    onAppearanceChange?()
+  }
+}
+
 // MARK: - Extensions
 
 extension NSViewController {
   func applyMaterial(_ material: NSVisualEffectView.Material) {
     self.material = material
+    updateMaterialTint()
+  }
 
-    let tintColor: NSColor = material == .windowBackground ? .windowBackgroundColor : .clear
-    visualEffectView?.enumerateDescendants { (glassView: NSGlassEffectView) in
+  func updateMaterialTint() {
+    // Appearance can change before the popover has a window and its effect view
+    guard view.window != nil, let effectView = visualEffectView else {
+      return
+    }
+
+    let appearance = view.effectiveAppearance
+    let tintColor: NSColor? = {
+      // Increased accessibility
+      if effectView.material == .windowBackground {
+        return .windowBackgroundColor.resolvedColor(with: appearance).withAlphaComponent(0.75)
+      }
+
+      // Readability is really bad in macOS 27 with dark mode
+      if #available(macOS 27, *), appearance.isDarkMode {
+        return .black.withAlphaComponent(0.25)
+      }
+
+      return nil
+    }()
+
+    effectView.enumerateDescendants { (glassView: NSGlassEffectView) in
       glassView.tintColor = tintColor
     }
   }

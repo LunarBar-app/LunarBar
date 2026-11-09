@@ -241,6 +241,82 @@ final class RuntimeTests: XCTestCase {
   func testExistenceOfImageTintColor() {
     testExistenceOfSelector(object: NSImage(), selector: "_setTintColor:")
   }
+}
+
+extension RuntimeTests {
+  @MainActor
+  func testPopoverTintTracksAppearance() async throws {
+    let originalAppearance = NSApp.appearance
+    let originalPreference = AppPreferences.General.appearance
+    let originalTransparency = AppPreferences.Accessibility.reduceTransparency
+
+    defer {
+      NSApp.appearance = originalAppearance
+      AppPreferences.General.appearance = originalPreference
+      AppPreferences.Accessibility.reduceTransparency = originalTransparency
+    }
+
+    let window = NSWindow(
+      contentRect: CGRect(x: 0, y: 0, width: 100, height: 100),
+      styleMask: .borderless,
+      backing: .buffered,
+      defer: false
+    )
+
+    window.isReleasedWhenClosed = false
+    window.orderFront(nil)
+    defer { window.close() }
+    let anchor = try XCTUnwrap(window.contentView)
+
+    for popover in [
+      AppMainVC.createPopover(),
+      DateDetailsView.createPopover(title: "Date", events: [], lineWidth: 1),
+    ] {
+      let controller = try XCTUnwrap(popover.contentViewController)
+      AppPreferences.General.appearance = .dark
+      AppPreferences.Accessibility.reduceTransparency = true
+      NSApp.appearance = try XCTUnwrap(NSAppearance(named: .aqua))
+
+      // Changing appearance while detached must not look for a popover frame
+      controller.loadViewIfNeeded()
+      controller.view.appearance = try XCTUnwrap(NSAppearance(named: .darkAqua))
+      controller.view.appearance = nil
+
+      popover.animates = false
+      popover.show(relativeTo: anchor.bounds, of: anchor, preferredEdge: .maxX)
+      defer { popover.close() }
+      try await Task.sleep(for: .milliseconds(100))
+      XCTAssertEqual(controller.material, .windowBackground)
+      try assertPopoverTint(controller)
+
+      if let main = controller as? AppMainVC {
+        XCTAssertTrue(main.view.effectiveAppearance.isDarkMode)
+        for appearance in [Appearance.light, .dark, .light] {
+          main.updateAppearance(appearance)
+          try await Task.sleep(for: .milliseconds(100))
+          XCTAssertEqual(main.view.effectiveAppearance.isDarkMode, appearance == .dark)
+          try assertPopoverTint(main)
+        }
+
+        main.updateAppearance(.system)
+      }
+
+      for reducedTransparency in [false, true, false] {
+        AppPreferences.Accessibility.reduceTransparency = reducedTransparency
+        controller.applyMaterial(AppPreferences.Accessibility.popoverMaterial)
+        XCTAssertEqual(controller.material, reducedTransparency ? .windowBackground : .menu)
+        controller.view.window?.appearance = nil
+
+        // Change inherited appearance without calling updateAppearance or applyMaterial
+        for name in [NSAppearance.Name.darkAqua, .aqua, .darkAqua] {
+          NSApp.appearance = try XCTUnwrap(NSAppearance(named: name))
+          try await Task.sleep(for: .milliseconds(100))
+          XCTAssertEqual(controller.view.effectiveAppearance.isDarkMode, name == .darkAqua)
+          try assertPopoverTint(controller)
+        }
+      }
+    }
+  }
 
   @MainActor
   func testExistenceOfVisualEffectView() {
@@ -278,6 +354,35 @@ final class RuntimeTests: XCTestCase {
 }
 
 private extension RuntimeTests {
+  @MainActor
+  func assertPopoverTint(
+    _ controller: NSViewController,
+    file: StaticString = #filePath,
+    line: UInt = #line
+  ) throws {
+    let effectView = try XCTUnwrap(controller.visualEffectView, file: file, line: line)
+    let appearance = controller.view.effectiveAppearance
+    let expected: NSColor?
+
+    if effectView.material == .windowBackground {
+      expected = .windowBackgroundColor.resolvedColor(with: appearance).withAlphaComponent(0.75)
+    } else if #available(macOS 27, *), appearance.isDarkMode {
+      expected = .black.withAlphaComponent(0.25)
+    } else {
+      expected = nil
+    }
+
+    var glassViews = [NSGlassEffectView]()
+    effectView.enumerateDescendants { (view: NSGlassEffectView) in
+      glassViews.append(view)
+    }
+
+    XCTAssertFalse(glassViews.isEmpty, file: file, line: line)
+    for glassView in glassViews {
+      XCTAssertEqual(glassView.tintColor, expected, file: file, line: line)
+    }
+  }
+
   @MainActor
   private final class TrackingWindow: NSWindow {
     var pointerLocation = CGPoint.zero

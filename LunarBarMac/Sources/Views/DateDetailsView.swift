@@ -104,7 +104,12 @@ private final class DateDetailsHostVC: NSViewController {
   }
 
   override func loadView() {
-    view = NSView()
+    let container = PopoverContentView()
+    container.onAppearanceChange = { [weak self] in
+      self?.updateMaterialTint()
+    }
+
+    view = container
     view.addSubview(contentView)
 
     contentView.translatesAutoresizingMaskIntoConstraints = false
