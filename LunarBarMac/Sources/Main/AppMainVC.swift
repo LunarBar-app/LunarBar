@@ -42,7 +42,12 @@ final class AppMainVC: NSViewController {
 
 extension AppMainVC {
   override func loadView() {
-    view = NSView(frame: CGRect(origin: .zero, size: Self.desiredContentSize))
+    let contentView = PopoverContentView(frame: CGRect(origin: .zero, size: Self.desiredContentSize))
+    contentView.onAppearanceChange = { [weak self] in
+      self?.updateMaterialTint()
+    }
+
+    view = contentView
     view.addScalableView(scalableView, scale: AppPreferences.General.contentScale.rawValue)
   }
 
@@ -61,7 +66,6 @@ extension AppMainVC {
 
   override func viewWillAppear() {
     super.viewWillAppear()
-    applyMaterial(AppPreferences.Accessibility.popoverMaterial)
 
     updateAppearance()
     updateCalendar()
@@ -76,6 +80,10 @@ extension AppMainVC {
     NSApp.appearance = appearance.resolved()
     view.window?.appearance = NSApp.appearance
     updateContrast()
+
+    if view.window != nil {
+      applyMaterial(AppPreferences.Accessibility.popoverMaterial)
+    }
   }
 
   func updateCalendar(targetDate: Date = .now) {
