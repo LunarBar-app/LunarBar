@@ -26,6 +26,9 @@ let package = Package(
       name: "AppKitControls",
       dependencies: ["AppKitExtensions"],
       path: "Sources/AppKitControls",
+      swiftSettings: [
+        .unsafeFlags(["-Osize"], .when(configuration: .release)),
+      ],
       plugins: [
         .plugin(name: "SwiftLint", package: "LunarBarTools"),
       ]
@@ -33,6 +36,9 @@ let package = Package(
     .target(
       name: "AppKitExtensions",
       path: "Sources/AppKitExtensions",
+      swiftSettings: [
+        .unsafeFlags(["-Osize"], .when(configuration: .release)),
+      ],
       plugins: [
         .plugin(name: "SwiftLint", package: "LunarBarTools"),
       ]
